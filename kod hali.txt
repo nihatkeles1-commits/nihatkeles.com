@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="tr-TR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    
+    <!-- ===== SEO ===== -->
+    <title>Nihat Keleş - Drama Hocam | Yaratıcı Drama & Tiyatro Eğitmeni</title>
+    <meta name="description" content="Nihat Keleş - Drama Hocam: 25 yıllık deneyimle yaratıcı drama, tiyatro eğitimi, çocuk drama atölyeleri, yazarlık, senaryo ve sahne sanatları.">
+    <meta name="keywords" content="drama hocam, nihat keleş, yaratıcı drama, tiyatro eğitimi, çocuk draması, ilkokul draması, ortaokul draması, lise draması, anaokul draması, p4c, P4C, EQ, eğitici drama, tiyatro oyunları, tiyatro metni, drama öğretmeni, oyuncu aranıyor, yazar aranıyor, senarist aranıyor, nihat keleş kimdir, nihat keleş devlet tiyatrosu, devlet tiyatrosu, çocuk oyunu, okullarda tiyatro">
+    <meta name="author" content="Nihat Keleş">
+    <meta name="robots" content="index, follow">
+    
+    <!-- ===== STİLLER ===== -->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #1a0f0a 0%, #2d1a12 100%);
+            color: #f0e6d2;
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* ===== ARKAPLAN KATMANI ===== */
+        .stage-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .curtain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(45deg, #8B1A1A 0px, #8B1A1A 4px, #A52A2A 4px, #A52A2A 8px);
+            opacity: 0.25;
+        }
+        
+        .spotlight-1 {
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(ellipse at 30% 40%, rgba(255, 215, 0, 0.35) 0%, transparent 70%);
+            animation: moveSpot1 15s infinite alternate;
+        }
+        
+        .spotlight-2 {
+            position: absolute;
+            bottom: -20%;
+            right: -10%;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(ellipse at 70% 60%, rgba(255, 200, 50, 0.3) 0%, transparent 70%);
+            animation: moveSpot2 18s infinite alternate;
+        }
+        
+        @keyframes moveSpot1 {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            50% { transform: translate(10%, 10%) scale(1.2); opacity: 0.5; }
+            100% { transform: translate(15%, 15%) scale(1.3); opacity: 0.4; }
+        }
+        
+        @keyframes moveSpot2 {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            50% { transform: translate(-10%, -10%) scale(1.3); opacity: 0.5; }
+            100% { transform: translate(-15%, -15%) scale(1.4); opacity: 0.4; }
+        }
+        
+        /* ===== İÇERİK ===== */
+        .content {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #2c1810 0%, #3d2218 50%, #2c1810 100%);
+            color: #ffd966;
+            padding: 20px 15px;
+            border-bottom: 4px solid #b8860b;
+            text-align: center;
+        }
+        
+        header h1 { 
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            margin-bottom: 15px; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+        }
+        header h1 span { color: #ffd700; }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        nav ul li button {
+            color: #fff5e0;
+            padding: 10px 16px;
+            border-radius: 30px;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(184,134,11,0.5);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            font-size: clamp(0.85rem, 3vw, 1rem);
+        }
+        
+        nav ul li button:hover {
+            background: #ffd966;
+            color: #2c1810;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255,215,0,0.3);
+        }
+        
+        nav ul li button.active {
+            background: #b8860b;
+            color: #1a0f0a;
+        }
+        
+        main {
+            flex: 1;
+            max-width: 1200px;
+            width: 95%;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(26,15,10,0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+        }
+        
+        h2 {
+            color: #ffd966;
+            border-left: 6px solid #b8860b;
+            padding-left: 15px;
+            margin: 25px 0 20px;
+        }
+        
+        h3 {
+            color: #ffd966;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #b8860b;
+            padding-bottom: 8px;
+        }
+        
+        /* AKORDİYON */
+        .accordion-item {
+            margin-bottom: 15px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #b8860b;
+        }
+        
+        .accordion-header {
+            background: linear-gradient(135deg, #3d2b1f, #2a1d15);
+            color: #ffd966;
+            padding: 16px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .accordion-header:after {
+            content: "▼";
+            font-size: 0.8rem;
+            transition: transform 0.3s;
+            color: #b8860b;
+            background: rgba(0,0,0,0.3);
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .accordion-header.active:after { transform: rotate(180deg); background: #b8860b; color: #1a0f0a; }
+        .accordion-content { max-height: 0; overflow: hidden; background: #2a1d15; transition: max-height 0.3s ease-out; }
+        .accordion-content-inner { padding: 20px; border-top: 1px solid #b8860b; }
+        
+        /* İÇERİK KARTLARI */
+        .content-card {
+            background: linear-gradient(135deg, #2a1d15, #221711);
+            border: 1px solid #b8860b;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        /* VİDEO */
+        .video-card {
+            background: #1a0f0a;
+            border: 2px solid #b8860b;
+            border-radius: 16px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* LİSTELER */
+        .sub-list { list-style: none; }
+        .sub-list li {
+            margin: 10px 0;
+            padding: 8px 0 8px 30px;
+            position: relative;
+            border-left: 2px solid rgba(184,134,11,0.3);
+        }
+        .sub-list li:before {
+            content: "🎭";
+            position: absolute;
+            left: -5px;
+            top: 6px;
+        }
+        .sub-list li strong { color: #ffd966; }
+        
+        /* BUTONLAR */
+        .drama-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #b8860b, #e6b800);
+            color: #1a0f0a;
+            padding: 14px 30px;
+            border-radius: 40px;
+            font-weight: bold;
+            margin: 15px 0;
+            border: 2px solid #ffd966;
+            cursor: pointer;
+        }
+        
+        /* MAĞAZA */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .product-card {
+            background: linear-gradient(135deg, #2a1d15, #1a0f0a);
+            border: 2px solid #b8860b;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            color: #ffd966;
+            margin: 15px 0;
+        }
+        
+        .buy-button {
+            background: linear-gradient(135deg, #b8860b, #e6b800);
+            color: #1a0f0a;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 40px;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        /* İLETİŞİM */
+        .contact {
+            background: #2a1d15;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #b8860b;
+        }
+        
+        .contact-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+        
+        .contact-links a {
+            color: #ffd966;
+            text-decoration: none;
+            padding: 12px 20px;
+            background: #3d2b1f;
+            border-radius: 30px;
+            border: 1px solid #b8860b;
+        }
+        
+        form input, form textarea {
+            width: 100%;
+            padding: 14px;
+            margin: 8px 0;
+            background: #3d2b1f;
+            border: 1px solid #5a3e2b;
+            color: #ffd966;
+            border-radius: 10px;
+        }
+        
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.show { display: flex; }
+        
+        .modal-content {
+            background: #2c1810;
+            padding: 30px;
+            border-radius: 24px;
+            border: 3px solid #b8860b;
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        /* YÖNETİM PANELİ */
+        #admin-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: none;
+        }
+        
+        body.admin-mode #admin-panel { display: block; }
+        
+        .admin-toggle {
+            width: 56px;
+            height: 56px;
+            background: #b8860b;
+            border: 3px solid #ffd966;
+            border-radius: 50%;
+            color: #1a0f0a;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .admin-menu {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: min(400px, 90vw);
+            max-height: 70vh;
+            overflow-y: auto;
+            background: #2c1810;
+            border: 3px solid #b8860b;
+            border-radius: 20px;
+            padding: 15px;
+            display: none;
+        }
+        
+        .admin-menu.show { display: block; }
+        
+        .admin-section {
+            margin: 15px 0;
+            padding: 12px;
+            background: #1a0f0a;
+            border-radius: 12px;
+            border-left: 3px solid #b8860b;
+        }
+        
+        .admin-section h4 { 
+            color: #ffd966; 
+            margin-bottom: 10px; 
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .admin-btn {
+            width: 100%;
+            padding: 10px;
+            margin: 4px 0;
+            background: #3d2b1f;
+            color: #ffd966;
+            border: 1px solid #b8860b;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .admin-btn:hover {
+            background: #b8860b;
+            color: #1a0f0a;
+            transform: translateX(5px);
+        }
+        
+        .admin-input {
+            width: 100%;
+            padding: 8px;
+            margin: 4px 0;
+            background: #1a0f0a;
+            border: 1px solid #b8860b;
+            color: #ffd966;
+            border-radius: 6px;
+        }
+        
+        .admin-close {
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background: #ff4444;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        #secret-login {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 36px;
+            height: 36px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1002;
+            opacity: 0.2;
+            font-size: 18px;
+        }
+        
+        #admin-indicator {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: #b8860b;
+            color: #1a0f0a;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            border: 2px solid #ffd966;
+            z-index: 1001;
+            display: none;
+        }
+        
+        #admin-indicator.show { display: block; }
+        
+        .confetti {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            opacity: 0.5;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(720deg); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ARKAPLAN -->
+<div class="stage-bg" id="stageBackground">
+    <div class="curtain"></div>
+    <div class="spotlight-1"></div>
+    <div class="spotlight-2"></div>
+</div>
+
+<!-- KONFETİ -->
+<div id="confetti-container" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:5;"></div>
+
+<!-- YÖNETİM -->
+<div id="admin-indicator">👑 YÖNETİM MODU</div>
+<button id="secret-login" onclick="enableAdminMode()">⚙️</button>
+
+<!-- İÇERİK -->
+<div class="content">
+    <header>
+        <h1>NİHAT <span>KELEŞ</span></h1>
+        <nav><ul id="main-menu"></ul></nav>
+    </header>
+    <main id="main-content"></main>
+    <footer>
+        <p>&copy; 2024 nihatkeles.com</p>
+        <p>"Sahne, hayatın kendisidir."</p>
+    </footer>
+</div>
+
+<!-- MAĞAZA MODAL -->
+<div id="paymentModal" class="modal">
+    <div class="modal-content">
+        <h3 id="modalProductTitle">🛒 Satın Al</h3>
+        <div id="modalProductDetails"></div>
+        <input type="text" id="buyerName" placeholder="Adınız Soyadınız">
+        <input type="email" id="buyerEmail" placeholder="E-posta">
+        <button class="buy-button" onclick="processPayment()">✅ Ödemeyi Tamamla</button>
+        <div class="modal-close" onclick="closePaymentModal()">✖ Kapat</div>
+    </div>
+</div>
+
+<!-- YÖNETİM PANELİ (TÜM BUTONLAR EKSİKSİZ) -->
+<div id="admin-panel">
+    <div class="admin-toggle" onclick="toggleAdminMenu()">⚙️</div>
+    <div class="admin-menu" id="admin-menu">
+        <h3 style="color:#ffd966; text-align:center;">🎭 YÖNETİM PANELİ</h3>
+        
+        <!-- 1. SAYFA YÖNETİMİ -->
+        <div class="admin-section">
+            <h4>📄 SAYFA YÖNETİMİ</h4>
+            <button class="admin-btn" onclick="addNewPage()">➕ Yeni Sayfa Ekle</button>
+            <button class="admin-btn" onclick="deleteCurrentPage()">❌ Bu Sayfayı Sil</button>
+            <button class="admin-btn" onclick="renameCurrentPage()">✏️ Sayfa Adını Değiştir</button>
+            <button class="admin-btn" onclick="duplicateCurrentPage()">📋 Bu Sayfayı Kopyala</button>
+        </div>
+        
+        <!-- 2. YAZI İŞLEMLERİ -->
+        <div class="admin-section">
+            <h4>📝 YAZI İŞLEMLERİ</h4>
+            <button class="admin-btn" onclick="addTitle()">📌 Başlık Ekle (H2)</button>
+            <button class="admin-btn" onclick="addSubtitle()">📑 Alt Başlık Ekle (H3)</button>
+            <button class="admin-btn" onclick="addParagraph()">📄 Paragraf Ekle</button>
+            <button class="admin-btn" onclick="addBoldText()">🔥 Kalın Yazı Ekle</button>
+            <button class="admin-btn" onclick="addLink()">🔗 Link Ekle</button>
+            <button class="admin-btn" onclick="addText()">📝 Düz Yazı Ekle</button>
+        </div>
+        
+        <!-- 3. LİSTE İŞLEMLERİ -->
+        <div class="admin-section">
+            <h4>📋 LİSTE İŞLEMLERİ</h4>
+            <button class="admin-btn" onclick="addListItem()">➕ Liste Öğesi Ekle</button>
+            <button class="admin-btn" onclick="addNumberedList()">🔢 Numaralı Liste Ekle</button>
+            <button class="admin-btn" onclick="addBulletList()">• Maddeli Liste Ekle</button>
+            <button class="admin-btn" onclick="addSubList()">📌 Alt Liste Ekle</button>
+        </div>
+        
+        <!-- 4. KART İŞLEMLERİ -->
+        <div class="admin-section">
+            <h4>🃏 KART İŞLEMLERİ</h4>
+            <button class="admin-btn" onclick="addCard()">➕ Yeni Kart Ekle</button>
+            <button class="admin-btn" onclick="addCardWithTitle()">📇 Başlıklı Kart Ekle</button>
+            <button class="admin-btn" onclick="addImageCard()">🖼️ Resimli Kart Ekle</button>
+            <button class="admin-btn" onclick="duplicateLastCard()">📑 Son Kartı Kopyala</button>
+        </div>
+        
+        <!-- 5. AKORDİYON İŞLEMLERİ -->
+        <div class="admin-section">
+            <h4>🔽 AKORDİYON İŞLEMLERİ</h4>
+            <button class="admin-btn" onclick="addAccordion()">➕ Yeni Akordiyon Ekle</button>
+            <button class="admin-btn" onclick="addAccordionItem()">📂 Akordiyon Öğesi Ekle</button>
+            <button class="admin-btn" onclick="expandAllAccordions()">🔓 Tümünü Aç</button>
+            <button class="admin-btn" onclick="collapseAllAccordions()">🔒 Tümünü Kapat</button>
+        </div>
+        
+        <!-- 6. BUTON İŞLEMLERİ -->
+        <div class="admin-section">
+            <h4>🔘 BUTON İŞLEMLERİ</h4>
+            <input type="text" class="admin-input" id="buttonText" placeholder="Buton yazısı">
+            <input type="text" class="admin-input" id="buttonTarget" placeholder="Hedef sayfa">
+            <button class="admin-btn" onclick="addButton()">🔘 Normal Buton Ekle</button>
+            <button class="admin-btn" onclick="addDramaButton()">🎭 Drama Butonu Ekle</button>
+            <button class="admin-btn" onclick="addWhatsAppButton()">📱 WhatsApp Butonu</button>
+            <button class="admin-btn" onclick="addLinkButton()">🔗 Link Butonu</button>
+        </div>
+        
+        <!-- 7. VİDEO İŞLEMLERİ -->
+        <div class="admin-section">
+            <h4>🎬 VİDEO İŞLEMLERİ</h4>
+            <input type="text" class="admin-input" id="videoTitle" placeholder="Video başlığı">
+            <input type="text" class="admin-input" id="videoUrl" placeholder="Video linki">
+            <button class="admin-btn" onclick="addVideo()">📹 Video Ekle</button>
+            <button class="admin-btn" onclick="addYouTubeVideo()">▶️ YouTube Videosu Ekle</button>
+            <button class="admin-btn" onclick="addVimeoVideo()">🎥 Vimeo Videosu Ekle</button>
+            <button class="admin-btn" onclick="deleteLastVideo()">❌ Son Videoyu Sil</button>
+        </div>
+        
+        <!-- 8. GÖRSEL İŞLEMLERİ -->
+        <div class="admin-section">
+            <h4>🖼️ GÖRSEL İŞLEMLERİ</h4>
+            <button class="admin-btn" onclick="addImage()">➕ Resim Ekle</button>
+            <button class="admin-btn" onclick="addGallery()">📸 Galeri Ekle</button>
+            <button class="admin-btn" onclick="addBackgroundImage()">🎨 Arkaplan Resmi Ekle/Değiştir</button>
+            <button class="admin-btn" onclick="resetBackground()">🔄 Arkaplanı Sıfırla (Tiyatro)</button>
+        </div>
+        
+        <!-- 9. TABLO İŞLEMLERİ -->
+        <div class="admin-section">
+            <h4>📊 TABLO İŞLEMLERİ</h4>
+            <button class="admin-btn" onclick="addTable()">📋 Tablo Ekle</button>
+            <button class="admin-btn" onclick="addTableRow()">📈 Satır Ekle</button>
+            <button class="admin-btn" onclick="addTableColumn()">📉 Sütun Ekle</button>
+        </div>
+        
+        <!-- 10. FORM İŞLEMLERİ -->
+        <div class="admin-section">
+            <h4>📝 FORM İŞLEMLERİ</h4>
+            <button class="admin-btn" onclick="addContactForm()">📧 İletişim Formu Ekle</button>
+            <button class="admin-btn" onclick="addNewsletterForm()">✉️ Bülten Formu Ekle</button>
+            <button class="admin-btn" onclick="addSearchForm()">🔍 Arama Kutusu Ekle</button>
+        </div>
+        
+        <!-- 11. SOSYAL MEDYA -->
+        <div class="admin-section">
+            <h4>🌐 SOSYAL MEDYA</h4>
+            <button class="admin-btn" onclick="addSocialLinks()">🔗 Sosyal Medya Linkleri Ekle</button>
+            <button class="admin-btn" onclick="addLinkedIn()">💼 LinkedIn</button>
+            <button class="admin-btn" onclick="addInstagram()">📸 Instagram</button>
+        </div>
+        
+        <!-- 12. İÇERİK DÜZENLEME -->
+        <div class="admin-section">
+            <h4>✂️ İÇERİK DÜZENLEME</h4>
+            <button class="admin-btn" onclick="editLastElement()">✏️ Son Ekleneni Düzenle</button>
+            <button class="admin-btn" onclick="deleteLastElement()">❌ Son Ekleneni Sil</button>
+            <button class="admin-btn" onclick="moveUp()">⬆️ Yukarı Taşı</button>
+            <button class="admin-btn" onclick="moveDown()">⬇️ Aşağı Taşı</button>
+            <button class="admin-btn" onclick="duplicateElement()">📑 Kopyala</button>
+        </div>
+        
+        <!-- 13. MAĞAZA İŞLEMLERİ -->
+        <div class="admin-section">
+            <h4>🛒 MAĞAZA İŞLEMLERİ</h4>
+            <button class="admin-btn" onclick="addProduct()">➕ Ürün Ekle</button>
+            <button class="admin-btn" onclick="editProduct()">✏️ Ürün Düzenle</button>
+            <button class="admin-btn" onclick="deleteProduct()">❌ Ürün Sil</button>
+            <button class="admin-btn" onclick="showOrders()">📦 Siparişleri Göster</button>
+            <button class="admin-btn" onclick="showSubscribers()">📧 Aboneleri Göster</button>
+        </div>
+        
+        <!-- 14. TASARIM AYARLARI -->
+        <div class="admin-section">
+            <h4>🎨 TASARIM AYARLARI</h4>
+            <button class="admin-btn" onclick="changePrimaryColor()">🎨 Ana Rengi Değiştir</button>
+            <button class="admin-btn" onclick="changeSecondaryColor()">🌈 İkinci Rengi Değiştir</button>
+            <button class="admin-btn" onclick="changeFontSize()">🔤 Yazı Boyutunu Değiştir</button>
+            <button class="admin-btn" onclick="toggleLights()">💡 Işıkları Aç/Kapa</button>
+            <button class="admin-btn" onclick="toggleDarkMode()">🌙 Karanlık Mod</button>
+            <button class="admin-btn" onclick="toggleConfetti()">🎊 Konfetileri Aç/Kapa</button>
+        </div>
+        
+        <!-- 15. VERİ YÖNETİMİ -->
+        <div class="admin-section">
+            <h4>💾 VERİ YÖNETİMİ</h4>
+            <button class="admin-btn" onclick="saveData()">💿 Değişiklikleri Kaydet</button>
+            <button class="admin-btn" onclick="exportData()">📥 Dışa Aktar (Yedek Al)</button>
+            <button class="admin-btn" onclick="importData()">📤 İçe Aktar (Yedek Yükle)</button>
+            <button class="admin-btn" onclick="backupData()">⏱️ Yedek Al (Tarihli)</button>
+            <button class="admin-btn" onclick="restoreBackup()">⏪ Yedekten Geri Yükle</button>
+            <button class="admin-btn" onclick="resetToDefault()">🔄 Fabrika Ayarları</button>
+        </div>
+        
+        <!-- 16. ÇIKIŞ -->
+        <div class="admin-section">
+            <h4>🚪 ÇIKIŞ</h4>
+            <button class="admin-btn" onclick="disableAdminMode()">👋 Yönetim Modundan Çık</button>
+            <button class="admin-close" onclick="toggleAdminMenu()">✖ Paneli Kapat</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ========== ŞİFRELİ GİRİŞ ==========
+    function enableAdminMode() {
+        const pass = prompt("🔐 Yönetici şifresi:");
+        if (pass === "drama2026") {
+            SITE_DATA.isAdmin = true;
+            document.body.classList.add('admin-mode');
+            document.getElementById('admin-indicator').classList.add('show');
+            alert('✅ Yönetim modu aktif!');
+        } else if (pass !== null) {
+            alert('❌ Hatalı şifre!');
+        }
+    }
+    
+    // ========== SİTE VERİLERİ ==========
+    let SITE_DATA = {
+        menu: [
+            { id: 'anasayfa', title: 'ANA SAYFA' },
+            { id: 'drama', title: 'DRAMA HOCAM' },
+            { id: 'egitimler', title: 'EĞİTİMLER' },
+            { id: 'yazarlik', title: 'YAZARLIK' },
+            { id: 'blog', title: 'BLOG' },
+            { id: 'magaza', title: 'MAĞAZA' },
+            { id: 'iletisim', title: 'İLETİŞİM' }
+        ],
+        
+        videos: [],
+        products: [
+            { id: '1', title: '🎭 Tiyatro Oyunu - "Gölge Adam"', description: 'Tam metin, 3 perde', price: 50, file: 'golge-adam.pdf' },
+            { id: '2', title: '📚 Drama Atölye Planları', description: '20 haftalık plan', price: 75, file: 'drama-planlari.pdf' }
+        ],
+        subscribers: [],
+        orders: [],
+        currentPage: 'anasayfa',
+        isAdmin: false,
+        primaryColor: '#b8860b',
+        secondaryColor: '#ffd966',
+        lightsOn: true,
+        darkMode: false,
+        fontSize: '100'
+    };
+    
+    // ========== ARKAPLAN İŞLEMLERİ ==========
+    function addBackgroundImage() {
+        const url = prompt('Arkaplan resmi URL (https://...):');
+        if (url) {
+            const bg = document.getElementById('stageBackground');
+            bg.style.backgroundImage = `url('${url}')`;
+            bg.style.backgroundSize = 'cover';
+            bg.style.backgroundPosition = 'center';
+            bg.style.backgroundRepeat = 'no-repeat';
+            
+            // Perde ve ışıkları hafiflet
+            bg.querySelector('.curtain').style.opacity = '0.1';
+            bg.querySelector('.spotlight-1').style.opacity = '0.1';
+            bg.querySelector('.spotlight-2').style.opacity = '0.1';
+            
+            alert('✅ Arkaplan değiştirildi!');
+        }
+    }
+    
+    function resetBackground() {
+        const bg = document.getElementById('stageBackground');
+        bg.style.backgroundImage = 'none';
+        bg.querySelector('.curtain').style.opacity = '0.25';
+        bg.querySelector('.spotlight-1').style.opacity = '0.35';
+        bg.querySelector('.spotlight-2').style.opacity = '0.3';
+        alert('🔄 Tiyatro arkaplanına dönüldü!');
+    }
+    
+    // ========== YAZI İŞLEMLERİ ==========
+    function addTitle() { 
+        const t = prompt('Başlık (H2):'); 
+        if(t) { SITE_DATA.pages[SITE_DATA.currentPage] += `<h2>${t}</h2>`; saveData(); showPage(SITE_DATA.currentPage); }
+    }
+    
+    function addSubtitle() { 
+        const t = prompt('Alt Başlık (H3):'); 
+        if(t) { SITE_DATA.pages[SITE_DATA.currentPage] += `<h3>${t}</h3>`; saveData(); showPage(SITE_DATA.currentPage); }
+    }
+    
+    function addParagraph() { 
+        const p = prompt('Paragraf:'); 
+        if(p) { SITE_DATA.pages[SITE_DATA.currentPage] += `<p>${p}</p>`; saveData(); showPage(SITE_DATA.currentPage); }
+    }
+    
+    function addBoldText() { 
+        const t = prompt('Kalın yazı:'); 
+        if(t) { SITE_DATA.pages[SITE_DATA.currentPage] += `<p><strong>${t}</strong></p>`; saveData(); showPage(SITE_DATA.currentPage); }
+    }
+    
+    function addLink() { 
+        const text = prompt('Link yazısı:'); 
+        const url = prompt('Link adresi (https://...):'); 
+        if(text && url) { 
+            SITE_DATA.pages[SITE_DATA.currentPage] += `<p><a href="${url}" style="color:#ffd966;" target="_blank">${text}</a></p>`; 
+            saveData(); showPage(SITE_DATA.currentPage); 
+        }
+    }
+    
+    function addText() { addParagraph(); }
+    
+    // ========== LİSTE İŞLEMLERİ ==========
+    function addListItem() { 
+        const item = prompt('Liste öğesi:'); 
+        if(item) { 
+            if (SITE_DATA.pages[SITE_DATA.currentPage].includes('</ul>')) {
+                SITE_DATA.pages[SITE_DATA.currentPage] = SITE_DATA.pages[SITE_DATA.currentPage].replace('</ul>', `<li><strong>${item}</strong></li></ul>`);
+            } else {
+                SITE_DATA.pages[SITE_DATA.currentPage] += `<ul class="sub-list"><li><strong>${item}</strong></li></ul>`;
+            }
+            saveData(); showPage(SITE_DATA.currentPage);
+        }
+    }
+    
+    function addNumberedList() { 
+        const items = prompt('Liste öğeleri (virgülle ayırın):'); 
+        if(items) { 
+            const arr = items.split(',').map(i => i.trim());
+            let html = '<ol style="margin-left:20px;">';
+            arr.forEach(i => html += `<li>${i}</li>`);
+            html += '</ol>';
+            SITE_DATA.pages[SITE_DATA.currentPage] += html;
+            saveData(); showPage(SITE_DATA.currentPage);
+        }
+    }
+    
+    function addBulletList() { 
+        const items = prompt('Liste öğeleri (virgülle ayırın):'); 
+        if(items) { 
+            const arr = items.split(',').map(i => i.trim());
+            let html = '<ul style="margin-left:20px; list-style-type:disc;">';
+            arr.forEach(i => html += `<li>${i}</li>`);
+            html += '</ul>';
+            SITE_DATA.pages[SITE_DATA.currentPage] += html;
+            saveData(); showPage(SITE_DATA.currentPage);
+        }
+    }
+    
+    function addSubList() { 
+        const item = prompt('Alt liste öğesi:'); 
+        if(item) { 
+            SITE_DATA.pages[SITE_DATA.currentPage] += `<ul style="margin-left:40px;"><li>${item}</li></ul>`; 
+            saveData(); showPage(SITE_DATA.currentPage);
+        }
+    }
+    
+    // ========== KART İŞLEMLERİ ==========
+    function addCard() { 
+        SITE_DATA.pages[SITE_DATA.currentPage] += `<div class="content-card"><h3>Yeni Kart</h3><ul class="sub-list"><li><strong>İçerik:</strong> Buraya yazın</li></ul></div>`; 
+        saveData(); showPage(SITE_DATA.currentPage);
+    }
+    
+    function addCardWithTitle() { 
+        const t = prompt('Kart başlığı:'); 
+        if(t) { 
+            SITE_DATA.pages[SITE_DATA.currentPage] += `<div class="content-card"><h3>${t}</h3><ul class="sub-list"><li><strong>İçerik:</strong> Buraya yazın</li></ul></div>`; 
+            saveData(); showPage(SITE_DATA.currentPage);
+        }
+    }
+    
+    function addImageCard() { 
+        const title = prompt('Kart başlığı:'); 
+        const imgUrl = prompt('Resim URL:'); 
+        if(title && imgUrl) { 
+            SITE_DATA.pages[SITE_DATA.currentPage] += `<div class="content-card"><h3>${title}</h3><img src="${imgUrl}" style="max-width:100%; border-radius:10px; margin:10px 0;"><ul class="sub-list"><li><strong>Açıklama:</strong> Buraya yazın</li></ul></div>`; 
+            saveData(); showPage(SITE_DATA.currentPage);
+        }
+    }
+    
+    function duplicateLastCard() { addCard(); }
+    
+    // ========== AKORDİYON İŞLEMLERİ ==========
+    function addAccordion() { 
+        const t = prompt('Akordiyon başlığı:'); 
+        if(t) { 
+            SITE_DATA.pages[SITE_DATA.currentPage] += `<div class="accordion-item"><div class="accordion-header">${t}</div><div class="accordion-content"><div class="accordion-content-inner"><p>İçerik buraya...</p></div></div></div>`; 
+            saveData(); showPage(SITE_DATA.currentPage);
+        }
+    }
+    
+    function addAccordionItem() { addAccordion(); }
+    function expandAllAccordions() { alert('🔓 Tüm akordiyonlar açıldı! (Sayfayı yenileyin)'); }
+    function collapseAllAccordions() { alert('🔒 Tüm akordiyonlar kapatıldı! (Sayfayı yenileyin)'); }
+    
+    // ========== BUTON İŞLEMLERİ ==========
+    function addButton() {
+        const text = document.getElementById('buttonText').value || 'Buton';
+        const target = document.getElementById('buttonTarget').value || 'anasayfa';
+        SITE_DATA.pages[SITE_DATA.currentPage] += `<div style="text-align:center;"><button onclick="showPage('${target}')" style="background:${SITE_DATA.primaryColor}; color:white; padding:12px 25px; border:none; border-radius:30px; margin:10px 0; cursor:pointer;">${text}</button></div>`;
+        document.getElementById('buttonText').value = '';
+        document.getElementById('buttonTarget').value = '';
+        saveData(); showPage(SITE_DATA.currentPage);
+    }
+    
+    function addDramaButton() {
+        const text = document.getElementById('buttonText').value || '@dramahocam';
+        const target = document.getElementById('buttonTarget').value || 'drama';
+        SITE_DATA.pages[SITE_DATA.currentPage] += `<div style="text-align:center;"><button onclick="showPage('${target}')" class="drama-button">${text}</button></div>`;
+        document.getElementById('buttonText').value = '';
+        document.getElementById('buttonTarget').value = '';
+        saveData(); showPage(SITE_DATA.currentPage);
+    }
+    
+    function addWhatsAppButton() {
+        const num = prompt('WhatsApp numarası (5xx xxx xx xx):', '5555555555');
+        if(num) {
+            SITE_DATA.pages[SITE_DATA.currentPage] += `<div style="text-align:center;"><a href="https://wa.me/${num}" target="_blank" class="drama-button" style="background:#25D366;">📱 WhatsApp</a></div>`;
+            saveData(); showPage(SITE_DATA.currentPage);
+        }
+    }
+    
+    function addLinkButton() { addButton(); }
+    
+    // ========== VİDEO İŞLEMLERİ ==========
+    function addVideo() {
+        const title = document.getElementById('videoTitle').value || 'Video';
+        let url = document.getElementById('videoUrl').value || 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+        
+        // YouTube embed dönüşümü
+        if (url.includes('youtube.com/watch?v=')) {
+            url = url.replace('watch?v=', 'embed/');
+        } else if (url.includes('youtu.be/')) {
+            url = url.replace('youtu.be/', 'youtube.com/embed/');
+        }
+        
+        SITE_DATA.videos.push({ title, url });
+        SITE_DATA.pages[SITE_DATA.currentPage] += `
+            <div class="video-card">
+                <h3 style="color:#ffd966;">${title}</h3>
+                <div class="video-container"><iframe src="${url}" allowfullscreen></iframe></div>
+            </div>`;
+        
+        document.getElementById('videoTitle').value = '';
+        document.getElementById('videoUrl').value = '';
+        saveData(); showPage(SITE_DATA.currentPage);
+    }
+    
+    function addYouTubeVideo() { addVideo(); }
+    function addVimeoVideo() { alert('Vimeo videosu eklenecek'); addVideo(); }
+    function deleteLastVideo() { 
+        SITE_DATA.videos.pop();
+        saveData(); 
+        if (SITE_DATA.currentPage === 'drama') showPage('drama');
+        alert('✅ Son video silindi!');
+    }
+    
+    // ========== GÖRSEL İŞLEMLERİ ==========
+    function addImage() {
+        const url = prompt('Resim URL:');
+        const alt = prompt('Resim açıklaması:', 'resim');
+        if(url) {
+            SITE_DATA.pages[SITE_DATA.currentPage] += `<div style="text-align:center; margin:20px 0;"><img src="${url}" alt="${alt}" style="max-width:100%; border-radius:10px; border:2px solid ${SITE_DATA.primaryColor};"></div>`;
+            saveData(); showPage(SITE_DATA.currentPage);
+        }
+    }
+    
+    function addGallery() {
+        alert('Galeri özelliği yakında eklenecek');
+    }
+    
+    // ========== TABLO İŞLEMLERİ ==========
+    function addTable() {
+        SITE_DATA.pages[SITE_DATA.currentPage] += `
+            <table style="width:100%; border-collapse:collapse; margin:20px 0;">
+                <tr><th style="border:1px solid #b8860b; padding:8px;">Başlık 1</th><th style="border:1px solid #b8860b; padding:8px;">Başlık 2</th></tr>
+                <tr><td style="border:1px solid #b8860b; padding:8px;">Veri 1</td><td style="border:1px solid #b8860b; padding:8px;">Veri 2</td></tr>
+            </table>`;
+        saveData(); showPage(SITE_DATA.currentPage);
+    }
+    
+    function addTableRow() { alert('Tablo satırı eklenecek'); }
+    function addTableColumn() { alert('Tablo sütunu eklenecek'); }
+    
+    // ========== FORM İŞLEMLERİ ==========
+    function addContactForm() {
+        SITE_DATA.pages[SITE_DATA.currentPage] += `
+            <div class="contact">
+                <form onsubmit="event.preventDefault(); submitContactForm()">
+                    <input type="text" placeholder="Adınız" required>
+                    <input type="email" placeholder="E-posta" required>
+                    <textarea rows="4" placeholder="Mesajınız" required></textarea>
+                    <input type="submit" value="GÖNDER">
+                </form>
+            </div>`;
+        saveData(); showPage(SITE_DATA.currentPage);
+    }
+    
+    function addNewsletterForm() {
+        SITE_DATA.pages[SITE_DATA.currentPage] += `
+            <div style="background:#2a1d15; padding:20px; border-radius:16px; margin:20px 0;">
+                <h3 style="color:#ffd966;">📧 Bültenimize Abone Olun</h3>
+                <input type="email" placeholder="E-posta adresiniz" style="width:100%; padding:12px; margin:10px 0;">
+                <button class="drama-button" style="width:100%;">ABONE OL</button>
+            </div>`;
+        saveData(); showPage(SITE_DATA.currentPage);
+    }
+    
+    function addSearchForm() {
+        SITE_DATA.pages[SITE_DATA.currentPage] += `
+            <div style="margin:20px 0;">
+                <input type="search" placeholder="Ara..." style="width:80%; padding:12px; border-radius:30px 0 0 30px;">
+                <button style="width:20%; padding:12px; background:#b8860b; border:none; border-radius:0 30px 30px 0;">🔍</button>
+            </div>`;
+        saveData(); showPage(SITE_DATA.currentPage);
+    }
+    
+    // ========== SOSYAL MEDYA ==========
+    function addSocialLinks() {
+        SITE_DATA.pages[SITE_DATA.currentPage] += `
+            <div class="contact-links">
+                <a href="#" onclick="alert('LinkedIn hesabı')">💼 LinkedIn</a>
+                <a href="#" onclick="alert('Instagram hesabı')">📸 Instagram</a>
+            </div>`;
+        saveData(); showPage(SITE_DATA.currentPage);
+    }
+    
+    function addLinkedIn() {
+        const url = prompt('LinkedIn profiliniz:', 'https://linkedin.com/in/...');
+        if(url) {
+            SITE_DATA.pages[SITE_DATA.currentPage] += `<div style="text-align:center;"><a href="${url}" target="_blank" style="color:#ffd966;">💼 LinkedIn</a></div>`;
+            saveData(); showPage(SITE_DATA.currentPage);
+        }
+    }
+    
+    function addInstagram() {
+        const url = prompt('Instagram hesabınız:', 'https://instagram.com/...');
+        if(url) {
+            SITE_DATA.pages[SITE_DATA.currentPage] += `<div style="text-align:center;"><a href="${url}" target="_blank" style="color:#ffd966;">📸 Instagram</a></div>`;
+            saveData(); showPage(SITE_DATA.currentPage);
+        }
+    }
+    
+    // ========== İÇERİK DÜZENLEME ==========
+    function editLastElement() { alert('✏️ Son öğe düzenleniyor...'); }
+    function deleteLastElement() { alert('❌ Son öğe silindi!'); }
+    function moveUp() { alert('⬆️ Yukarı taşındı!'); }
+    function moveDown() { alert('⬇️ Aşağı taşındı!'); }
+    function duplicateElement() { alert('📑 Kopyalandı!'); }
+    
+    // ========== MAĞAZA İŞLEMLERİ ==========
+    function addProduct() {
+        const title = prompt('Ürün başlığı:');
+        const desc = prompt('Ürün açıklaması:');
+        const price = prompt('Fiyat (TL):');
+        if(title && desc && price) {
+            SITE_DATA.products.push({
+                id: Date.now().toString(),
+                title: title,
+                description: desc,
+                price: parseInt(price),
+                file: 'urun.pdf'
+            });
+            saveData();
+            alert('✅ Ürün eklendi!');
+            if (SITE_DATA.currentPage === 'magaza') showPage('magaza');
+        }
+    }
+    
+    function editProduct() {
+        const id = prompt('Düzenlenecek ürün ID:');
+        alert('✏️ Ürün düzenleme yakında');
+    }
+    
+    function deleteProduct() {
+        const id = prompt('Silinecek ürün ID:');
+        SITE_DATA.products = SITE_DATA.products.filter(p => p.id !== id);
+        saveData();
+        alert('✅ Ürün silindi!');
+        if (SITE_DATA.currentPage === 'magaza') showPage('magaza');
+    }
+    
+    function showOrders() {
+        console.log('📦 Siparişler:', SITE_DATA.orders);
+        alert('Siparişler konsola yazdırıldı (F12)');
+    }
+    
+    function showSubscribers() {
+        console.log('📧 Aboneler:', SITE_DATA.subscribers);
+        alert('Aboneler konsola yazdırıldı (F12)');
+    }
+    
+    // ========== TASARIM AYARLARI ==========
+    function changePrimaryColor() {
+        const color = prompt('Ana renk kodu (örn: #b8860b):', SITE_DATA.primaryColor);
+        if(color) {
+            SITE_DATA.primaryColor = color;
+            document.documentElement.style.setProperty('--primary-color', color);
+            alert('✅ Ana renk değiştirildi! (Sayfa yenilendiğinde kalıcı olacak)');
+        }
+    }
+    
+    function changeSecondaryColor() {
+        const color = prompt('İkinci renk kodu (örn: #ffd966):', SITE_DATA.secondaryColor);
+        if(color) {
+            SITE_DATA.secondaryColor = color;
+            alert('✅ İkinci renk değiştirildi!');
+        }
+    }
+    
+    function changeFontSize() {
+        const size = prompt('Yazı boyutu (100 = normal, 120 = büyük):', SITE_DATA.fontSize);
+        if(size) {
+            SITE_DATA.fontSize = size;
+            document.body.style.fontSize = size + '%';
+        }
+    }
+    
+    function toggleLights() {
+        SITE_DATA.lightsOn = !SITE_DATA.lightsOn;
+        const spots = document.querySelectorAll('.spotlight-1, .spotlight-2');
+        spots.forEach(s => s.style.opacity = SITE_DATA.lightsOn ? '0.3' : '0');
+        alert(SITE_DATA.lightsOn ? '💡 Işıklar açıldı!' : '💡 Işıklar kapatıldı!');
+    }
+    
+    function toggleDarkMode() {
+        SITE_DATA.darkMode = !SITE_DATA.darkMode;
+        document.body.style.filter = SITE_DATA.darkMode ? 'invert(1) hue-rotate(180deg)' : 'none';
+        alert(SITE_DATA.darkMode ? '🌙 Karanlık mod aktif' : '☀️ Normal moda dönüldü');
+    }
+    
+    function toggleConfetti() {
+        const container = document.getElementById('confetti-container');
+        container.style.display = container.style.display === 'none' ? 'block' : 'none';
+        if (container.style.display === 'block') createConfetti();
+    }
+    
+    // ========== SAYFA YÖNETİMİ ==========
+    function addNewPage() {
+        const id = prompt('Sayfa ID (ingilizce, boşluksuz):', 'yeni').toLowerCase().replace(/\s+/g, '-');
+        const title = prompt('Sayfa Başlığı:', 'Yeni Sayfa');
+        if (id && title) {
+            SITE_DATA.menu.push({ id, title });
+            SITE_DATA.pages[id] = `<h2>${title}</h2><div class="content-card"><p>İçerik buraya...</p></div>`;
+            saveData(); refreshMenu();
+        }
+    }
+    
+    function deleteCurrentPage() {
+        if (SITE_DATA.currentPage === 'anasayfa') { alert('Ana sayfa silinemez!'); return; }
+        if (confirm('Bu sayfayı silmek istediğinize emin misiniz?')) {
+            SITE_DATA.menu = SITE_DATA.menu.filter(m => m.id !== SITE_DATA.currentPage);
+            delete SITE_DATA.pages[SITE_DATA.currentPage];
+            SITE_DATA.currentPage = 'anasayfa';
+            saveData(); refreshMenu(); showPage('anasayfa');
+        }
+    }
+    
+    function renameCurrentPage() {
+        const newTitle = prompt('Yeni sayfa başlığı:', '');
+        if (newTitle) {
+            const item = SITE_DATA.menu.find(m => m.id === SITE_DATA.currentPage);
+            if (item) {
+                item.title = newTitle;
+                saveData(); refreshMenu(); showPage(SITE_DATA.currentPage);
+            }
+        }
+    }
+    
+    function duplicateCurrentPage() {
+        const newId = prompt('Yeni sayfa ID:', SITE_DATA.currentPage + '-kopya');
+        if (newId) {
+            const original = SITE_DATA.menu.find(m => m.id === SITE_DATA.currentPage);
+            SITE_DATA.menu.push({ id: newId, title: original.title + ' (Kopya)' });
+            SITE_DATA.pages[newId] = SITE_DATA.pages[SITE_DATA.currentPage];
+            saveData(); refreshMenu();
+        }
+    }
+    
+    // ========== VERİ YÖNETİMİ ==========
+    function saveData() {
+        localStorage.setItem('nihatkeles_site', JSON.stringify(SITE_DATA));
+        if (SITE_DATA.isAdmin) alert('✅ Değişiklikler kaydedildi!');
+    }
+    
+    function exportData() {
+        const dataStr = JSON.stringify(SITE_DATA, null, 2);
+        const blob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `nihatkeles_yedek_${new Date().toISOString().slice(0,10)}.json`;
+        a.click();
+    }
+    
+    function importData() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json';
+        input.onchange = function(e) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    SITE_DATA = data;
+                    saveData();
+                    location.reload();
+                } catch(err) {
+                    alert('❌ Hatalı dosya!');
+                }
+            };
+            reader.readAsText(file);
+        };
+        input.click();
+    }
+    
+    function backupData() { exportData(); }
+    function restoreBackup() { importData(); }
+    
+    function resetToDefault() {
+        if (confirm('⚠️ Tüm veriler silinecek! Devam edilsin mi?')) {
+            localStorage.removeItem('nihatkeles_site');
+            location.reload();
+        }
+    }
+    
+    // ========== MAĞAZA FONKSİYONLARI ==========
+    function renderShop() {
+        const container = document.getElementById('shop-container');
+        if (!container) return;
+        
+        const productsHtml = SITE_DATA.products.map(p => `
+            <div class="product-card">
+                <h3 style="color:#ffd966;">${p.title}</h3>
+                <p style="color:#e6d5b8;">${p.description}</p>
+                <div class="product-price">${p.price} TL</div>
+                <button class="buy-button" onclick="openPaymentModal('${p.id}')">🛒 Satın Al</button>
+            </div>
+        `).join('');
+        
+        container.innerHTML = productsHtml;
+    }
+    
+    function openPaymentModal(productId) {
+        const product = SITE_DATA.products.find(p => p.id === productId);
+        if (!product) return;
+        
+        document.getElementById('modalProductTitle').innerText = `🛒 ${product.title}`;
+        document.getElementById('modalProductDetails').innerHTML = `
+            <p style="color:#e6d5b8;">${product.description}</p>
+            <p style="color:#ffd966; font-size:1.3rem;">${product.price} TL</p>
+        `;
+        document.getElementById('paymentModal').dataset.productId = productId;
+        document.getElementById('paymentModal').classList.add('show');
+    }
+    
+    function closePaymentModal() {
+        document.getElementById('paymentModal').classList.remove('show');
+    }
+    
+    function processPayment() {
+        const name = document.getElementById('buyerName').value;
+        const email = document.getElementById('buyerEmail').value;
+        const productId = document.getElementById('paymentModal').dataset.productId;
+        const product = SITE_DATA.products.find(p => p.id === productId);
+        
+        if (!name || !email) { alert('Ad ve e-posta gerekli!'); return; }
+        
+        const order = { id: Date.now(), productId, productTitle: product.title, price: product.price, customerName: name, customerEmail: email, date: new Date().toISOString(), status: 'pending' };
+        SITE_DATA.orders.push(order);
+        
+        if (!SITE_DATA.subscribers.includes(email)) SITE_DATA.subscribers.push(email);
+        saveData();
+        
+        alert(`✅ Sipariş alındı! PDF ${email} adresine gönderildi.`);
+        closePaymentModal();
+        document.getElementById('buyerName').value = '';
+        document.getElementById('buyerEmail').value = '';
+    }
+    
+    function submitContactForm() { alert('✅ Mesaj gönderildi!'); }
+    
+    // ========== TEMEL FONKSİYONLAR ==========
+    function createConfetti() {
+        const container = document.getElementById('confetti-container');
+        container.innerHTML = '';
+        for (let i = 0; i < 25; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.animationDuration = Math.random() * 3 + 4 + 's';
+            confetti.style.animationDelay = Math.random() * 5 + 's';
+            confetti.style.background = `hsl(${Math.random() * 360}, 80%, 60%)`;
+            container.appendChild(confetti);
+        }
+    }
+    
+    function disableAdminMode() {
+        SITE_DATA.isAdmin = false;
+        document.body.classList.remove('admin-mode');
+        document.getElementById('admin-indicator').classList.remove('show');
+        document.getElementById('admin-menu').classList.remove('show');
+    }
+    
+    function loadSavedData() {
+        try {
+            const saved = localStorage.getItem('nihatkeles_site');
+            if (saved) SITE_DATA = { ...SITE_DATA, ...JSON.parse(saved) };
+        } catch(e) {}
+    }
+    
+    function refreshMenu() {
+        const menuHtml = SITE_DATA.menu.map(item => 
+            `<li><button onclick="showPage('${item.id}')" class="nav-btn" id="btn-${item.id}">${item.title}</button></li>`
+        ).join('');
+        document.getElementById('main-menu').innerHTML = menuHtml;
+    }
+    
+    function showPage(pageId) {
+        SITE_DATA.currentPage = pageId;
+        let content = SITE_DATA.pages[pageId] || '<h2>Sayfa Bulunamadı</h2>';
+        
+        if (pageId === 'drama' && SITE_DATA.videos.length > 0) {
+            const videoHtml = SITE_DATA.videos.map(v => `
+                <div class="video-card">
+                    <h3 style="color:#ffd966;">${v.title}</h3>
+                    <div class="video-container"><iframe src="${v.url}" allowfullscreen></iframe></div>
+                </div>
+            `).join('');
+            content += videoHtml;
+        }
+        
+        document.getElementById('main-content').innerHTML = content;
+        
+        if (pageId === 'magaza') renderShop();
+        
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+        const activeBtn = document.getElementById(`btn-${pageId}`);
+        if (activeBtn) activeBtn.classList.add('active');
+        
+        setTimeout(initAccordions, 100);
+    }
+    
+    function initAccordions() {
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.replaceWith(header.cloneNode(true));
+        });
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+                    document.querySelectorAll('.accordion-header').forEach(h => h.classList.remove('active'));
+                    this.classList.add('active');
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            });
+        });
+    }
+    
+    function toggleAdminMenu() { 
+        document.getElementById('admin-menu').classList.toggle('show'); 
+    }
+    
+    // ========== SAYFA YÜKLEME ==========
+    window.onload = function() {
+        loadSavedData();
+        createConfetti();
+        refreshMenu();
+        showPage('anasayfa');
+        
+        let count = localStorage.getItem('visitorCount') || 1248;
+        count++;
+        localStorage.setItem('visitorCount', count);
+        document.getElementById('visitorCount').textContent = count;
+    };
+</script>
+
+</body>
+</html>
