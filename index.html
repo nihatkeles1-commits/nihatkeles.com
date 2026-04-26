@@ -221,7 +221,7 @@
 
 <script>
 (function() {
-    // ---------- SHA-256 FONKSİYONU ----------
+    // SHA-256
     function sha256(str) {
         function rotateRight(v, n) { return (v >>> n) | (v << (32 - n)); }
         function stringToUint8Array(s) {
@@ -285,20 +285,11 @@
         return H.map(x => x.toString(16).padStart(8,'0')).join('');
     }
 
-    // Varsayılan şifre "drama2026" hash'i
     const DEFAULT_HASH = sha256("drama2026");
+    function getSavedHash() { return localStorage.getItem("admin_password_hash") || DEFAULT_HASH; }
+    function setNewPassword(pass) { localStorage.setItem("admin_password_hash", sha256(pass)); }
+    function checkPassword(pass) { return sha256(pass) === getSavedHash(); }
 
-    function getSavedHash() {
-        return localStorage.getItem("admin_password_hash") || DEFAULT_HASH;
-    }
-    function setNewPassword(pass) {
-        localStorage.setItem("admin_password_hash", sha256(pass));
-    }
-    function checkPassword(pass) {
-        return sha256(pass) === getSavedHash();
-    }
-
-    // adminMode kilitli
     let adminMode = false;
     Object.defineProperty(window, 'adminMode', {
         get() { return adminMode; },
@@ -306,7 +297,6 @@
         configurable: false
     });
 
-    // ---------- VERİ YAPILARI ----------
     const pages = [
         { id: "anasayfa", title: "ANA SAYFA" },
         { id: "drama", title: "DRAMA HOCAM" },
@@ -316,11 +306,48 @@
     ];
 
     const defaultContents = {
-        anasayfa: `<h2>Hoş Geldiniz</h2><p>Nihat Keleş'in sahne sanatları, yaratıcı drama ve yazarlık dünyasına hoş geldiniz.</p>`,
+        anasayfa: `<h2>HAKKINDA</h2>
+                   <h3>Yazarlık üzerine...</h3>
+                   <p>Kamu kurumları, sahne ve ekran için metin üretir. Oyunları Devlet Tiyatroları repertuvarında yer almıştır. Epsilon Yayınevi yazarıdır.</p>
+                   <h3>Eğitim üzerine...</h3>
+                   <p>Çeyrek asırdır ilkokul düzeyinde uygulamalı drama ve çocuk tiyatrosu disiplinlerini yürütüyor. On binin üzerinde çocukla sahne deneyimi paylaşırken; tiyatro dilini çocuk gelişimi perspektifiyle birleştiren bir metodoloji geliştirdi. Akademik çalışmalarını; çocuk merkezli yapılandırılmış atölyeler ve okul programlarıyla sahaya aktarmaya devam ediyor.</p>
+                   <h3>Sahne üzerine...</h3>
+                   <p>Sahne kökenli bir drama eğitmeni olarak, profesyonel tiyatro deneyimimi sınıf ortamına taşıyorum. Devlet ve özel tiyatrolarda aktif oyunculuk geçmişim, uygulamalı ve disiplinli bir eğitim modeli sunmamı sağlar.</p>`,
         drama: `<h2>DRAMA HOCAM</h2><div id="dynamic-drama-content"></div>`,
-        yazarlik: `<h2>YAZARLIK & SENARYO</h2><p>Oyun metinleri, roman taslakları ve senaryo çalışmaları.</p>`,
-        sahne: `<h2>SAHNE</h2><p>Sahne performansları, oyunlar ve gösteri takvimi burada yer alacak.</p>`,
-        iletisim: `<h2>İLETİŞİM</h2><p>E-posta: info@nihatkeles.com<br>Telefon: +90 5XX XXX XX XX</p>`
+        yazarlik: `<h2>YAZARLIK</h2>
+                   <p><strong>Hikaye Tasarımından Sahne Uygulamasına</strong></p>
+                   <p><em>“Sadece kağıt üzerinde kalan değil, sahne ışığıyla veya kamera vizörüyle buluştuğunda yaşayan metinler üzerine odaklanıyorum.”</em></p>
+                   <h3>Üretim Alanları</h3>
+                   <ul>
+                     <li><strong>Dramatik Yazarlık:</strong> Devlet Tiyatroları repertuvarına kabul edilmiş oyunlar ve çocuk müzikalleri.</li>
+                     <li><strong>Ekran Metinleri:</strong> Televizyon dizileri, sinema filmleri ve reklam senaryoları için dramaturjik kurgu ve yazım.</li>
+                     <li><strong>Edebiyat:</strong> Gençli ve Çocuk Romanları.</li>
+                     <li><strong>Kurumsal Yazarlık:</strong> Kamu kurumları ve özel teşebbüsler için stratejik metin üretimi ve editörlük.</li>
+                   </ul>
+                   <h3>Yazım Yaklaşımı</h3>
+                   <p>Bir metni inşa ederken üç temel kriteri önceliklendiriyorum:</p>
+                   <ol>
+                     <li><strong>Uygulanabilirlik:</strong> Sahne veya çekim matematiğine uygun, teknik olarak uygulanabilir kurgular.</li>
+                     <li><strong>Hedef Kitle Algısı:</strong> Çocuk oyununda pedagojik hassasiyet, reklamda pazarlama dili, dramada ise karakter derinliği.</li>
+                     <li><strong>Dinamik Dil:</strong> Bilgi kaosundan uzak, akıcı ve izleyiciyi/okuru hikayenin içinde tutan yalın bir anlatım.</li>
+                   </ol>
+                   <h3>Öne Çıkan Deneyimler</h3>
+                   <ul>
+                     <li><strong>Devlet Tiyatroları:</strong> 60.yıla özel çocuk oyunlarından birine editöryal destek. Repertuvara kazandırılan oyunlar. Müzikal Çocuk Oyunu.</li>
+                     <li><strong>Kültür Bakanlığı / Dış işleri Bakanlığı / Türk Tarih Kurumu:</strong> Senaryo geliştirme destekleri ve kamu projeleri metin yazarlığı.</li>
+                     <li><strong>Medya & Editörlük:</strong> Ulusal kanallarda ve yapım firmalarında senaryo danışmanlığı ve içerik yönetimi.</li>
+                   </ul>`,
+        sahne: `<h2>SAHNE</h2>
+                <p>Eğitmenlik vizyonum, sahnenin disiplini ve kolektif üretim gücüyle şekillendi. Profesyonel sanat kariyerimde edindiğim her tecrübe, bugün drama atölyelerimin mutfağını oluşturuyor.</p>
+                <h3>Sahne Deneyimi ve Disiplini</h3>
+                <ul>
+                  <li><strong>İstanbul Devlet Tiyatroları:</strong> Kurumsal yapı içerisinde, uzun soluklu prodüksiyonlarda yer alarak profesyonel sahne disiplinini ve estetiğini deneyimledim.</li>
+                  <li><strong>Turne Tiyatroları ve Başarılar:</strong> Türkiye genelinde gerçekleştirilen geniş kapsamlı turnelerde yüzlerce temsil vererek farklı kitlelerle buluştum. Bu süreçte ekibimle birlikte, sanatın icrasına ve disiplinine dair pek çok onur plaketi ve başarı ödülüne layık görüldük.</li>
+                  <li><strong>Özel Tiyatrolar:</strong> Farklı ekollerden gelen tiyatro topluluklarıyla profesyonel projeler yürüterek sahnede pratiklerimi zenginleştirdim.</li>
+                </ul>`,
+        iletisim: `<h2>İLETİŞİM</h2>
+                   <p>E-posta: <a href="mailto:nihatkele.1@gmail.com">nihatkele.1@gmail.com</a><br>Telefon: +90 530 558 86 50</p>
+                   <p><a href="#">İletişim Bilgileri | LinkedIn</a><br><a href="https://www.instagram.com/dramahocam/" target="_blank">Instagram: @dramahocam</a></p>`
     };
 
     let siteData = {
@@ -329,24 +356,46 @@
     };
 
     let dramaData = {
-        articles: [],
+        articles: [
+            {
+                title: "Eğitim Tecrübesi",
+                content: `<p><strong>Yaklaşım:</strong> Yaratıcı drama temelli, gelişim odaklı eğitimler yürütürüm. Sahneleme deneyimini eğitim sürecinin bir aracı olarak kullanırım.</p>
+                          <p><strong>Kapsam:</strong> 5–12 yaş grubu; ifade becerisi, özgüven ve işbirliği odaklı çalışmalar.</p>
+                          <p><strong>Deneyim:</strong> 25+ eğitim kurumunda uygulama.</p>
+                          <p><strong>Çıktı (Seçili Dönem):</strong> 2016–2024 arasında 500+ öğrenciyle, süreç odaklı 20’ye yakın drama/sahneleme çalışması.</p>`
+            }
+        ],
         references: [],
         instaVideos: [],
-        pageTexts: [],
+        pageTexts: [
+            `<h3>Çocuk Gelişimi Odaklı Oluşturucu Drama</h3>
+             <p><strong>Ne Yapıyorum?</strong><br>İlkokul düzeyinde, çocuk gelişimi ilkelerini temel alan yapılandırılmış yaratıcı drama çalışmaları yürütüyorum. Temel amacım; çocuğun ifade gücünü, sosyal uyum becerisini ve eleştirel düşünme yetisini sahne pratiğiyle somutlaştırmaktır.</p>
+             <p><strong>Nasıl Çalışıyorum?</strong><br>Eğitimler, akademik bir metodolojiye dayanan ve sınıf içi dinamiklere tam uyum sağlayan bir sistem üzerine kurulur:</p>
+             <ul>
+               <li><strong>Oyunlaştırılmış Öğrenme:</strong> Bilgiyi ezberden çıkarıp deneyime dönüştürme.</li>
+               <li><strong>Etkileşimli Rol Alma:</strong> Grup içi iş birliği ve empati geliştirme.</li>
+               <li><strong>Duygusal Zeka (EQ):</strong> Duygu yönetimi ve özgüven odaklı uygulamalar.</li>
+             </ul>
+             <p><strong>Uygulama Modeli</strong><br>Çeyrek asırlık saha deneyimiyle rafine edilen bu yaklaşım üç ana sütuna dayanır:</p>
+             <ol>
+               <li><strong>Disiplinlerarası Geçiş:</strong> Tiyatro pratiğinin çocuk gelişimi pedagojisiyle eş zamanlı kullanımı.</li>
+               <li><strong>Yapılandırılmış Kurgu:</strong> Sınıf ortamına özel, müfredatla uyumlu drama senaryoları.</li>
+               <li><strong>İletişim Becerileri:</strong> Hitabet, artıkülasyon ve diksiyon çalışmalarının drama sürecine doğal entegrasyonu.</li>
+             </ol>
+             <p><strong>Hizmet Alanları</strong></p>
+             <ul>
+               <li><strong>Kurumlar:</strong> İlkokullar, anaokulları ve butik eğitim merkezleri.</li>
+               <li><strong>Eğitimciler:</strong> Öğretmen eğitimleri ve eğitim koordinatörlüğü danışmanlığı.</li>
+               <li><strong>Projeler:</strong> Okul içi program tasarımı ve çocuk müzikalı/tiyatrosu prodüksiyonları.</li>
+             </ul>
+             <p><strong>25 Yıl...</strong><br>Bu süreç; sadece bir eğitmenlik değil, on binin üzerinde çocukla birlikte üretilmiş kesintisiz bir saha araştırmasıdır.</p>`
+        ],
         sectionTitles: {
             pageTexts: '📄 Tanıtım Metinleri',
             articles: '📖 Makaleler',
             references: '🏫 Referanslar',
             instaVideos: '📸 Instagram Videoları'
         }
-    };
-
-    const defaultDramaData = {
-        articles: [{ title: "Yaratıcı Drama Nedir?", content: "Yaratıcı drama, doğaçlama ve rol oynama temelli bir eğitim yöntemidir." }],
-        references: [{ name: "İstanbul Devlet Tiyatrosu", description: "2023-2024 sezonu drama atölyeleri" }],
-        instaVideos: [{ title: "Drama Atölyesi Tanıtım", embedUrl: "https://www.instagram.com/p/Cxample/embed" }],
-        pageTexts: [],
-        sectionTitles: { pageTexts: '📄 Tanıtım Metinleri', articles: '📖 Makaleler', references: '🏫 Referanslar', instaVideos: '📸 Instagram Videoları' }
     };
 
     const DEFAULT_LOGO_SRC = document.getElementById('siteLogo').src;
@@ -400,23 +449,19 @@
 
     function renderDramaPage() {
         let html = `<h2>DRAMA HOCAM</h2>`;
-        // tanıtım metinleri
         const pt = dramaData.sectionTitles.pageTexts||'📄 Tanıtım Metinleri';
         html += `<details class="accordion" open><summary>${pt} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('pageTexts');event.stopPropagation();" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️</button>`:''}</summary><div class="details-content">`;
         if (!dramaData.pageTexts.length) html += `<p>Henüz tanıtım metni yok.</p>`;
         else dramaData.pageTexts.forEach((t,i)=>{ html+=`<div style="margin-bottom:1rem;border-bottom:1px solid #333;">${t}</div>`; if(adminMode) html+=`<button class="admin-btn" onclick="deletePageText(${i})">❌ Sil</button>`; });
         html += `</div></details>`;
-        // makaleler
         html += `<details class="accordion"><summary>${dramaData.sectionTitles.articles||'📖 Makaleler'} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('articles');event.stopPropagation();" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️</button>`:''}</summary><div class="details-content">`;
         if (!dramaData.articles.length) html += `<p>Henüz makale yok.</p>`;
-        else dramaData.articles.forEach((a,i)=>{ html+=`<details class="inner-accordion"><summary>${escapeHtml(a.title)}</summary><div class="details-content"><p>${escapeHtml(a.content)}</p></div>${adminMode?`<button class="admin-btn" onclick="deleteArticle(${i})">❌ Sil</button>`:''}</details>`; });
+        else dramaData.articles.forEach((a,i)=>{ html+=`<details class="inner-accordion"><summary>${escapeHtml(a.title)}</summary><div class="details-content">${a.content}</div>${adminMode?`<button class="admin-btn" onclick="deleteArticle(${i})">❌ Sil</button>`:''}</details>`; });
         html += `</div></details>`;
-        // referanslar
         html += `<details class="accordion"><summary>${dramaData.sectionTitles.references||'🏫 Referanslar'} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('references');event.stopPropagation();" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️</button>`:''}</summary><div class="details-content">`;
         if (!dramaData.references.length) html += `<p>Henüz referans yok.</p>`;
         else dramaData.references.forEach((r,i)=>{ html+=`<details class="inner-accordion"><summary>${escapeHtml(r.name)}</summary><div class="details-content"><p>${escapeHtml(r.description)}</p></div>${adminMode?`<button class="admin-btn" onclick="deleteReference(${i})">❌ Sil</button>`:''}</details>`; });
         html += `</div></details>`;
-        // instagram
         html += `<details class="accordion"><summary>${dramaData.sectionTitles.instaVideos||'📸 Instagram Videoları'} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('instaVideos');event.stopPropagation();" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️</button>`:''}</summary><div class="details-content">`;
         if (!dramaData.instaVideos.length) html += `<p>Henüz video yok.</p>`;
         else dramaData.instaVideos.forEach((v,i)=>{ const u=v.embedUrl? v.embedUrl.replace(/"/g,'&quot;'):''; html+=`<details class="inner-accordion"><summary>${escapeHtml(v.title)}</summary><div class="details-content">${u?`<iframe src="${u}" width="100%" height="400" frameborder="0" allowfullscreen></iframe>`:''}</div>${adminMode?`<button class="admin-btn" onclick="deleteInstaVideo(${i})">❌ Sil</button>`:''}</details>`; });
@@ -424,7 +469,6 @@
         document.getElementById("dynamic-drama-content").innerHTML = html;
     }
 
-    // admin fonksiyonları
     function addPageText() {
         const modal = document.createElement('div');
         modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:2000;display:flex;justify-content:center;align-items:center;';
@@ -461,7 +505,6 @@
     }
     function deleteInstaVideo(i) { dramaData.instaVideos.splice(i,1); saveDramaData(); renderDramaPage(); }
 
-    // editör
     let currentEditorTarget = '';
     function openEditor() {
         const pid = siteData.currentPage;
@@ -483,7 +526,6 @@
         closeEditor();
     };
 
-    // genel içerik butonları
     function addText() { const t = prompt("Yazı:"); if(t) { siteData.contents[siteData.currentPage] += `<p>${escapeHtml(t.trim())}</p>`; saveData(); renderPage(); } }
     function addHeading() { const h = prompt("Başlık:"); if(h) { siteData.contents[siteData.currentPage] += `<h2>${escapeHtml(h.trim())}</h2>`; saveData(); renderPage(); } }
     function addImageByFile() {
@@ -510,7 +552,6 @@
         const nw = prompt("Yeni şifre:"); if (nw && nw.trim()) { setNewPassword(nw.trim()); alert("Şifre değişti. Tekrar giriş yapın."); adminMode = false; renderPage(); }
     }
 
-    // render sayfa
     function renderPage() {
         const pid = siteData.currentPage;
         document.getElementById("page-title").innerHTML = `<h2>${pages.find(p=>p.id===pid).title}</h2>`;
@@ -564,7 +605,6 @@
         }
     }
 
-    // menü
     function buildMenu() {
         const ul = document.getElementById("nav-list");
         ul.innerHTML = "";
@@ -579,7 +619,6 @@
         });
     }
 
-    // gizli admin girişi
     let clicks = 0, timer;
     document.getElementById("secret-login-trigger").addEventListener("click", () => {
         clicks++; clearTimeout(timer);
@@ -592,7 +631,6 @@
         }
     });
 
-    // başlangıç
     loadLogo();
     loadData();
     loadDramaData();
