@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Nihat Keleş | Drama Hocam</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #121212;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            color: #f0f0f0;
+            line-height: 1.5;
+            padding: 1rem;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #1e1e1e;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        header {
+            background: #2a2a2a;
+            padding: 1.5rem 2rem;
+            border-bottom: 3px solid #f5b042;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .header-brand {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            gap: 2rem;
+        }
+        .header-logo {
+            width: 200px;
+            height: auto;
+            max-height: 120px;
+            border-radius: 10px;
+            box-shadow: 0 0 12px rgba(245,176,66,0.3);
+            display: block;
+            order: 2;
+        }
+        header h1 {
+            font-size: 2rem;
+            letter-spacing: 1px;
+            user-select: none;
+            margin: 0;
+            order: 1;
+            white-space: nowrap;
+        }
+        header h1 span { color: #f5b042; }
+        nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 0.5rem;
+            list-style: none;
+            margin-top: 0;
+        }
+        nav button {
+            background: #333;
+            border: none;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        nav button.active { background: #f5b042; color: #1e1e1e; }
+        nav button:hover { background: #f5b042; color: #1e1e1e; }
+        main { padding: 2rem; min-height: 55vh; }
+        .content-body { margin-top: 1rem; }
+        .content-body h2 {
+            color: #f5b042;
+            border-left: 4px solid #f5b042;
+            padding-left: 1rem;
+            margin: 1.5rem 0 1rem;
+        }
+        .content-body p { margin: 0.8rem 0; line-height: 1.6; word-break: break-word; overflow-wrap: anywhere; }
+        .content-body img { max-width: 100%; border-radius: 16px; margin: 0.5rem 0; border: 1px solid #444; }
+        .content-body video { max-width: 100%; border-radius: 16px; margin: 0.5rem 0; background: #000; }
+        .content-body iframe { max-width: 100%; border-radius: 16px; margin: 10px 0; }
+        details.accordion {
+            background: #1e1e1e; margin: 0.8rem 0; border-radius: 12px; overflow: hidden; border: 1px solid #3a3a3a;
+        }
+        details.accordion summary {
+            padding: 0.8rem 1.2rem; cursor: pointer; font-weight: 600; color: #f5b042; background: #252525;
+            border-bottom: 1px solid #3a3a3a; list-style: none; user-select: none;
+        }
+        details.accordion summary::marker { display: none; }
+        details.accordion summary:after {
+            content: '▼'; float: right; font-size: 0.8rem; transition: transform 0.2s;
+        }
+        details.accordion[open] summary:after { transform: rotate(-180deg); }
+        details.accordion .details-content { padding: 1rem; word-break: break-word; overflow-wrap: anywhere; }
+        details.inner-accordion {
+            margin: 0.5rem 0; border: 1px solid #444; border-radius: 8px; background: #1a1a1a;
+        }
+        details.inner-accordion summary {
+            padding: 0.6rem 1rem; background: #222; color: #f0f0f0; border-bottom: 1px solid #444; font-weight: 500;
+        }
+        details.inner-accordion .details-content { padding: 0.8rem; background: #1a1a1a; }
+        .admin-buttons {
+            display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 2rem 0 1rem; padding-top: 1rem; border-top: 1px solid #3a3a3a;
+        }
+        .admin-btn {
+            background: #2c2c2c; border: 1px solid #f5b042; color: #f5b042; padding: 0.5rem 1rem; border-radius: 30px;
+            cursor: pointer; font-size: 0.8rem; transition: 0.2s;
+        }
+        .admin-btn.danger { border-color: #e55; color: #e55; }
+        .admin-btn:hover { background: #f5b042; color: #1e1e1e; }
+        .editor-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .editor-modal.active { display: flex; }
+        .editor-container {
+            background: #252525; border-radius: 20px; padding: 1.5rem; width: 90%; max-width: 800px;
+            max-height: 85vh; display: flex; flex-direction: column; border: 1px solid #f5b042;
+        }
+        .editor-toolbar {
+            display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; padding-bottom: 0.8rem;
+            border-bottom: 1px solid #444; align-items: center; flex-shrink: 0;
+        }
+        .editor-toolbar button, .editor-toolbar select, .editor-toolbar input[type="color"] {
+            background: #333; border: 1px solid #555; color: white; padding: 0.3rem 0.6rem;
+            border-radius: 6px; cursor: pointer; font-size: 0.8rem; height: 32px;
+        }
+        .editor-toolbar button:hover { background: #f5b042; color: #1e1e1e; }
+        .editor-toolbar select { background: #333; color: white; }
+        .editor-toolbar input[type="color"] { width: 32px; padding: 2px; }
+        .editor-area {
+            flex: 1; min-height: 300px; max-height: 60vh; background: #1e1e1e; border: 1px solid #444;
+            border-radius: 12px; padding: 1rem; color: #f0f0f0; outline: none; overflow-y: auto;
+            white-space: pre-wrap; overflow-wrap: break-word;
+        }
+        .editor-actions { display: flex; gap: 0.5rem; margin-top: 1rem; justify-content: flex-end; flex-shrink: 0; }
+        footer { background: #2a2a2a; text-align: center; padding: 1rem; font-size: 0.8rem; color: #aaa; border-top: 1px solid #3a3a3a; }
+        @media (max-width: 700px) {
+            header { padding: 1rem; }
+            .header-brand { flex-direction: column; align-items: center; gap: 0.5rem; }
+            .header-logo { width: 140px; max-height: 80px; order: 0; }
+            header h1 { font-size: 1.4rem; order: 0; }
+            main { padding: 1.2rem; }
+            nav button { padding: 0.4rem 0.8rem; font-size: 0.75rem; }
+            .admin-btn { padding: 0.4rem 0.8rem; font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header id="secret-login-trigger">
+        <div class="header-brand">
+            <img id="siteLogo" class="header-logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCADEAVEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD8/wCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/9k=" alt="NK Logo">
+            <h1>NİHAT <span>KELEŞ</span></h1>
+        </div>
+        <nav><ul id="nav-list"></ul></nav>
+    </header>
+    <main>
+        <div id="page-title"></div>
+        <div id="page-content" class="content-body"></div>
+        <div id="admin-panel" style="display: none;"></div>
+    </main>
+    <footer><p>&copy; 2026 Nihat Keleş</p></footer>
+</div>
+
+<div id="editorModal" class="editor-modal">
+    <div class="editor-container">
+        <div class="editor-toolbar">
+            <button onclick="document.execCommand('undo')">↩</button>
+            <button onclick="document.execCommand('redo')">↪</button>
+            <select onchange="document.execCommand('fontName',false,this.value)">
+                <option value="Arial">Arial</option><option value="Times New Roman">Times New Roman</option>
+                <option value="Courier New">Courier New</option><option value="Georgia">Georgia</option>
+                <option value="Verdana">Verdana</option>
+            </select>
+            <select onchange="document.execCommand('fontSize',false,this.value)">
+                <option value="1">Çok Küçük</option><option value="2">Küçük</option>
+                <option value="3" selected>Normal</option><option value="4">Büyük</option>
+                <option value="5">Çok Büyük</option><option value="6">Dev</option>
+            </select>
+            <button onclick="document.execCommand('bold')"><b>B</b></button>
+            <button onclick="document.execCommand('italic')"><i>I</i></button>
+            <button onclick="document.execCommand('underline')"><u>U</u></button>
+            <button onclick="document.execCommand('strikeThrough')"><s>S</s></button>
+            <button onclick="document.execCommand('justifyLeft')">⫷</button>
+            <button onclick="document.execCommand('justifyCenter')">⬌</button>
+            <button onclick="document.execCommand('justifyRight')">⫸</button>
+            <button onclick="document.execCommand('insertUnorderedList')">• Liste</button>
+            <button onclick="document.execCommand('insertOrderedList')">1. Liste</button>
+            <button onclick="createLink()">🔗</button>
+            <button onclick="document.execCommand('unlink')">⛓️‍💥</button>
+            <button onclick="document.execCommand('insertHorizontalRule')">—</button>
+            <button onclick="document.execCommand('formatBlock',false,'blockquote')">❝</button>
+            <select onchange="document.execCommand('formatBlock',false,this.value)">
+                <option value="p">Paragraf</option><option value="h2">Başlık H2</option>
+                <option value="h3">Başlık H3</option><option value="pre">Ön Biçimli</option>
+            </select>
+            <input type="color" onchange="document.execCommand('foreColor',false,this.value)" value="#f0f0f0">
+            <input type="color" onchange="document.execCommand('hiliteColor',false,this.value)" value="#000000">
+            <button onclick="document.execCommand('removeFormat')">Temizle</button>
+        </div>
+        <div id="editorArea" class="editor-area" contenteditable="true"></div>
+        <div class="editor-actions">
+            <button class="admin-btn" onclick="closeEditor()">İptal</button>
+            <button class="admin-btn" id="saveEditorBtn" style="background:#f5b042;color:#1e1e1e;">Kaydet</button>
+        </div>
+    </div>
+</div>
+
+<input type="file" id="hiddenFileInput" accept="image/*" style="display:none;">
+<input type="file" id="logoFileInput" accept="image/*" style="display:none;">
+
+<script>
+(function() {
+    // SHA-256
+    function sha256(str) {
+        function rotateRight(v, n) { return (v >>> n) | (v << (32 - n)); }
+        function stringToUint8Array(s) {
+            const arr = [];
+            for (let i = 0; i < s.length; i++) {
+                const c = s.charCodeAt(i);
+                if (c < 0x80) arr.push(c);
+                else if (c < 0x800) { arr.push(0xc0 | (c >> 6)); arr.push(0x80 | (c & 0x3f)); }
+                else if (c < 0xd800 || c >= 0xe000) {
+                    arr.push(0xe0 | (c >> 12)); arr.push(0x80 | ((c >> 6) & 0x3f)); arr.push(0x80 | (c & 0x3f));
+                } else {
+                    i++;
+                    const u16 = 0x10000 + (((c & 0x3ff) << 10) | (s.charCodeAt(i) & 0x3ff));
+                    arr.push(0xf0 | (u16 >> 18)); arr.push(0x80 | ((u16 >> 12) & 0x3f));
+                    arr.push(0x80 | ((u16 >> 6) & 0x3f)); arr.push(0x80 | (u16 & 0x3f));
+                }
+            }
+            return arr;
+        }
+        const bytes = stringToUint8Array(str);
+        const K = [0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+                    0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+                    0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+                    0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+                    0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+                    0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+                    0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+                    0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+        let H = [0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];
+        const l = bytes.length * 8;
+        bytes.push(0x80);
+        while ((bytes.length * 8) % 512 !== 448) bytes.push(0);
+        const lenArr = new Uint8Array(8);
+        for (let i = 0; i < 8; i++) lenArr[7-i] = (l >>> (i*8)) & 0xff;
+        bytes.push(...lenArr);
+        for (let i = 0; i < bytes.length; i += 64) {
+            const w = new Array(64);
+            for (let t = 0; t < 16; t++) {
+                const off = i + t*4;
+                w[t] = (bytes[off]<<24) | (bytes[off+1]<<16) | (bytes[off+2]<<8) | bytes[off+3];
+            }
+            for (let t = 16; t < 64; t++) {
+                const s0 = rotateRight(w[t-15],7) ^ rotateRight(w[t-15],18) ^ (w[t-15]>>>3);
+                const s1 = rotateRight(w[t-2],17) ^ rotateRight(w[t-2],19) ^ (w[t-2]>>>10);
+                w[t] = (w[t-16] + s0 + w[t-7] + s1) | 0;
+            }
+            let [a,b,c,d,e,f,g,h] = H;
+            for (let t = 0; t < 64; t++) {
+                const S1 = rotateRight(e,6) ^ rotateRight(e,11) ^ rotateRight(e,25);
+                const ch = (e & f) ^ ((~e) & g);
+                const temp1 = (h + S1 + ch + K[t] + w[t]) | 0;
+                const S0 = rotateRight(a,2) ^ rotateRight(a,13) ^ rotateRight(a,22);
+                const maj = (a & b) ^ (a & c) ^ (b & c);
+                const temp2 = (S0 + maj) | 0;
+                h = g; g = f; f = e; e = (d + temp1) | 0;
+                d = c; c = b; b = a; a = (temp1 + temp2) | 0;
+            }
+            H[0] = (H[0] + a) | 0; H[1] = (H[1] + b) | 0; H[2] = (H[2] + c) | 0; H[3] = (H[3] + d) | 0;
+            H[4] = (H[4] + e) | 0; H[5] = (H[5] + f) | 0; H[6] = (H[6] + g) | 0; H[7] = (H[7] + h) | 0;
+        }
+        return H.map(x => x.toString(16).padStart(8,'0')).join('');
+    }
+
+    const DEFAULT_HASH = sha256("drama2026");
+    function getSavedHash() { return localStorage.getItem("admin_password_hash") || DEFAULT_HASH; }
+    function setNewPassword(pass) { localStorage.setItem("admin_password_hash", sha256(pass)); }
+    function checkPassword(pass) { return sha256(pass) === getSavedHash(); }
+
+    let adminMode = false;
+    Object.defineProperty(window, 'adminMode', {
+        get() { return adminMode; },
+        set(v) { throw new Error("Bu değişken salt okunurdur."); },
+        configurable: false
+    });
+
+    const pages = [
+        { id: "anasayfa", title: "ANA SAYFA" },
+        { id: "drama", title: "DRAMA HOCAM" },
+        { id: "yazarlik", title: "YAZARLIK" },
+        { id: "sahne", title: "SAHNE" },
+        { id: "iletisim", title: "İLETİŞİM" }
+    ];
+
+    const defaultContents = {
+        anasayfa: `<h2>HAKKINDA</h2>
+                   <h3>Yazarlık üzerine...</h3>
+                   <p>Kamu kurumları, sahne ve ekran için metin üretir. Oyunları Devlet Tiyatroları repertuvarında yer almıştır. Epsilon Yayınevi yazarıdır.</p>
+                   <h3>Eğitim üzerine...</h3>
+                   <p>Çeyrek asırdır ilkokul düzeyinde uygulamalı drama ve çocuk tiyatrosu disiplinlerini yürütüyor. On binin üzerinde çocukla sahne deneyimi paylaşırken; tiyatro dilini çocuk gelişimi perspektifiyle birleştiren bir metodoloji geliştirdi. Akademik çalışmalarını; çocuk merkezli yapılandırılmış atölyeler ve okul programlarıyla sahaya aktarmaya devam ediyor.</p>
+                   <h3>Sahne üzerine...</h3>
+                   <p>Sahne kökenli bir drama eğitmeni olarak, profesyonel tiyatro deneyimimi sınıf ortamına taşıyorum. Devlet ve özel tiyatrolarda aktif oyunculuk geçmişim, uygulamalı ve disiplinli bir eğitim modeli sunmamı sağlar.</p>`,
+        drama: `<h2>DRAMA HOCAM</h2><div id="dynamic-drama-content"></div>`,
+        yazarlik: `<h2>YAZARLIK</h2>
+                   <p><strong>Hikaye Tasarımından Sahne Uygulamasına</strong></p>
+                   <p><em>“Sadece kağıt üzerinde kalan değil, sahne ışığıyla veya kamera vizörüyle buluştuğunda yaşayan metinler üzerine odaklanıyorum.”</em></p>
+                   <h3>Üretim Alanları</h3>
+                   <ul>
+                     <li><strong>Dramatik Yazarlık:</strong> Devlet Tiyatroları repertuvarına kabul edilmiş oyunlar ve çocuk müzikalleri.</li>
+                     <li><strong>Ekran Metinleri:</strong> Televizyon dizileri, sinema filmleri ve reklam senaryoları için dramaturjik kurgu ve yazım.</li>
+                     <li><strong>Edebiyat:</strong> Gençli ve Çocuk Romanları.</li>
+                     <li><strong>Kurumsal Yazarlık:</strong> Kamu kurumları ve özel teşebbüsler için stratejik metin üretimi ve editörlük.</li>
+                   </ul>
+                   <h3>Yazım Yaklaşımı</h3>
+                   <p>Bir metni inşa ederken üç temel kriteri önceliklendiriyorum:</p>
+                   <ol>
+                     <li><strong>Uygulanabilirlik:</strong> Sahne veya çekim matematiğine uygun, teknik olarak uygulanabilir kurgular.</li>
+                     <li><strong>Hedef Kitle Algısı:</strong> Çocuk oyununda pedagojik hassasiyet, reklamda pazarlama dili, dramada ise karakter derinliği.</li>
+                     <li><strong>Dinamik Dil:</strong> Bilgi kaosundan uzak, akıcı ve izleyiciyi/okuru hikayenin içinde tutan yalın bir anlatım.</li>
+                   </ol>
+                   <h3>Öne Çıkan Deneyimler</h3>
+                   <ul>
+                     <li><strong>Devlet Tiyatroları:</strong> 60.yıla özel çocuk oyunlarından birine editöryal destek. Repertuvara kazandırılan oyunlar. Müzikal Çocuk Oyunu.</li>
+                     <li><strong>Kültür Bakanlığı / Dış işleri Bakanlığı / Türk Tarih Kurumu:</strong> Senaryo geliştirme destekleri ve kamu projeleri metin yazarlığı.</li>
+                     <li><strong>Medya & Editörlük:</strong> Ulusal kanallarda ve yapım firmalarında senaryo danışmanlığı ve içerik yönetimi.</li>
+                   </ul>`,
+        sahne: `<h2>SAHNE</h2>
+                <p>Eğitmenlik vizyonum, sahnenin disiplini ve kolektif üretim gücüyle şekillendi. Profesyonel sanat kariyerimde edindiğim her tecrübe, bugün drama atölyelerimin mutfağını oluşturuyor.</p>
+                <h3>Sahne Deneyimi ve Disiplini</h3>
+                <ul>
+                  <li><strong>İstanbul Devlet Tiyatroları:</strong> Kurumsal yapı içerisinde, uzun soluklu prodüksiyonlarda yer alarak profesyonel sahne disiplinini ve estetiğini deneyimledim.</li>
+                  <li><strong>Turne Tiyatroları ve Başarılar:</strong> Türkiye genelinde gerçekleştirilen geniş kapsamlı turnelerde yüzlerce temsil vererek farklı kitlelerle buluştum. Bu süreçte ekibimle birlikte, sanatın icrasına ve disiplinine dair pek çok onur plaketi ve başarı ödülüne layık görüldük.</li>
+                  <li><strong>Özel Tiyatrolar:</strong> Farklı ekollerden gelen tiyatro topluluklarıyla profesyonel projeler yürüterek sahnede pratiklerimi zenginleştirdim.</li>
+                </ul>`,
+        iletisim: `<h2>İLETİŞİM</h2>
+                   <p>E-posta: <a href="mailto:nihatkele.1@gmail.com">nihatkele.1@gmail.com</a><br>Telefon: +90 530 558 86 50</p>
+                   <p><a href="#">İletişim Bilgileri | LinkedIn</a><br><a href="https://www.instagram.com/dramahocam/" target="_blank">Instagram: @dramahocam</a></p>`
+    };
+
+    let siteData = {
+        currentPage: "anasayfa",
+        contents: JSON.parse(JSON.stringify(defaultContents))
+    };
+
+    let dramaData = {
+        articles: [
+            {
+                title: "Eğitim Tecrübesi",
+                content: `<p><strong>Yaklaşım:</strong> Yaratıcı drama temelli, gelişim odaklı eğitimler yürütürüm. Sahneleme deneyimini eğitim sürecinin bir aracı olarak kullanırım.</p>
+                          <p><strong>Kapsam:</strong> 5–12 yaş grubu; ifade becerisi, özgüven ve işbirliği odaklı çalışmalar.</p>
+                          <p><strong>Deneyim:</strong> 25+ eğitim kurumunda uygulama.</p>
+                          <p><strong>Çıktı (Seçili Dönem):</strong> 2016–2024 arasında 500+ öğrenciyle, süreç odaklı 20’ye yakın drama/sahneleme çalışması.</p>`
+            }
+        ],
+        references: [],
+        instaVideos: [],
+        pageTexts: [
+            `<h3>Çocuk Gelişimi Odaklı Oluşturucu Drama</h3>
+             <p><strong>Ne Yapıyorum?</strong><br>İlkokul düzeyinde, çocuk gelişimi ilkelerini temel alan yapılandırılmış yaratıcı drama çalışmaları yürütüyorum. Temel amacım; çocuğun ifade gücünü, sosyal uyum becerisini ve eleştirel düşünme yetisini sahne pratiğiyle somutlaştırmaktır.</p>
+             <p><strong>Nasıl Çalışıyorum?</strong><br>Eğitimler, akademik bir metodolojiye dayanan ve sınıf içi dinamiklere tam uyum sağlayan bir sistem üzerine kurulur:</p>
+             <ul>
+               <li><strong>Oyunlaştırılmış Öğrenme:</strong> Bilgiyi ezberden çıkarıp deneyime dönüştürme.</li>
+               <li><strong>Etkileşimli Rol Alma:</strong> Grup içi iş birliği ve empati geliştirme.</li>
+               <li><strong>Duygusal Zeka (EQ):</strong> Duygu yönetimi ve özgüven odaklı uygulamalar.</li>
+             </ul>
+             <p><strong>Uygulama Modeli</strong><br>Çeyrek asırlık saha deneyimiyle rafine edilen bu yaklaşım üç ana sütuna dayanır:</p>
+             <ol>
+               <li><strong>Disiplinlerarası Geçiş:</strong> Tiyatro pratiğinin çocuk gelişimi pedagojisiyle eş zamanlı kullanımı.</li>
+               <li><strong>Yapılandırılmış Kurgu:</strong> Sınıf ortamına özel, müfredatla uyumlu drama senaryoları.</li>
+               <li><strong>İletişim Becerileri:</strong> Hitabet, artıkülasyon ve diksiyon çalışmalarının drama sürecine doğal entegrasyonu.</li>
+             </ol>
+             <p><strong>Hizmet Alanları</strong></p>
+             <ul>
+               <li><strong>Kurumlar:</strong> İlkokullar, anaokulları ve butik eğitim merkezleri.</li>
+               <li><strong>Eğitimciler:</strong> Öğretmen eğitimleri ve eğitim koordinatörlüğü danışmanlığı.</li>
+               <li><strong>Projeler:</strong> Okul içi program tasarımı ve çocuk müzikalı/tiyatrosu prodüksiyonları.</li>
+             </ul>
+             <p><strong>25 Yıl...</strong><br>Bu süreç; sadece bir eğitmenlik değil, on binin üzerinde çocukla birlikte üretilmiş kesintisiz bir saha araştırmasıdır.</p>`
+        ],
+        sectionTitles: {
+            pageTexts: '📄 Tanıtım Metinleri',
+            articles: '📖 Makaleler',
+            references: '🏫 Referanslar',
+            instaVideos: '📸 Instagram Videoları'
+        }
+    };
+
+    const DEFAULT_LOGO_SRC = document.getElementById('siteLogo').src;
+
+    function loadLogo() {
+        const src = localStorage.getItem('site_logo_src');
+        if (src) document.getElementById('siteLogo').src = src;
+    }
+    function changeLogo() {
+        const input = document.getElementById('logoFileInput');
+        input.click();
+        input.onchange = function(e) {
+            const file = e.target.files[0];
+            if (!file || !file.type.startsWith('image/')) { alert('Geçerli bir resim seçin!'); return; }
+            const r = new FileReader();
+            r.onload = ev => {
+                document.getElementById('siteLogo').src = ev.target.result;
+                localStorage.setItem('site_logo_src', ev.target.result);
+                alert('Logo güncellendi!');
+            };
+            r.readAsDataURL(file);
+        };
+    }
+    function resetLogo() {
+        localStorage.removeItem('site_logo_src');
+        document.getElementById('siteLogo').src = DEFAULT_LOGO_SRC;
+        alert('Logo varsayılana döndürüldü.');
+    }
+
+    function loadDramaData() {
+        const saved = localStorage.getItem("nihatkeles_drama");
+        if (saved) { try { Object.assign(dramaData, JSON.parse(saved)); } catch(e) {} }
+    }
+    function saveDramaData() { localStorage.setItem("nihatkeles_drama", JSON.stringify(dramaData)); }
+
+    function loadData() {
+        const saved = localStorage.getItem("nihatkeles_simple");
+        if (saved) { try { const p = JSON.parse(saved); siteData.contents = p.contents || siteData.contents; siteData.currentPage = p.currentPage || "anasayfa"; } catch(e) {} }
+    }
+    function saveData(silent) { localStorage.setItem("nihatkeles_simple", JSON.stringify({contents:siteData.contents, currentPage:siteData.currentPage})); if (!silent && adminMode) alert("✅ Kaydedildi"); }
+
+    function escapeHtml(s) { return (s||'').replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[m]||m); }
+
+    function createLink() { const url = prompt("Link (https://...):","https://"); if (url) document.execCommand('createLink',false,url.trim()); }
+
+    function editSectionTitle(key) {
+        const cur = dramaData.sectionTitles[key] || '';
+        const n = prompt("Yeni başlık:", cur);
+        if (n && n.trim()) { dramaData.sectionTitles[key] = n.trim(); saveDramaData(); renderDramaPage(); }
+    }
+
+    function renderDramaPage() {
+        let html = `<h2>DRAMA HOCAM</h2>`;
+        const pt = dramaData.sectionTitles.pageTexts||'📄 Tanıtım Metinleri';
+        html += `<details class="accordion" open><summary>${pt} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('pageTexts');event.stopPropagation();" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️</button>`:''}</summary><div class="details-content">`;
+        if (!dramaData.pageTexts.length) html += `<p>Henüz tanıtım metni yok.</p>`;
+        else dramaData.pageTexts.forEach((t,i)=>{ html+=`<div style="margin-bottom:1rem;border-bottom:1px solid #333;">${t}</div>`; if(adminMode) html+=`<button class="admin-btn" onclick="deletePageText(${i})">❌ Sil</button>`; });
+        html += `</div></details>`;
+        html += `<details class="accordion"><summary>${dramaData.sectionTitles.articles||'📖 Makaleler'} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('articles');event.stopPropagation();" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️</button>`:''}</summary><div class="details-content">`;
+        if (!dramaData.articles.length) html += `<p>Henüz makale yok.</p>`;
+        else dramaData.articles.forEach((a,i)=>{ html+=`<details class="inner-accordion"><summary>${escapeHtml(a.title)}</summary><div class="details-content">${a.content}</div>${adminMode?`<button class="admin-btn" onclick="deleteArticle(${i})">❌ Sil</button>`:''}</details>`; });
+        html += `</div></details>`;
+        html += `<details class="accordion"><summary>${dramaData.sectionTitles.references||'🏫 Referanslar'} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('references');event.stopPropagation();" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️</button>`:''}</summary><div class="details-content">`;
+        if (!dramaData.references.length) html += `<p>Henüz referans yok.</p>`;
+        else dramaData.references.forEach((r,i)=>{ html+=`<details class="inner-accordion"><summary>${escapeHtml(r.name)}</summary><div class="details-content"><p>${escapeHtml(r.description)}</p></div>${adminMode?`<button class="admin-btn" onclick="deleteReference(${i})">❌ Sil</button>`:''}</details>`; });
+        html += `</div></details>`;
+        html += `<details class="accordion"><summary>${dramaData.sectionTitles.instaVideos||'📸 Instagram Videoları'} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('instaVideos');event.stopPropagation();" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️</button>`:''}</summary><div class="details-content">`;
+        if (!dramaData.instaVideos.length) html += `<p>Henüz video yok.</p>`;
+        else dramaData.instaVideos.forEach((v,i)=>{ const u=v.embedUrl? v.embedUrl.replace(/"/g,'&quot;'):''; html+=`<details class="inner-accordion"><summary>${escapeHtml(v.title)}</summary><div class="details-content">${u?`<iframe src="${u}" width="100%" height="400" frameborder="0" allowfullscreen></iframe>`:''}</div>${adminMode?`<button class="admin-btn" onclick="deleteInstaVideo(${i})">❌ Sil</button>`:''}</details>`; });
+        html += `</div></details>`;
+        document.getElementById("dynamic-drama-content").innerHTML = html;
+    }
+
+    function addPageText() {
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:2000;display:flex;justify-content:center;align-items:center;';
+        modal.innerHTML = `<div style="background:#252525;border-radius:20px;padding:1.5rem;width:90%;max-width:600px;border:1px solid #f5b042;"><h3 style="color:#f5b042;">Sayfa Yazısı Ekle</h3><div id="tempEditor" style="min-height:150px;background:#1e1e1e;border:1px solid #444;border-radius:12px;padding:1rem;color:#f0f0f0;outline:none;margin:1rem 0;" contenteditable="true">Yeni tanıtım metni girin...</div><div style="display:flex;gap:0.5rem;justify-content:flex-end;"><button class="admin-btn" id="cancelTextBtn">İptal</button><button class="admin-btn" id="saveTextBtn" style="background:#f5b042;color:#1e1e1e;">Kaydet</button></div></div>`;
+        document.body.appendChild(modal);
+        modal.querySelector('#cancelTextBtn').onclick = ()=> document.body.removeChild(modal);
+        modal.querySelector('#saveTextBtn').onclick = ()=>{
+            dramaData.pageTexts.push(modal.querySelector('#tempEditor').innerHTML);
+            saveDramaData(); renderDramaPage(); document.body.removeChild(modal);
+        };
+    }
+    function deletePageText(i) { dramaData.pageTexts.splice(i,1); saveDramaData(); renderDramaPage(); }
+    function addArticle() {
+        const t = prompt("Başlık:"); if (!t) return;
+        const c = prompt("İçerik:"); if (!c) return;
+        dramaData.articles.push({title:t.trim(), content:c.trim()});
+        saveDramaData(); renderDramaPage();
+    }
+    function deleteArticle(i) { dramaData.articles.splice(i,1); saveDramaData(); renderDramaPage(); }
+    function addReference() {
+        const n = prompt("Ad:"); if (!n) return;
+        const d = prompt("Açıklama:"); if (!d) return;
+        dramaData.references.push({name:n.trim(), description:d.trim()});
+        saveDramaData(); renderDramaPage();
+    }
+    function deleteReference(i) { dramaData.references.splice(i,1); saveDramaData(); renderDramaPage(); }
+    function addInstaVideo() {
+        const t = prompt("Başlık:"); if (!t) return;
+        let u = prompt("Instagram embed linki:"); if (!u) return;
+        u = u.replace(/"/g,'').replace(/'/g,'').trim();
+        if (!u.startsWith("https://")) { alert("Geçerli URL girin!"); return; }
+        dramaData.instaVideos.push({title:t.trim(), embedUrl:u});
+        saveDramaData(); renderDramaPage();
+    }
+    function deleteInstaVideo(i) { dramaData.instaVideos.splice(i,1); saveDramaData(); renderDramaPage(); }
+
+    let currentEditorTarget = '';
+    function openEditor() {
+        const pid = siteData.currentPage;
+        currentEditorTarget = pid;
+        const content = pid==='drama' ? (dramaData.pageTexts||[]).join('<hr>') : (siteData.contents[pid]||'');
+        document.getElementById('editorArea').innerHTML = content;
+        document.getElementById('editorModal').classList.add('active');
+    }
+    function closeEditor() { document.getElementById('editorModal').classList.remove('active'); }
+    document.getElementById('saveEditorBtn').onclick = function() {
+        const html = document.getElementById('editorArea').innerHTML;
+        if (currentEditorTarget === 'drama') {
+            dramaData.pageTexts = html.split('<hr>').map(s=>s.trim()).filter(s=>s);
+            saveDramaData(); renderDramaPage();
+        } else {
+            siteData.contents[currentEditorTarget] = html;
+            saveData(); renderPage();
+        }
+        closeEditor();
+    };
+
+    function addText() { const t = prompt("Yazı:"); if(t) { siteData.contents[siteData.currentPage] += `<p>${escapeHtml(t.trim())}</p>`; saveData(); renderPage(); } }
+    function addHeading() { const h = prompt("Başlık:"); if(h) { siteData.contents[siteData.currentPage] += `<h2>${escapeHtml(h.trim())}</h2>`; saveData(); renderPage(); } }
+    function addImageByFile() {
+        const inp = document.getElementById('hiddenFileInput');
+        inp.value = ''; inp.onchange = e => {
+            const f = e.target.files[0]; if(!f) return;
+            const r = new FileReader();
+            r.onload = ev => { siteData.contents[siteData.currentPage] += `<img src="${ev.target.result}" style="max-width:100%;border-radius:16px;margin:10px 0;">`; saveData(); renderPage(); };
+            r.readAsDataURL(f);
+        };
+        inp.click();
+    }
+    function addImageByUrl() {
+        let u = prompt("Resim URL:"); if(u) { u = u.trim().replace(/"/g,''); siteData.contents[siteData.currentPage] += `<img src="${u}" style="max-width:100%;border-radius:16px;margin:10px 0;">`; saveData(); renderPage(); }
+    }
+    function addVideoByUrl() {
+        let u = prompt("Video URL (MP4):"); if(u) { u = u.trim().replace(/"/g,''); siteData.contents[siteData.currentPage] += `<video controls style="max-width:100%;border-radius:16px;margin:10px 0;" src="${u}"></video>`; saveData(); renderPage(); }
+    }
+    function clearPage() {
+        if (confirm("Tüm içerik silinecek! Onaylıyor musunuz?")) { siteData.contents[siteData.currentPage] = ""; saveData(); renderPage(); }
+    }
+    function changeAdminPassword() {
+        const old = prompt("Eski şifre:"); if (!old || !checkPassword(old)) { alert("Eski şifre yanlış!"); return; }
+        const nw = prompt("Yeni şifre:"); if (nw && nw.trim()) { setNewPassword(nw.trim()); alert("Şifre değişti. Tekrar giriş yapın."); adminMode = false; renderPage(); }
+    }
+
+    function renderPage() {
+        const pid = siteData.currentPage;
+        document.getElementById("page-title").innerHTML = `<h2>${pages.find(p=>p.id===pid).title}</h2>`;
+        if (pid === "drama") { document.getElementById("page-content").innerHTML = `<div id="dynamic-drama-content"></div>`; renderDramaPage(); }
+        else { document.getElementById("page-content").innerHTML = siteData.contents[pid] || ''; }
+
+        const adiv = document.getElementById("admin-panel");
+        if (adminMode) {
+            let btns = `<div class="admin-buttons">
+                <button class="admin-btn" id="changeLogoBtn">🖼️ Logo Değiştir</button>
+                <button class="admin-btn" id="resetLogoBtn">🔄 Logo Sıfırla</button>
+                <button class="admin-btn" id="editPageContentBtn" style="background:#f5b042;color:#1e1e1e;">🖊️ Sayfa İçeriğini Düzenle</button>`;
+            if (pid === "drama") {
+                btns += `<button class="admin-btn" id="dramaAddPageText">📄 Sayfa Yazısı Ekle</button>
+                         <button class="admin-btn" id="dramaAddArticle">📝 Makale Ekle</button>
+                         <button class="admin-btn" id="dramaAddReference">🏫 Referans Ekle</button>
+                         <button class="admin-btn" id="dramaAddInsta">📸 Instagram Video Ekle</button>`;
+            } else {
+                btns += `<button class="admin-btn" id="addTextBtn">📝 Yazı Ekle</button>
+                         <button class="admin-btn" id="addHeadingBtn">📌 Başlık Ekle</button>
+                         <button class="admin-btn" id="addImageFileBtn">🖼️ Resim Dosya Seç</button>
+                         <button class="admin-btn" id="addImageUrlBtn">🌐 Resim URL Ekle</button>
+                         <button class="admin-btn" id="addVideoUrlBtn">🎬 Video URL Ekle</button>
+                         <button class="admin-btn danger" id="clearPageBtn">🗑️ Sayfa İçeriğini Sil</button>`;
+            }
+            btns += `<button class="admin-btn" id="changePasswordBtn">🔐 Şifre Değiştir</button>
+                     <button class="admin-btn" id="exitAdminBtn">🚪 Çıkış</button></div>`;
+            adiv.innerHTML = btns;
+            adiv.style.display = "block";
+
+            document.getElementById("changeLogoBtn").onclick = changeLogo;
+            document.getElementById("resetLogoBtn").onclick = resetLogo;
+            document.getElementById("editPageContentBtn").onclick = openEditor;
+            if (pid === "drama") {
+                document.getElementById("dramaAddPageText").onclick = addPageText;
+                document.getElementById("dramaAddArticle").onclick = addArticle;
+                document.getElementById("dramaAddReference").onclick = addReference;
+                document.getElementById("dramaAddInsta").onclick = addInstaVideo;
+            } else {
+                document.getElementById("addTextBtn").onclick = addText;
+                document.getElementById("addHeadingBtn").onclick = addHeading;
+                document.getElementById("addImageFileBtn").onclick = addImageByFile;
+                document.getElementById("addImageUrlBtn").onclick = addImageByUrl;
+                document.getElementById("addVideoUrlBtn").onclick = addVideoByUrl;
+                document.getElementById("clearPageBtn").onclick = clearPage;
+            }
+            document.getElementById("changePasswordBtn").onclick = changeAdminPassword;
+            document.getElementById("exitAdminBtn").onclick = () => { adminMode = false; renderPage(); };
+        } else {
+            adiv.style.display = "none";
+        }
+    }
+
+    function buildMenu() {
+        const ul = document.getElementById("nav-list");
+        ul.innerHTML = "";
+        pages.forEach(p => {
+            const li = document.createElement("li");
+            const btn = document.createElement("button");
+            btn.textContent = p.title;
+            if (siteData.currentPage === p.id) btn.classList.add("active");
+            btn.onclick = () => { siteData.currentPage = p.id; saveData(true); buildMenu(); renderPage(); };
+            li.appendChild(btn);
+            ul.appendChild(li);
+        });
+    }
+
+    let clicks = 0, timer;
+    document.getElementById("secret-login-trigger").addEventListener("click", () => {
+        clicks++; clearTimeout(timer);
+        timer = setTimeout(() => clicks = 0, 800);
+        if (clicks === 5) {
+            clicks = 0;
+            const pass = prompt("Yönetici şifresi:");
+            if (pass && checkPassword(pass)) { adminMode = true; renderPage(); }
+            else if (pass !== null) alert("Şifre yanlış!");
+        }
+    });
+
+    loadLogo();
+    loadData();
+    loadDramaData();
+    buildMenu();
+    renderPage();
+})();
+</script>
+</body>
+</html>
