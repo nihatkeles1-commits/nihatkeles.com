@@ -94,6 +94,7 @@
         details.accordion summary {
             padding: 0.8rem 1.2rem; cursor: pointer; font-weight: 600; color: #f5b042; background: #252525;
             border-bottom: 1px solid #3a3a3a; list-style: none; user-select: none;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
         }
         details.accordion summary::marker { display: none; }
         details.accordion summary:after {
@@ -106,7 +107,11 @@
         }
         details.inner-accordion summary {
             padding: 0.6rem 1rem; background: #222; color: #f0f0f0; border-bottom: 1px solid #444; font-weight: 500;
+            cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;
         }
+        details.inner-accordion summary::marker { display: none; }
+        details.inner-accordion summary:after { content: '▼'; font-size: 0.7rem; }
+        details.inner-accordion[open] summary:after { transform: rotate(-180deg); }
         details.inner-accordion .details-content { padding: 0.8rem; background: #1a1a1a; }
         .admin-buttons {
             display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 2rem 0 1rem; padding-top: 1rem; border-top: 1px solid #3a3a3a;
@@ -117,6 +122,12 @@
         }
         .admin-btn.danger { border-color: #e55; color: #e55; }
         .admin-btn:hover { background: #f5b042; color: #1e1e1e; }
+        .section-title-edit {
+            background: #2c2c2c; border: none; color: #f5b042; font-size: 0.7rem; border-radius: 20px; padding: 0.15rem 0.6rem; margin-left: 0.5rem; cursor: pointer;
+        }
+        .inline-action-btn {
+            background: #333; border: 1px solid #f5b042; color: #f5b042; padding: 0.2rem 0.8rem; border-radius: 30px; font-size: 0.7rem; margin: 0.3rem 0.2rem; cursor: pointer;
+        }
         .editor-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center;
@@ -135,8 +146,6 @@
             border-radius: 6px; cursor: pointer; font-size: 0.8rem; height: 32px;
         }
         .editor-toolbar button:hover { background: #f5b042; color: #1e1e1e; }
-        .editor-toolbar select { background: #333; color: white; }
-        .editor-toolbar input[type="color"] { width: 32px; padding: 2px; }
         .editor-area {
             flex: 1; min-height: 300px; max-height: 60vh; background: #1e1e1e; border: 1px solid #444;
             border-radius: 12px; padding: 1rem; color: #f0f0f0; outline: none; overflow-y: auto;
@@ -148,7 +157,7 @@
             header { padding: 1rem; }
             .header-brand { flex-direction: column; align-items: center; gap: 0.5rem; }
             .header-logo { width: 140px; max-height: 80px; order: 0; }
-            header h1 { font-size: 1.4rem; order: 0; }
+            header h1 { font-size: 1.4rem; order: 0; white-space: normal; text-align: center; }
             main { padding: 1.2rem; }
             nav button { padding: 0.4rem 0.8rem; font-size: 0.75rem; }
             .admin-btn { padding: 0.4rem 0.8rem; font-size: 0.7rem; }
@@ -318,36 +327,9 @@
                    <p><strong>Hikaye Tasarımından Sahne Uygulamasına</strong></p>
                    <p><em>“Sadece kağıt üzerinde kalan değil, sahne ışığıyla veya kamera vizörüyle buluştuğunda yaşayan metinler üzerine odaklanıyorum.”</em></p>
                    <h3>Üretim Alanları</h3>
-                   <ul>
-                     <li><strong>Dramatik Yazarlık:</strong> Devlet Tiyatroları repertuvarına kabul edilmiş oyunlar ve çocuk müzikalleri.</li>
-                     <li><strong>Ekran Metinleri:</strong> Televizyon dizileri, sinema filmleri ve reklam senaryoları için dramaturjik kurgu ve yazım.</li>
-                     <li><strong>Edebiyat:</strong> Gençli ve Çocuk Romanları.</li>
-                     <li><strong>Kurumsal Yazarlık:</strong> Kamu kurumları ve özel teşebbüsler için stratejik metin üretimi ve editörlük.</li>
-                   </ul>
-                   <h3>Yazım Yaklaşımı</h3>
-                   <p>Bir metni inşa ederken üç temel kriteri önceliklendiriyorum:</p>
-                   <ol>
-                     <li><strong>Uygulanabilirlik:</strong> Sahne veya çekim matematiğine uygun, teknik olarak uygulanabilir kurgular.</li>
-                     <li><strong>Hedef Kitle Algısı:</strong> Çocuk oyununda pedagojik hassasiyet, reklamda pazarlama dili, dramada ise karakter derinliği.</li>
-                     <li><strong>Dinamik Dil:</strong> Bilgi kaosundan uzak, akıcı ve izleyiciyi/okuru hikayenin içinde tutan yalın bir anlatım.</li>
-                   </ol>
-                   <h3>Öne Çıkan Deneyimler</h3>
-                   <ul>
-                     <li><strong>Devlet Tiyatroları:</strong> 60.yıla özel çocuk oyunlarından birine editöryal destek. Repertuvara kazandırılan oyunlar. Müzikal Çocuk Oyunu.</li>
-                     <li><strong>Kültür Bakanlığı / Dış işleri Bakanlığı / Türk Tarih Kurumu:</strong> Senaryo geliştirme destekleri ve kamu projeleri metin yazarlığı.</li>
-                     <li><strong>Medya & Editörlük:</strong> Ulusal kanallarda ve yapım firmalarında senaryo danışmanlığı ve içerik yönetimi.</li>
-                   </ul>`,
-        sahne: `<h2>SAHNE</h2>
-                <p>Eğitmenlik vizyonum, sahnenin disiplini ve kolektif üretim gücüyle şekillendi. Profesyonel sanat kariyerimde edindiğim her tecrübe, bugün drama atölyelerimin mutfağını oluşturuyor.</p>
-                <h3>Sahne Deneyimi ve Disiplini</h3>
-                <ul>
-                  <li><strong>İstanbul Devlet Tiyatroları:</strong> Kurumsal yapı içerisinde, uzun soluklu prodüksiyonlarda yer alarak profesyonel sahne disiplinini ve estetiğini deneyimledim.</li>
-                  <li><strong>Turne Tiyatroları ve Başarılar:</strong> Türkiye genelinde gerçekleştirilen geniş kapsamlı turnelerde yüzlerce temsil vererek farklı kitlelerle buluştum. Bu süreçte ekibimle birlikte, sanatın icrasına ve disiplinine dair pek çok onur plaketi ve başarı ödülüne layık görüldük.</li>
-                  <li><strong>Özel Tiyatrolar:</strong> Farklı ekollerden gelen tiyatro topluluklarıyla profesyonel projeler yürüterek sahnede pratiklerimi zenginleştirdim.</li>
-                </ul>`,
-        iletisim: `<h2>İLETİŞİM</h2>
-                   <p>E-posta: <a href="mailto:nihatkele.1@gmail.com">nihatkele.1@gmail.com</a><br>Telefon: +90 530 558 86 50</p>
-                   <p><a href="#">İletişim Bilgileri | LinkedIn</a><br><a href="https://www.instagram.com/dramahocam/" target="_blank">Instagram: @dramahocam</a></p>`
+                   <ul><li><strong>Dramatik Yazarlık:</strong> Devlet Tiyatroları repertuvarına kabul edilmiş oyunlar ve çocuk müzikalleri.</li><li><strong>Ekran Metinleri:</strong> Televizyon dizileri, sinema filmleri ve reklam senaryoları için dramaturjik kurgu ve yazım.</li><li><strong>Edebiyat:</strong> Gençli ve Çocuk Romanları.</li></ul>`,
+        sahne: `<h2>SAHNE</h2><p>Sahne disiplini ve kolektif üretim gücüyle şekillenen bir eğitmenlik vizyonu.</p>`,
+        iletisim: `<h2>İLETİŞİM</h2><p>E-posta: <a href="mailto:nihatkele.1@gmail.com">nihatkele.1@gmail.com</a><br>Telefon: +90 530 558 86 50</p><p><a href="https://www.instagram.com/dramahocam/" target="_blank">Instagram: @dramahocam</a></p>`
     };
 
     let siteData = {
@@ -357,38 +339,12 @@
 
     let dramaData = {
         articles: [
-            {
-                title: "Eğitim Tecrübesi",
-                content: `<p><strong>Yaklaşım:</strong> Yaratıcı drama temelli, gelişim odaklı eğitimler yürütürüm. Sahneleme deneyimini eğitim sürecinin bir aracı olarak kullanırım.</p>
-                          <p><strong>Kapsam:</strong> 5–12 yaş grubu; ifade becerisi, özgüven ve işbirliği odaklı çalışmalar.</p>
-                          <p><strong>Deneyim:</strong> 25+ eğitim kurumunda uygulama.</p>
-                          <p><strong>Çıktı (Seçili Dönem):</strong> 2016–2024 arasında 500+ öğrenciyle, süreç odaklı 20’ye yakın drama/sahneleme çalışması.</p>`
-            }
+            { title: "Eğitim Tecrübesi", content: "<p><strong>Yaklaşım:</strong> Yaratıcı drama temelli, gelişim odaklı eğitimler.</p>" }
         ],
         references: [],
         instaVideos: [],
         pageTexts: [
-            `<h3>Çocuk Gelişimi Odaklı Oluşturucu Drama</h3>
-             <p><strong>Ne Yapıyorum?</strong><br>İlkokul düzeyinde, çocuk gelişimi ilkelerini temel alan yapılandırılmış yaratıcı drama çalışmaları yürütüyorum. Temel amacım; çocuğun ifade gücünü, sosyal uyum becerisini ve eleştirel düşünme yetisini sahne pratiğiyle somutlaştırmaktır.</p>
-             <p><strong>Nasıl Çalışıyorum?</strong><br>Eğitimler, akademik bir metodolojiye dayanan ve sınıf içi dinamiklere tam uyum sağlayan bir sistem üzerine kurulur:</p>
-             <ul>
-               <li><strong>Oyunlaştırılmış Öğrenme:</strong> Bilgiyi ezberden çıkarıp deneyime dönüştürme.</li>
-               <li><strong>Etkileşimli Rol Alma:</strong> Grup içi iş birliği ve empati geliştirme.</li>
-               <li><strong>Duygusal Zeka (EQ):</strong> Duygu yönetimi ve özgüven odaklı uygulamalar.</li>
-             </ul>
-             <p><strong>Uygulama Modeli</strong><br>Çeyrek asırlık saha deneyimiyle rafine edilen bu yaklaşım üç ana sütuna dayanır:</p>
-             <ol>
-               <li><strong>Disiplinlerarası Geçiş:</strong> Tiyatro pratiğinin çocuk gelişimi pedagojisiyle eş zamanlı kullanımı.</li>
-               <li><strong>Yapılandırılmış Kurgu:</strong> Sınıf ortamına özel, müfredatla uyumlu drama senaryoları.</li>
-               <li><strong>İletişim Becerileri:</strong> Hitabet, artıkülasyon ve diksiyon çalışmalarının drama sürecine doğal entegrasyonu.</li>
-             </ol>
-             <p><strong>Hizmet Alanları</strong></p>
-             <ul>
-               <li><strong>Kurumlar:</strong> İlkokullar, anaokulları ve butik eğitim merkezleri.</li>
-               <li><strong>Eğitimciler:</strong> Öğretmen eğitimleri ve eğitim koordinatörlüğü danışmanlığı.</li>
-               <li><strong>Projeler:</strong> Okul içi program tasarımı ve çocuk müzikalı/tiyatrosu prodüksiyonları.</li>
-             </ul>
-             <p><strong>25 Yıl...</strong><br>Bu süreç; sadece bir eğitmenlik değil, on binin üzerinde çocukla birlikte üretilmiş kesintisiz bir saha araştırmasıdır.</p>`
+            `<h3>Çocuk Gelişimi Odaklı Oluşturucu Drama</h3><p>İlkokul düzeyinde yapılandırılmış yaratıcı drama çalışmaları.</p>`
         ],
         sectionTitles: {
             pageTexts: '📄 Tanıtım Metinleri',
@@ -400,157 +356,51 @@
 
     const DEFAULT_LOGO_SRC = document.getElementById('siteLogo').src;
 
-    function loadLogo() {
-        const src = localStorage.getItem('site_logo_src');
-        if (src) document.getElementById('siteLogo').src = src;
-    }
-    function changeLogo() {
-        const input = document.getElementById('logoFileInput');
-        input.click();
-        input.onchange = function(e) {
-            const file = e.target.files[0];
-            if (!file || !file.type.startsWith('image/')) { alert('Geçerli bir resim seçin!'); return; }
-            const r = new FileReader();
-            r.onload = ev => {
-                document.getElementById('siteLogo').src = ev.target.result;
-                localStorage.setItem('site_logo_src', ev.target.result);
-                alert('Logo güncellendi!');
-            };
-            r.readAsDataURL(file);
-        };
-    }
-    function resetLogo() {
-        localStorage.removeItem('site_logo_src');
-        document.getElementById('siteLogo').src = DEFAULT_LOGO_SRC;
-        alert('Logo varsayılana döndürüldü.');
-    }
+    function loadLogo() { const src = localStorage.getItem('site_logo_src'); if (src) document.getElementById('siteLogo').src = src; }
+    function changeLogo() { const input = document.getElementById('logoFileInput'); input.click(); input.onchange = e => { const file = e.target.files[0]; if (!file) return; const r = new FileReader(); r.onload = ev => { document.getElementById('siteLogo').src = ev.target.result; localStorage.setItem('site_logo_src', ev.target.result); alert('Logo güncellendi!'); }; r.readAsDataURL(file); }; }
+    function resetLogo() { localStorage.removeItem('site_logo_src'); document.getElementById('siteLogo').src = DEFAULT_LOGO_SRC; alert('Logo varsayılana döndürüldü.'); }
 
-    function loadDramaData() {
-        const saved = localStorage.getItem("nihatkeles_drama");
-        if (saved) { try { Object.assign(dramaData, JSON.parse(saved)); } catch(e) {} }
-    }
+    function loadDramaData() { const saved = localStorage.getItem("nihatkeles_drama"); if (saved) { try { Object.assign(dramaData, JSON.parse(saved)); } catch(e) {} } }
     function saveDramaData() { localStorage.setItem("nihatkeles_drama", JSON.stringify(dramaData)); }
-
-    function loadData() {
-        const saved = localStorage.getItem("nihatkeles_simple");
-        if (saved) { try { const p = JSON.parse(saved); siteData.contents = p.contents || siteData.contents; siteData.currentPage = p.currentPage || "anasayfa"; } catch(e) {} }
-    }
+    function loadData() { const saved = localStorage.getItem("nihatkeles_simple"); if (saved) { try { const p = JSON.parse(saved); siteData.contents = p.contents || siteData.contents; siteData.currentPage = p.currentPage || "anasayfa"; } catch(e) {} } }
     function saveData(silent) { localStorage.setItem("nihatkeles_simple", JSON.stringify({contents:siteData.contents, currentPage:siteData.currentPage})); if (!silent && adminMode) alert("✅ Kaydedildi"); }
 
     function escapeHtml(s) { return (s||'').replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[m]||m); }
-
     function createLink() { const url = prompt("Link (https://...):","https://"); if (url) document.execCommand('createLink',false,url.trim()); }
-
-    function editSectionTitle(key) {
-        const cur = dramaData.sectionTitles[key] || '';
-        const n = prompt("Yeni başlık:", cur);
-        if (n && n.trim()) { dramaData.sectionTitles[key] = n.trim(); saveDramaData(); renderDramaPage(); }
-    }
+    
+    function editSectionTitle(key) { const cur = dramaData.sectionTitles[key] || ''; const n = prompt("Yeni başlık:", cur); if (n && n.trim()) { dramaData.sectionTitles[key] = n.trim(); saveDramaData(); renderDramaPage(); } }
 
     function renderDramaPage() {
         let html = `<h2>DRAMA HOCAM</h2>`;
-        const pt = dramaData.sectionTitles.pageTexts||'📄 Tanıtım Metinleri';
-        html += `<details class="accordion" open><summary>${pt} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('pageTexts');event.stopPropagation();" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️</button>`:''}</summary><div class="details-content">`;
-        if (!dramaData.pageTexts.length) html += `<p>Henüz tanıtım metni yok.</p>`;
-        else dramaData.pageTexts.forEach((t,i)=>{ html+=`<div style="margin-bottom:1rem;border-bottom:1px solid #333;">${t}</div>`; if(adminMode) html+=`<button class="admin-btn" onclick="deletePageText(${i})">❌ Sil</button>`; });
-        html += `</div></details>`;
-        html += `<details class="accordion"><summary>${dramaData.sectionTitles.articles||'📖 Makaleler'} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('articles');event.stopPropagation();" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️</button>`:''}</summary><div class="details-content">`;
-        if (!dramaData.articles.length) html += `<p>Henüz makale yok.</p>`;
-        else dramaData.articles.forEach((a,i)=>{ html+=`<details class="inner-accordion"><summary>${escapeHtml(a.title)}</summary><div class="details-content">${a.content}</div>${adminMode?`<button class="admin-btn" onclick="deleteArticle(${i})">❌ Sil</button>`:''}</details>`; });
-        html += `</div></details>`;
-        html += `<details class="accordion"><summary>${dramaData.sectionTitles.references||'🏫 Referanslar'} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('references');event.stopPropagation();" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️</button>`:''}</summary><div class="details-content">`;
-        if (!dramaData.references.length) html += `<p>Henüz referans yok.</p>`;
-        else dramaData.references.forEach((r,i)=>{ html+=`<details class="inner-accordion"><summary>${escapeHtml(r.name)}</summary><div class="details-content"><p>${escapeHtml(r.description)}</p></div>${adminMode?`<button class="admin-btn" onclick="deleteReference(${i})">❌ Sil</button>`:''}</details>`; });
-        html += `</div></details>`;
-        html += `<details class="accordion"><summary>${dramaData.sectionTitles.instaVideos||'📸 Instagram Videoları'} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('instaVideos');event.stopPropagation();" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️</button>`:''}</summary><div class="details-content">`;
-        if (!dramaData.instaVideos.length) html += `<p>Henüz video yok.</p>`;
-        else dramaData.instaVideos.forEach((v,i)=>{ const u=v.embedUrl? v.embedUrl.replace(/"/g,'&quot;'):''; html+=`<details class="inner-accordion"><summary>${escapeHtml(v.title)}</summary><div class="details-content">${u?`<iframe src="${u}" width="100%" height="400" frameborder="0" allowfullscreen></iframe>`:''}</div>${adminMode?`<button class="admin-btn" onclick="deleteInstaVideo(${i})">❌ Sil</button>`:''}</details>`; });
-        html += `</div></details>`;
+        const renderSection = (key, items, renderItem) => {
+            const title = dramaData.sectionTitles[key] || key;
+            html += `<details class="accordion" open><summary>${title} ${adminMode ? `<button class="section-title-edit" onclick="editSectionTitle('${key}');event.stopPropagation();">✏️</button>` : ''}</summary><div class="details-content">`;
+            if (items.length === 0) html += `<p>Henüz öge yok.</p>`;
+            else items.forEach((item, idx) => { html += renderItem(item, idx); });
+            html += `</div></details>`;
+        };
+        renderSection('pageTexts', dramaData.pageTexts, (text, idx) => `<div style="margin-bottom:1rem;border-bottom:1px solid #333;">${text}${adminMode ? `<div><button class="inline-action-btn" onclick="deletePageText(${idx})">🗑️ Sil</button></div>` : ''}</div>`);
+        renderSection('articles', dramaData.articles, (art, idx) => `<details class="inner-accordion"><summary>${escapeHtml(art.title)}</summary><div class="details-content">${art.content}</div>${adminMode ? `<div style="padding:0.5rem;"><button class="inline-action-btn" onclick="deleteArticle(${idx})">❌ Sil</button></div>` : ''}</details>`);
+        renderSection('references', dramaData.references, (ref, idx) => `<details class="inner-accordion"><summary>${escapeHtml(ref.name)}</summary><div class="details-content"><p>${escapeHtml(ref.description)}</p></div>${adminMode ? `<div style="padding:0.5rem;"><button class="inline-action-btn" onclick="deleteReference(${idx})">❌ Sil</button></div>` : ''}</details>`);
+        renderSection('instaVideos', dramaData.instaVideos, (vid, idx) => `<details class="inner-accordion"><summary>${escapeHtml(vid.title)}</summary><div class="details-content">${vid.embedUrl ? `<iframe src="${vid.embedUrl.replace(/"/g,'&quot;')}" width="100%" height="400" frameborder="0" allowfullscreen></iframe>` : ''}</div>${adminMode ? `<div style="padding:0.5rem;"><button class="inline-action-btn" onclick="deleteInstaVideo(${idx})">❌ Sil</button></div>` : ''}</details>`);
         document.getElementById("dynamic-drama-content").innerHTML = html;
     }
 
-    function addPageText() {
-        const modal = document.createElement('div');
-        modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:2000;display:flex;justify-content:center;align-items:center;';
-        modal.innerHTML = `<div style="background:#252525;border-radius:20px;padding:1.5rem;width:90%;max-width:600px;border:1px solid #f5b042;"><h3 style="color:#f5b042;">Sayfa Yazısı Ekle</h3><div id="tempEditor" style="min-height:150px;background:#1e1e1e;border:1px solid #444;border-radius:12px;padding:1rem;color:#f0f0f0;outline:none;margin:1rem 0;" contenteditable="true">Yeni tanıtım metni girin...</div><div style="display:flex;gap:0.5rem;justify-content:flex-end;"><button class="admin-btn" id="cancelTextBtn">İptal</button><button class="admin-btn" id="saveTextBtn" style="background:#f5b042;color:#1e1e1e;">Kaydet</button></div></div>`;
-        document.body.appendChild(modal);
-        modal.querySelector('#cancelTextBtn').onclick = ()=> document.body.removeChild(modal);
-        modal.querySelector('#saveTextBtn').onclick = ()=>{
-            dramaData.pageTexts.push(modal.querySelector('#tempEditor').innerHTML);
-            saveDramaData(); renderDramaPage(); document.body.removeChild(modal);
-        };
-    }
+    function addPageText() { const newHtml = prompt("Tanıtım metnini HTML formatında giriniz:", "<p>Yeni metin</p>"); if(newHtml) { dramaData.pageTexts.push(newHtml); saveDramaData(); renderDramaPage(); } }
     function deletePageText(i) { dramaData.pageTexts.splice(i,1); saveDramaData(); renderDramaPage(); }
-    function addArticle() {
-        const t = prompt("Başlık:"); if (!t) return;
-        const c = prompt("İçerik:"); if (!c) return;
-        dramaData.articles.push({title:t.trim(), content:c.trim()});
-        saveDramaData(); renderDramaPage();
-    }
+    function addArticle() { const t = prompt("Makale Başlığı:"); if (!t) return; const c = prompt("Makale içeriği (HTML):"); if (!c) return; dramaData.articles.push({title:t.trim(), content:c.trim()}); saveDramaData(); renderDramaPage(); }
     function deleteArticle(i) { dramaData.articles.splice(i,1); saveDramaData(); renderDramaPage(); }
-    function addReference() {
-        const n = prompt("Ad:"); if (!n) return;
-        const d = prompt("Açıklama:"); if (!d) return;
-        dramaData.references.push({name:n.trim(), description:d.trim()});
-        saveDramaData(); renderDramaPage();
-    }
+    function addReference() { const n = prompt("Referans Adı:"); if (!n) return; const d = prompt("Açıklama:"); if (!d) return; dramaData.references.push({name:n.trim(), description:d.trim()}); saveDramaData(); renderDramaPage(); }
     function deleteReference(i) { dramaData.references.splice(i,1); saveDramaData(); renderDramaPage(); }
-    function addInstaVideo() {
-        const t = prompt("Başlık:"); if (!t) return;
-        let u = prompt("Instagram embed linki:"); if (!u) return;
-        u = u.replace(/"/g,'').replace(/'/g,'').trim();
-        if (!u.startsWith("https://")) { alert("Geçerli URL girin!"); return; }
-        dramaData.instaVideos.push({title:t.trim(), embedUrl:u});
-        saveDramaData(); renderDramaPage();
-    }
+    function addInstaVideo() { const t = prompt("Video Başlığı:"); if (!t) return; let u = prompt("Instagram embed linki (https://...):"); if (!u) return; u = u.trim(); dramaData.instaVideos.push({title:t.trim(), embedUrl:u}); saveDramaData(); renderDramaPage(); }
     function deleteInstaVideo(i) { dramaData.instaVideos.splice(i,1); saveDramaData(); renderDramaPage(); }
 
     let currentEditorTarget = '';
-    function openEditor() {
-        const pid = siteData.currentPage;
-        currentEditorTarget = pid;
-        const content = pid==='drama' ? (dramaData.pageTexts||[]).join('<hr>') : (siteData.contents[pid]||'');
-        document.getElementById('editorArea').innerHTML = content;
-        document.getElementById('editorModal').classList.add('active');
-    }
+    function openEditor() { const pid = siteData.currentPage; currentEditorTarget = pid; const content = (pid === 'drama') ? (dramaData.pageTexts.join('<hr>')) : (siteData.contents[pid] || ''); document.getElementById('editorArea').innerHTML = content; document.getElementById('editorModal').classList.add('active'); }
     function closeEditor() { document.getElementById('editorModal').classList.remove('active'); }
-    document.getElementById('saveEditorBtn').onclick = function() {
-        const html = document.getElementById('editorArea').innerHTML;
-        if (currentEditorTarget === 'drama') {
-            dramaData.pageTexts = html.split('<hr>').map(s=>s.trim()).filter(s=>s);
-            saveDramaData(); renderDramaPage();
-        } else {
-            siteData.contents[currentEditorTarget] = html;
-            saveData(); renderPage();
-        }
-        closeEditor();
-    };
-
-    function addText() { const t = prompt("Yazı:"); if(t) { siteData.contents[siteData.currentPage] += `<p>${escapeHtml(t.trim())}</p>`; saveData(); renderPage(); } }
-    function addHeading() { const h = prompt("Başlık:"); if(h) { siteData.contents[siteData.currentPage] += `<h2>${escapeHtml(h.trim())}</h2>`; saveData(); renderPage(); } }
-    function addImageByFile() {
-        const inp = document.getElementById('hiddenFileInput');
-        inp.value = ''; inp.onchange = e => {
-            const f = e.target.files[0]; if(!f) return;
-            const r = new FileReader();
-            r.onload = ev => { siteData.contents[siteData.currentPage] += `<img src="${ev.target.result}" style="max-width:100%;border-radius:16px;margin:10px 0;">`; saveData(); renderPage(); };
-            r.readAsDataURL(f);
-        };
-        inp.click();
-    }
-    function addImageByUrl() {
-        let u = prompt("Resim URL:"); if(u) { u = u.trim().replace(/"/g,''); siteData.contents[siteData.currentPage] += `<img src="${u}" style="max-width:100%;border-radius:16px;margin:10px 0;">`; saveData(); renderPage(); }
-    }
-    function addVideoByUrl() {
-        let u = prompt("Video URL (MP4):"); if(u) { u = u.trim().replace(/"/g,''); siteData.contents[siteData.currentPage] += `<video controls style="max-width:100%;border-radius:16px;margin:10px 0;" src="${u}"></video>`; saveData(); renderPage(); }
-    }
-    function clearPage() {
-        if (confirm("Tüm içerik silinecek! Onaylıyor musunuz?")) { siteData.contents[siteData.currentPage] = ""; saveData(); renderPage(); }
-    }
-    function changeAdminPassword() {
-        const old = prompt("Eski şifre:"); if (!old || !checkPassword(old)) { alert("Eski şifre yanlış!"); return; }
-        const nw = prompt("Yeni şifre:"); if (nw && nw.trim()) { setNewPassword(nw.trim()); alert("Şifre değişti. Tekrar giriş yapın."); adminMode = false; renderPage(); }
-    }
+    document.getElementById('saveEditorBtn').onclick = function() { const html = document.getElementById('editorArea').innerHTML; if (currentEditorTarget === 'drama') { dramaData.pageTexts = html.split('<hr>').map(s=>s.trim()).filter(s=>s); saveDramaData(); renderDramaPage(); } else { siteData.contents[currentEditorTarget] = html; saveData(); renderPage(); } closeEditor(); };
+    function clearPage() { if (confirm("Tüm içerik silinecek! Onaylıyor musunuz?")) { siteData.contents[siteData.currentPage] = ""; saveData(); renderPage(); } }
+    function changeAdminPassword() { const old = prompt("Eski şifre:"); if (!old || !checkPassword(old)) { alert("Eski şifre yanlış!"); return; } const nw = prompt("Yeni şifre:"); if (nw && nw.trim()) { setNewPassword(nw.trim()); alert("Şifre değişti. Tekrar giriş yapın."); adminMode = false; renderPage(); } }
 
     function renderPage() {
         const pid = siteData.currentPage;
@@ -565,23 +415,18 @@
                 <button class="admin-btn" id="resetLogoBtn">🔄 Logo Sıfırla</button>
                 <button class="admin-btn" id="editPageContentBtn" style="background:#f5b042;color:#1e1e1e;">🖊️ Sayfa İçeriğini Düzenle</button>`;
             if (pid === "drama") {
-                btns += `<button class="admin-btn" id="dramaAddPageText">📄 Sayfa Yazısı Ekle</button>
+                btns += `<button class="admin-btn" id="dramaAddPageText">📄 Tanıtım Metni Ekle</button>
                          <button class="admin-btn" id="dramaAddArticle">📝 Makale Ekle</button>
                          <button class="admin-btn" id="dramaAddReference">🏫 Referans Ekle</button>
                          <button class="admin-btn" id="dramaAddInsta">📸 Instagram Video Ekle</button>`;
             } else {
-                btns += `<button class="admin-btn" id="addTextBtn">📝 Yazı Ekle</button>
-                         <button class="admin-btn" id="addHeadingBtn">📌 Başlık Ekle</button>
-                         <button class="admin-btn" id="addImageFileBtn">🖼️ Resim Dosya Seç</button>
-                         <button class="admin-btn" id="addImageUrlBtn">🌐 Resim URL Ekle</button>
-                         <button class="admin-btn" id="addVideoUrlBtn">🎬 Video URL Ekle</button>
-                         <button class="admin-btn danger" id="clearPageBtn">🗑️ Sayfa İçeriğini Sil</button>`;
+                btns += `<button class="admin-btn danger" id="clearPageBtn">🗑️ Sayfa İçeriğini Sil</button>`;
             }
             btns += `<button class="admin-btn" id="changePasswordBtn">🔐 Şifre Değiştir</button>
                      <button class="admin-btn" id="exitAdminBtn">🚪 Çıkış</button></div>`;
             adiv.innerHTML = btns;
             adiv.style.display = "block";
-
+            
             document.getElementById("changeLogoBtn").onclick = changeLogo;
             document.getElementById("resetLogoBtn").onclick = resetLogo;
             document.getElementById("editPageContentBtn").onclick = openEditor;
@@ -591,12 +436,7 @@
                 document.getElementById("dramaAddReference").onclick = addReference;
                 document.getElementById("dramaAddInsta").onclick = addInstaVideo;
             } else {
-                document.getElementById("addTextBtn").onclick = addText;
-                document.getElementById("addHeadingBtn").onclick = addHeading;
-                document.getElementById("addImageFileBtn").onclick = addImageByFile;
-                document.getElementById("addImageUrlBtn").onclick = addImageByUrl;
-                document.getElementById("addVideoUrlBtn").onclick = addVideoByUrl;
-                document.getElementById("clearPageBtn").onclick = clearPage;
+                if(document.getElementById("clearPageBtn")) document.getElementById("clearPageBtn").onclick = clearPage;
             }
             document.getElementById("changePasswordBtn").onclick = changeAdminPassword;
             document.getElementById("exitAdminBtn").onclick = () => { adminMode = false; renderPage(); };
@@ -605,37 +445,13 @@
         }
     }
 
-    function buildMenu() {
-        const ul = document.getElementById("nav-list");
-        ul.innerHTML = "";
-        pages.forEach(p => {
-            const li = document.createElement("li");
-            const btn = document.createElement("button");
-            btn.textContent = p.title;
-            if (siteData.currentPage === p.id) btn.classList.add("active");
-            btn.onclick = () => { siteData.currentPage = p.id; saveData(true); buildMenu(); renderPage(); };
-            li.appendChild(btn);
-            ul.appendChild(li);
-        });
-    }
+    function buildMenu() { const ul = document.getElementById("nav-list"); ul.innerHTML = ""; pages.forEach(p => { const btn = document.createElement("button"); btn.textContent = p.title; if (siteData.currentPage === p.id) btn.classList.add("active"); btn.onclick = () => { siteData.currentPage = p.id; saveData(true); buildMenu(); renderPage(); }; ul.appendChild(btn); }); }
 
     let clicks = 0, timer;
-    document.getElementById("secret-login-trigger").addEventListener("click", () => {
-        clicks++; clearTimeout(timer);
-        timer = setTimeout(() => clicks = 0, 800);
-        if (clicks === 5) {
-            clicks = 0;
-            const pass = prompt("Yönetici şifresi:");
-            if (pass && checkPassword(pass)) { adminMode = true; renderPage(); }
-            else if (pass !== null) alert("Şifre yanlış!");
-        }
-    });
+    document.getElementById("secret-login-trigger").addEventListener("click", () => { clicks++; clearTimeout(timer); timer = setTimeout(() => clicks = 0, 800); if (clicks === 5) { clicks = 0; const pass = prompt("Yönetici şifresi:"); if (pass && checkPassword(pass)) { adminMode = true; renderPage(); } else if (pass !== null) alert("Şifre yanlış!"); } });
 
-    loadLogo();
-    loadData();
-    loadDramaData();
-    buildMenu();
-    renderPage();
+    loadLogo(); loadData(); loadDramaData(); buildMenu(); renderPage();
+    window.editSectionTitle = editSectionTitle; window.deletePageText = deletePageText; window.deleteArticle = deleteArticle; window.deleteReference = deleteReference; window.deleteInstaVideo = deleteInstaVideo; window.createLink = createLink; window.closeEditor = closeEditor; window.addPageText = addPageText; window.addArticle = addArticle; window.addReference = addReference; window.addInstaVideo = addInstaVideo;
 })();
 </script>
 </body>
