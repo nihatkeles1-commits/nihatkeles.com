@@ -441,38 +441,33 @@
 
     function createLink() { const url = prompt("Link (https://...):","https://"); if (url) document.execCommand('createLink',false,url.trim()); }
 
-   function editSectionTitle(key) {
-    event.stopPropagation();
-    const cur = dramaData.sectionTitles[key] || '';
-    const n = prompt("Yeni başlık:", cur);
-    if (n && n.trim()) { 
-        dramaData.sectionTitles[key] = n.trim(); 
-        saveDramaData(); 
-        renderDramaPage(); 
-    
+    function editSectionTitle(key) {
+        const cur = dramaData.sectionTitles[key] || '';
+        const n = prompt("Yeni başlık:", cur);
+        if (n && n.trim()) { dramaData.sectionTitles[key] = n.trim(); saveDramaData(); renderDramaPage(); }
+    }
 
-
-     function renderDramaPage() {
-    let html = `<h2>DRAMA HOCAM</h2>`;
-    const pt = dramaData.sectionTitles.pageTexts||'📄 Tanıtım Metinleri';
-    html += `<details class="accordion" open><summary>${pt} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('pageTexts');" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️ Başlık</button>`:''}</summary><div class="details-content">`;
-    if (!dramaData.pageTexts.length) html += `<p>Henüz tanıtım metni yok.</p>`;
-    else dramaData.pageTexts.forEach((t,i)=>{ html+=`<div style="margin-bottom:1rem;border-bottom:1px solid #333;">${t}</div>`; if(adminMode) html+=`<button class="admin-btn" onclick="deletePageText(${i})">❌ Sil</button>`; });
-    html += `</div></details>`;
-    html += `<details class="accordion"><summary>${dramaData.sectionTitles.articles||'📖 Makaleler'} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('articles');" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️ Başlık</button>`:''}</summary><div class="details-content">`;
-    if (!dramaData.articles.length) html += `<p>Henüz makale yok.</p>`;
-    else dramaData.articles.forEach((a,i)=>{ html+=`<details class="inner-accordion"><summary>${escapeHtml(a.title)}</summary><div class="details-content">${a.content}</div>${adminMode?`<button class="admin-btn" onclick="deleteArticle(${i})">❌ Sil</button>`:''}</details>`; });
-    html += `</div></details>`;
-    html += `<details class="accordion"><summary>${dramaData.sectionTitles.references||'🏫 Referanslar'} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('references');" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️ Başlık</button>`:''}</summary><div class="details-content">`;
-    if (!dramaData.references.length) html += `<p>Henüz referans yok.</p>`;
-    else dramaData.references.forEach((r,i)=>{ html+=`<details class="inner-accordion"><summary>${escapeHtml(r.name)}</summary><div class="details-content"><p>${escapeHtml(r.description)}</p></div>${adminMode?`<button class="admin-btn" onclick="deleteReference(${i})">❌ Sil</button>`:''}</details>`; });
-    html += `</div></details>`;
-    html += `<details class="accordion"><summary>${dramaData.sectionTitles.instaVideos||'📸 Instagram Videoları'} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('instaVideos');" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️ Başlık</button>`:''}</summary><div class="details-content">`;
-    if (!dramaData.instaVideos.length) html += `<p>Henüz video yok.</p>`;
-    else dramaData.instaVideos.forEach((v,i)=>{ const u=v.embedUrl? v.embedUrl.replace(/"/g,'&quot;'):''; html+=`<details class="inner-accordion"><summary>${escapeHtml(v.title)}</summary><div class="details-content">${u?`<iframe src="${u}" width="100%" height="400" frameborder="0" allowfullscreen></iframe>`:''}</div>${adminMode?`<button class="admin-btn" onclick="deleteInstaVideo(${i})">❌ Sil</button>`:''}</details>`; });
-    html += `</div></details>`;
-    document.getElementById("dynamic-drama-content").innerHTML = html;
-}
+    function renderDramaPage() {
+        let html = `<h2>DRAMA HOCAM</h2>`;
+        const pt = dramaData.sectionTitles.pageTexts||'📄 Tanıtım Metinleri';
+        html += `<details class="accordion" open><summary>${pt} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('pageTexts');event.stopPropagation();" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️</button>`:''}</summary><div class="details-content">`;
+        if (!dramaData.pageTexts.length) html += `<p>Henüz tanıtım metni yok.</p>`;
+        else dramaData.pageTexts.forEach((t,i)=>{ html+=`<div style="margin-bottom:1rem;border-bottom:1px solid #333;">${t}</div>`; if(adminMode) html+=`<button class="admin-btn" onclick="deletePageText(${i})">❌ Sil</button>`; });
+        html += `</div></details>`;
+        html += `<details class="accordion"><summary>${dramaData.sectionTitles.articles||'📖 Makaleler'} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('articles');event.stopPropagation();" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️</button>`:''}</summary><div class="details-content">`;
+        if (!dramaData.articles.length) html += `<p>Henüz makale yok.</p>`;
+        else dramaData.articles.forEach((a,i)=>{ html+=`<details class="inner-accordion"><summary>${escapeHtml(a.title)}</summary><div class="details-content">${a.content}</div>${adminMode?`<button class="admin-btn" onclick="deleteArticle(${i})">❌ Sil</button>`:''}</details>`; });
+        html += `</div></details>`;
+        html += `<details class="accordion"><summary>${dramaData.sectionTitles.references||'🏫 Referanslar'} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('references');event.stopPropagation();" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️</button>`:''}</summary><div class="details-content">`;
+        if (!dramaData.references.length) html += `<p>Henüz referans yok.</p>`;
+        else dramaData.references.forEach((r,i)=>{ html+=`<details class="inner-accordion"><summary>${escapeHtml(r.name)}</summary><div class="details-content"><p>${escapeHtml(r.description)}</p></div>${adminMode?`<button class="admin-btn" onclick="deleteReference(${i})">❌ Sil</button>`:''}</details>`; });
+        html += `</div></details>`;
+        html += `<details class="accordion"><summary>${dramaData.sectionTitles.instaVideos||'📸 Instagram Videoları'} ${adminMode?`<button class="admin-btn" onclick="editSectionTitle('instaVideos');event.stopPropagation();" style="font-size:0.7rem;padding:0.2rem 0.5rem;">✏️</button>`:''}</summary><div class="details-content">`;
+        if (!dramaData.instaVideos.length) html += `<p>Henüz video yok.</p>`;
+        else dramaData.instaVideos.forEach((v,i)=>{ const u=v.embedUrl? v.embedUrl.replace(/"/g,'&quot;'):''; html+=`<details class="inner-accordion"><summary>${escapeHtml(v.title)}</summary><div class="details-content">${u?`<iframe src="${u}" width="100%" height="400" frameborder="0" allowfullscreen></iframe>`:''}</div>${adminMode?`<button class="admin-btn" onclick="deleteInstaVideo(${i})">❌ Sil</button>`:''}</details>`; });
+        html += `</div></details>`;
+        document.getElementById("dynamic-drama-content").innerHTML = html;
+    }
 
     function addPageText() {
         const modal = document.createElement('div');
