@@ -448,8 +448,48 @@
 
     function buildMenu() { const ul = document.getElementById("nav-list"); ul.innerHTML = ""; pages.forEach(p => { const btn = document.createElement("button"); btn.textContent = p.title; if (siteData.currentPage === p.id) btn.classList.add("active"); btn.onclick = () => { siteData.currentPage = p.id; saveData(true); buildMenu(); renderPage(); }; ul.appendChild(btn); }); }
 
-    let clicks = 0, timer;
-    document.getElementById("secret-login-trigger").addEventListener("click", () => { clicks++; clearTimeout(timer); timer = setTimeout(() => clicks = 0, 800); if (clicks === 5) { clicks = 0; const pass = prompt("Yönetici şifresi:"); if (pass && checkPassword(pass)) { adminMode = true; renderPage(); } else if (pass !== null) alert("Şifre yanlış!"); } });
+    // --- YENİ RİTMİK ŞİFRE MEKANİZMASI ---
+    let rhythmPattern = ""; 
+    let pressStartTime = 0;
+    let rhythmTimer;
+
+    const trigger = document.getElementById("secret-login-trigger");
+
+    trigger.addEventListener("mousedown", () => {
+        pressStartTime = Date.now();
+        clearTimeout(rhythmTimer);
+    });
+
+    trigger.addEventListener("mouseup", () => {
+        const pressDuration = Date.now() - pressStartTime;
+        const type = (pressDuration > 1000) ? "U" : "K"; 
+        
+        rhythmPattern += type;
+        
+        if (rhythmPattern === "KKKKKUKK") {
+            const pass = prompt("Yönetici şifresi:");
+            if (pass && checkPassword(pass)) {
+                adminMode = true;
+                renderPage();
+            } else if (pass !== null) {
+                alert("Şifre yanlış!");
+            }
+            rhythmPattern = ""; 
+        }
+
+        rhythmTimer = setTimeout(() => {
+            rhythmPattern = "";
+        }, 2000);
+    });
+
+    // Mobil uyumluluk için
+    trigger.addEventListener("touchstart", (e) => { 
+        pressStartTime = Date.now(); 
+        clearTimeout(rhythmTimer); 
+    });
+    trigger.addEventListener("touchend", (e) => { 
+        trigger.dispatchEvent(new Event('mouseup')); 
+    });
 
     loadLogo(); loadData(); loadDramaData(); buildMenu(); renderPage();
     window.editSectionTitle = editSectionTitle; window.deletePageText = deletePageText; window.deleteArticle = deleteArticle; window.deleteReference = deleteReference; window.deleteInstaVideo = deleteInstaVideo; window.createLink = createLink; window.closeEditor = closeEditor; window.addPageText = addPageText; window.addArticle = addArticle; window.addReference = addReference; window.addInstaVideo = addInstaVideo;
