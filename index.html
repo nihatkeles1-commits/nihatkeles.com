@@ -295,7 +295,7 @@
         return H.map(x => x.toString(16).padStart(8,'0')).join('');
     }
 
-    const DEFAULT_HASH = sha256("12345");
+    const DEFAULT_HASH = sha256("set32lot74.");
     function getSavedHash() { return localStorage.getItem("admin_password_hash") || DEFAULT_HASH; }
     function setNewPassword(pass) { localStorage.setItem("admin_password_hash", sha256(pass)); }
     function checkPassword(pass) { return sha256(pass) === getSavedHash(); }
