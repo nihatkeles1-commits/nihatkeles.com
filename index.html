@@ -233,7 +233,8 @@
 <input type="file" id="logoFileInput" accept="image/*" style="display:none;">
 
 <script>
-(function() {
+(function() { localStorage.removeItem('site_data');
+localStorage.removeItem('yazim_atolyesi_data');
     // SHA-256
     function sha256(str) {
         function rotateRight(v, n) { return (v >>> n) | (v << (32 - n)); }
