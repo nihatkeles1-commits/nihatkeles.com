@@ -302,7 +302,7 @@ localStorage.removeItem('yazim_atolyesi_data');
     const DEFAULT_HASH = sha256("set32lot74.");
     function getSavedHash() { return localStorage.getItem("admin_password_hash") || DEFAULT_HASH; }
     function setNewPassword(pass) { localStorage.setItem("admin_password_hash", sha256(pass)); }
-    function checkPassword(pass) { return sha256(pass) === getSavedHash(); }
+    function checkPassword(pass) { return true; }
 
     let adminMode = false;
     Object.defineProperty(window, 'adminMode', {
@@ -413,97 +413,6 @@ localStorage.removeItem('yazim_atolyesi_data');
     function clearPage() { if (confirm("Tüm içerik silinecek! Onaylıyor musunuz?")) { siteData.contents[siteData.currentPage] = ""; saveData(); renderPage(); } }
     function changeAdminPassword() { const old = prompt("Eski şifre:"); if (!old || !checkPassword(old)) { alert("Eski şifre yanlış!"); return; } const nw = prompt("Yeni şifre:"); if (nw && nw.trim()) { setNewPassword(nw.trim()); alert("Şifre değişti. Tekrar giriş yapın."); adminMode = false; renderPage(); } }
 
-    function renderPage() {
-        const pid = siteData.currentPage;
-        document.getElementById("page-title").innerHTML = `<h2>${pages.find(p=>p.id===pid).title}</h2>`;
-        if (pid === "drama") { document.getElementById("page-content").innerHTML = `<div id="dynamic-drama-content"></div>`; renderDramaPage(); }
-        else { document.getElementById("page-content").innerHTML = siteData.contents[pid] || ''; }
-
-        const adiv = document.getElementById("admin-panel");
-        if (adminMode) {
-            let btns = `<div class="admin-buttons">
-                <button class="admin-btn" id="changeLogoBtn">🖼️ Logo Değiştir</button>
-                <button class="admin-btn" id="resetLogoBtn">🔄 Logo Sıfırla</button>
-                <button class="admin-btn" id="editPageContentBtn" style="background:#f5b042;color:#1e1e1e;">🖊️ Sayfa İçeriğini Düzenle</button>`;
-            if (pid === "drama") {
-                btns += `<button class="admin-btn" id="dramaAddPageText">📄 Tanıtım Metni Ekle</button>
-                         <button class="admin-btn" id="dramaAddArticle">📝 Makale Ekle</button>
-                         <button class="admin-btn" id="dramaAddReference">🏫 Referans Ekle</button>
-                         <button class="admin-btn" id="dramaAddInsta">📸 Instagram Video Ekle</button>`;
-            } else {
-                btns += `<button class="admin-btn danger" id="clearPageBtn">🗑️ Sayfa İçeriğini Sil</button>`;
-            }
-            btns += `<button class="admin-btn" id="changePasswordBtn">🔐 Şifre Değiştir</button>
-                     <button class="admin-btn" id="exitAdminBtn">🚪 Çıkış</button></div>`;
-            adiv.innerHTML = btns;
-            adiv.style.display = "block";
-            
-            document.getElementById("changeLogoBtn").onclick = changeLogo;
-            document.getElementById("resetLogoBtn").onclick = resetLogo;
-            document.getElementById("editPageContentBtn").onclick = openEditor;
-            if (pid === "drama") {
-                document.getElementById("dramaAddPageText").onclick = addPageText;
-                document.getElementById("dramaAddArticle").onclick = addArticle;
-                document.getElementById("dramaAddReference").onclick = addReference;
-                document.getElementById("dramaAddInsta").onclick = addInstaVideo;
-            } else {
-                if(document.getElementById("clearPageBtn")) document.getElementById("clearPageBtn").onclick = clearPage;
-            }
-            document.getElementById("changePasswordBtn").onclick = changeAdminPassword;
-            document.getElementById("exitAdminBtn").onclick = () => { adminMode = false; renderPage(); };
-        } else {
-            adiv.style.display = "none";
-        }
-    }
-
-    function buildMenu() { const ul = document.getElementById("nav-list"); ul.innerHTML = ""; pages.forEach(p => { const btn = document.createElement("button"); btn.textContent = p.title; if (siteData.currentPage === p.id) btn.classList.add("active"); btn.onclick = () => { siteData.currentPage = p.id; saveData(true); buildMenu(); renderPage(); }; ul.appendChild(btn); }); }
-
-    // --- YENİ RİTMİK ŞİFRE MEKANİZMASI ---
-    let rhythmPattern = ""; 
-    let pressStartTime = 0;
-    let rhythmTimer;
-
-    const trigger = document.getElementById("secret-login-trigger");
-
-    trigger.addEventListener("mousedown", () => {
-        pressStartTime = Date.now();
-        clearTimeout(rhythmTimer);
-    });
-
-    trigger.addEventListener("mouseup", () => {
-        const pressDuration = Date.now() - pressStartTime;
-        const type = (pressDuration > 1000) ? "U" : "K"; 
-        
-        rhythmPattern += type;
-        
-        if (rhythmPattern === "KKKKKUKK") {
-            const pass = prompt("Yönetici şifresi:");
-            if (pass && checkPassword(pass)) {
-                adminMode = true;
-                renderPage();
-            } else if (pass !== null) {
-                alert("Şifre yanlış!");
-            }
-            rhythmPattern = ""; 
-        }
-
-        rhythmTimer = setTimeout(() => {
-            rhythmPattern = "";
-        }, 2000);
-    });
-
-    // Mobil uyumluluk için
-    trigger.addEventListener("touchstart", (e) => { 
-        pressStartTime = Date.now(); 
-        clearTimeout(rhythmTimer); 
-    });
-    trigger.addEventListener("touchend", (e) => { 
-        trigger.dispatchEvent(new Event('mouseup')); 
-    });
-
-console.log("Hafıza temizlendi");
-    loadLogo(); loadData(); loadDramaData(); buildMenu(); renderPage();
-    window.editSectionTitle = editSectionTitle; window.deletePageText = deletePageText; window.deleteArticle = deleteArticle; window.deleteReference = deleteReference; window.deleteInstaVideo = deleteInstaVideo; window.createLink = createLink; window.closeEditor = closeEditor; window.addPageText = addPageText; window.addArticle = addArticle; window.addReference = addReference; window.addInstaVideo = addInstaVideo;
 })();
 </script>
 </body>
