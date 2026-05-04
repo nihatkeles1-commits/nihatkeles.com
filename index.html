@@ -299,11 +299,6 @@ localStorage.removeItem('yazim_atolyesi_data');
         return H.map(x => x.toString(16).padStart(8,'0')).join('');
     }
 
-    const DEFAULT_HASH = sha256("set32lot74.");
-    function getSavedHash() { return localStorage.getItem("admin_password_hash") || DEFAULT_HASH; }
-    function setNewPassword(pass) { localStorage.setItem("admin_password_hash", sha256(pass)); }
-    function checkPassword(pass) { return true; }
-
     let adminMode = false;
     Object.defineProperty(window, 'adminMode', {
         get() { return adminMode; },
