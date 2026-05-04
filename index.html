@@ -392,22 +392,49 @@ localStorage.removeItem('yazim_atolyesi_data');
         document.getElementById("dynamic-drama-content").innerHTML = html;
     }
 
-    function addPageText() { const newHtml = prompt("Tanıtım metnini HTML formatında giriniz:", "<p>Yeni metin</p>"); if(newHtml) { dramaData.pageTexts.push(newHtml); saveDramaData(); renderDramaPage(); } }
-    function deletePageText(i) { dramaData.pageTexts.splice(i,1); saveDramaData(); renderDramaPage(); }
-    function addArticle() { const t = prompt("Makale Başlığı:"); if (!t) return; const c = prompt("Makale içeriği (HTML):"); if (!c) return; dramaData.articles.push({title:t.trim(), content:c.trim()}); saveDramaData(); renderDramaPage(); }
-    function deleteArticle(i) { dramaData.articles.splice(i,1); saveDramaData(); renderDramaPage(); }
-    function addReference() { const n = prompt("Referans Adı:"); if (!n) return; const d = prompt("Açıklama:"); if (!d) return; dramaData.references.push({name:n.trim(), description:d.trim()}); saveDramaData(); renderDramaPage(); }
-    function deleteReference(i) { dramaData.references.splice(i,1); saveDramaData(); renderDramaPage(); }
-    function addInstaVideo() { const t = prompt("Video Başlığı:"); if (!t) return; let u = prompt("Instagram embed linki (https://...):"); if (!u) return; u = u.trim(); dramaData.instaVideos.push({title:t.trim(), embedUrl:u}); saveDramaData(); renderDramaPage(); }
-    function deleteInstaVideo(i) { dramaData.instaVideos.splice(i,1); saveDramaData(); renderDramaPage(); }
+   
 
-    let currentEditorTarget = '';
-    function openEditor() { const pid = siteData.currentPage; currentEditorTarget = pid; const content = (pid === 'drama') ? (dramaData.pageTexts.join('<hr>')) : (siteData.contents[pid] || ''); document.getElementById('editorArea').innerHTML = content; document.getElementById('editorModal').classList.add('active'); }
-    function closeEditor() { document.getElementById('editorModal').classList.remove('active'); }
-    document.getElementById('saveEditorBtn').onclick = function() { const html = document.getElementById('editorArea').innerHTML; if (currentEditorTarget === 'drama') { dramaData.pageTexts = html.split('<hr>').map(s=>s.trim()).filter(s=>s); saveDramaData(); renderDramaPage(); } else { siteData.contents[currentEditorTarget] = html; saveData(); renderPage(); } closeEditor(); };
-    function clearPage() { if (confirm("Tüm içerik silinecek! Onaylıyor musunuz?")) { siteData.contents[siteData.currentPage] = ""; saveData(); renderPage(); } }
-    function changeAdminPassword() { const old = prompt("Eski şifre:"); if (!old || !checkPassword(old)) { alert("Eski şifre yanlış!"); return; } const nw = prompt("Yeni şifre:"); if (nw && nw.trim()) { setNewPassword(nw.trim()); alert("Şifre değişti. Tekrar giriş yapın."); adminMode = false; renderPage(); } }
+   
+function buildMenu() { 
+        const ul = document.getElementById("nav-list"); 
+        if (!ul) return;
+        ul.innerHTML = ""; 
+        pages.forEach(p => { 
+            const btn = document.createElement("button"); 
+            btn.textContent = p.title; 
+            if (siteData.currentPage === p.id) btn.classList.add("active"); 
+            btn.onclick = () => { 
+                siteData.currentPage = p.id; 
+                buildMenu(); 
+                renderPage(); 
+            }; 
+            ul.appendChild(btn); 
+        }); 
+    }
 
+    function renderPage() {
+        const pid = siteData.currentPage;
+        const pageTitleElement = document.getElementById("page-title");
+        const pageContentElement = document.getElementById("page-content");
+        
+        if (pageTitleElement) {
+            const pageObj = pages.find(p => p.id === pid);
+            pageTitleElement.innerHTML = `<h2>${pageObj ? pageObj.title : ''}</h2>`;
+        }
+        
+        if (pageContentElement) {
+            if (pid === "drama") { 
+                pageContentElement.innerHTML = `<div id="dynamic-drama-content"></div>`; 
+                if (typeof renderDramaPage === "function") renderDramaPage(); 
+            } else { 
+                pageContentElement.innerHTML = siteData.contents[pid] || ''; 
+            }
+        }
+    }
+
+    // --- SİSTEMİ BAŞLAT ---
+    buildMenu();
+    renderPage();
 })();
 </script>
 </body>
