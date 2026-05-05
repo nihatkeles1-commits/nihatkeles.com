@@ -28,7 +28,9 @@
         details.accordion[open] summary::after { content: "▲"; }
         .accordion-inner { padding: 1.5rem; border-top: 1px solid #3a3a3a; background: #1e1e1e; }
         .contact-link { color: #f5b042; text-decoration: none; font-weight: bold; }
-        footer { text-align: center; padding: 2rem; background: #2a2a2a; color: #666; font-size: 0.8rem; }
+        footer { text-align: center; padding: 2.5rem; background: #2a2a2a; border-top: 1px solid #333; }
+        .footer-slogan { color: #f5b042; font-style: italic; font-size: 1.1rem; margin-bottom: 1rem; display: block; }
+        .footer-copy { color: #666; font-size: 0.85rem; }
         @media (max-width: 700px) { .header-brand { flex-direction: column; text-align: center; } .header-logo { order: -1; } header h1 { font-size: 1.6rem; } }
     </style>
 </head>
@@ -42,7 +44,10 @@
         <nav><ul id="nav-list"></ul></nav>
     </header>
     <main id="page-content" class="content-body"></main>
-    <footer>&copy; 2026 Nihat Keleş</footer>
+    <footer>
+        <span class="footer-slogan">"Bir makinenin yapamayacağı tek şeyle uğraşıyoruz: Hayal kurmak"</span>
+        <span class="footer-copy">&copy; 2026 Nihat Keleş</span>
+    </footer>
 </div>
 
 <script>
@@ -51,26 +56,40 @@
             <h2>HAKKINDA</h2>
             <p><strong>Yazar / Çocuk Gelişimi Temelli Oluşturucu Drama Uzmanı</strong></p>
             <h3>Yazarlık Yolculuğum...</h3>
-            <p>Kamu kurumları, sahne ve ekran için metinler üretiyorum. Oyunlarım Devlet Tiyatroları repertuvarında yer alıyor ve Epsilon Yayınevi bünyesinde yazmaya devam ediyorum.</p>
+            <p>Kamu kurumları, sahne ve ekran için metinler üretiyorum[cite: 3]. Oyunlarım Devlet Tiyatroları repertuvarında yer alıyor ve Epsilon Yayınevi bünyesinde yazmaya devam ediyorum[cite: 3].</p>
             <h3>Eğitim Yaklaşımım...</h3>
-            <p><strong>Çocuk Gelişimi ve Tiyatro lisanslarımla temellenen yaklaşımım</strong> doğrultusunda, 20 yılı aşkın süredir ilkokul düzeyinde uygulamalı drama ve çocuk tiyatrosu disiplinlerini yürütüyorum. On binlerce çocukla sahne deneyimi paylaşırken; tiyatro dilini çocuk gelişimi perspektifiyle birleştiren bir metodoloji geliştirdim. Akademik çalışmalarımı, çocuk merkezli yapılandırılmış atölyeler ve okul programlarıyla sahaya aktarıyorum.</p>
+            <p><strong>Çocuk Gelişimi ve Tiyatro lisanslarımla temellenen yaklaşımım</strong> doğrultusunda, 20 yılı aşkın süredir ilkokul düzeyinde uygulamalı drama ve çocuk tiyatrosu disiplinlerini yürütüyorum[cite: 3]. Binlerce çocukla sahne deneyimi paylaşırken; tiyatro dilini çocuk gelişimi perspektifiyle birleştiren bir metodoloji geliştirdim[cite: 3]. Akademik çalışmalarımı; çocuk merkezli yapılandırılmış atölyeler ve okul programlarıyla sahaya aktarmaya devam ediyorum[cite: 3].</p>
             <h3>Sahne Deneyimim...</h3>
-            <p>Sahne kökenli bir drama eğitmeni olarak, profesyonel tiyatro birikimimi sınıf ortamına taşıyorum. Devlet ve özel tiyatrolardaki aktif oyunculuk geçmişim, uygulamalı ve disiplinli bir eğitim modeli sunmamı sağlıyor.</p>
+            <p>Sahne kökenli bir drama eğitmeni olarak, profesyonel tiyatro birikimimi sınıf ortamına taşıyorum[cite: 3]. Devlet ve özel tiyatrolardaki aktif oyunculuk geçmişim, uygulamalı ve disiplinli bir eğitim modeli sunmamı sağlıyor[cite: 3].</p>
         `,
         yazarlik: `
             <h2>YAZARLIK & DRAMATURJİ</h2>
-            <p><em>"Sadece kağıt üzerinde kalan değil, sahne ışığıyla veya kamera vizörüyle buluştuğunda yaşayan metinler üzerine odaklanıyorum."</em></p>
+            <p><em>"Sadece kağıt üzerinde kalan değil, sahne ışığıyla veya kamera vizörüyle buluştuğunda yaşayan metinler üzerine odaklanıyorum."[cite: 3]</em></p>
             <h3>Üretim Alanları</h3>
             <ul>
-                <li><strong>Dramatik Yazarlık:</strong> Devlet Tiyatroları repertuvarına kabul edilmiş oyunlarım ve çocuk müzikallerim.</li>
-                <li><strong>Ekran Metinleri:</strong> Televizyon dizileri, sinema filmleri ve reklam senaryoları için kurgu ve yazım süreçlerini yürütüyorum.</li>
-                <li><strong>Edebiyat:</strong> Gençlik ve Çocuk romanları kaleme alıyorum.</li>
-                <li><strong>Kurumsal Yazarlık:</strong> Kamu kurumları ve özel yapılar için stratejik metin üretimi ve editörlük yapıyorum.</li>
+                <li><strong>Dramatik Yazarlık:</strong> Devlet Tiyatroları repertuvarına kabul edilmiş oyunlarım ve çocuk müzikallerim[cite: 3].</li>
+                <li><strong>Ekran Metinleri:</strong> Televizyon dizileri, sinema filmleri ve reklam senaryoları için dramaturjik kurgu ve yazım[cite: 3].</li>
+                <li><strong>Edebiyat:</strong> Gençlik ve Çocuk Romanlarım[cite: 3].</li>
+                <li><strong>Kurumsal Yazarlık:</strong> Kamu kurumları ve özel teşebbüsler için stratejik metin üretimi ve editörlük[cite: 3].</li>
+            </ul>
+            <h3>Yazım Yaklaşımım</h3>
+            <p>Bir metni inşa ederken üç temel kriteri önceliklendiriyorum[cite: 3]:</p>
+            <ul>
+                <li><strong>Uygulanabilirlik:</strong> Sahne veya çekim matematiğine uygun, teknik olarak uygulanabilir kurgular[cite: 3].</li>
+                <li><strong>Hedef Kitle Algısı:</strong> Çocuk oyununda pedagojik hassasiyet, reklamda pazarlama dili, dramada ise karakter derinliği[cite: 3].</li>
+                <li><strong>Dinamik Dil:</strong> Bilgi kaosundan uzak, akıcı ve izleyiciyi/okuru hikayenin içinde tutan yalın bir anlatım[cite: 3].</li>
+            </ul>
+            <h3>Öne Çıkan Deneyimler</h3>
+            <ul>
+                <li><strong>Devlet Tiyatroları:</strong> 60. yıla özel çocuk oyunlarından birine editöryal destek verdim[cite: 3]. Repertuvara kazandırılan oyunlarım ve Müzikal Çocuk Oyunum mevcuttur[cite: 3].</li>
+                <li><strong>Kamu Projeleri:</strong> Kültür Bakanlığı, Dış İşleri Bakanlığı ve Türk Tarih Kurumu için senaryo geliştirme destekleri ve kamu projeleri metin yazarlığı yaptım[cite: 3].</li>
+                <li><strong>Medya:</strong> Ulusal kanallarda ve yapım firmalarında senaryo danışmanlığı ve içerik yönetimi görevlerini üstlendim[cite: 3].</li>
             </ul>
         `,
         sahne: `
             <h2>SAHNE</h2>
-            <p>Profesyonel tiyatro deneyiminin eğitimle buluştuğu noktada, sahne sanatlarının disiplinini çocuk gelişiminin en büyük destekçisi olarak görüyorum. Sahne disiplini ve kolektif üretim gücüyle şekillenen bir eğitmenlik vizyonuyla, tiyatro pratiğini sınıf ortamına taşıyorum.</p>
+            <p>Sahne kökenli bir drama eğitmeni olarak, profesyonel tiyatro deneyimimi sınıf ortamına taşıyorum[cite: 3]. Devlet ve özel tiyatrolarda aktif oyunculuk geçmişim, uygulamalı ve disiplinli bir eğitim modeli sunmamı sağlıyor[cite: 3].</p>
+            <p>Sahne disiplini ve kolektif üretim gücüyle şekillenen bir eğitmenlik vizyonuna sahibim[cite: 3]. Profesyonel tiyatro deneyiminin eğitimle buluştuğu noktada, sahne sanatlarının disiplinini çocuk gelişiminin en büyük destekçisi olarak görüyorum[cite: 3].</p>
         `,
         iletisim: `
             <h2>İLETİŞİM</h2>
@@ -85,23 +104,24 @@
             baslik: "🔍 Çalışma Modelim",
             icerik: `
                 <h3>Çocuk Gelişimi Odaklı Yaratıcı Drama</h3>
-                <p>İlkokul düzeyinde, çocuk gelişimi ilkelerini temel alan yapılandırılmış çalışmalar yürütüyorum. Temel amacım; çocuğun ifade gücünü, sosyal uyum becerisini ve eleştirel düşünme yetisini sahne pratiğiyle somutlaştırmaktır.</p>
+                <p>İlkokul düzeyinde, çocuk gelişimi ilkelerini temel alan yapılandırılmış yaratıcı drama çalışmaları yürütüyorum[cite: 3]. Temel amacım; çocuğun ifade gücünü, sosyal uyum becerisini ve eleştirel düşünme yetisini sahne pratiğiyle somutlaştırmaktır[cite: 3].</p>
                 <h3>Nasıl Çalışıyorum?</h3>
+                <p>Eğitimlerim, akademik bir metodolojiye dayanan ve sınıf içi dinamiklere tam uyum sağlayan bir sistem üzerine kurulur[cite: 3]:</p>
                 <ul>
-                    <li><strong>Oyunlaştırılmış Öğrenme:</strong> Bilgiyi ezberden çıkarıp deneyime dönüştürüyorum.</li>
-                    <li><strong>Etkileşimli Rol Alma:</strong> Grup içi iş birliği ve empati becerilerini güçlendiriyorum.</li>
-                    <li><strong>Duygusal Zeka (EQ):</strong> Duygu yönetimi ve özgüven odaklı uygulamalar gerçekleştiriyorum.</li>
+                    <li><strong>Oyunlaştırılmış Öğrenme:</strong> Bilgiyi ezberden çıkarıp deneyime dönüştürüyorum[cite: 3].</li>
+                    <li><strong>Etkileşimli Rol Alma:</strong> Grup içi iş birliği ve empatiyi geliştiriyorum[cite: 3].</li>
+                    <li><strong>Duygusal Zeka (EQ):</strong> Duygu yönetimi ve özgüven odaklı uygulamalar yapıyorum[cite: 3].</li>
                 </ul>
             `
         },
         {
             baslik: "📖 Uygulama Modeli",
             icerik: `
-                <p>20 yılı aşan saha deneyimiyle rafine ettiğim bu yaklaşım üç ana sütuna dayanıyor:</p>
+                <p>20 yılı aşan saha deneyimiyle rafine ettiğim bu yaklaşım üç ana sütuna dayanıyor[cite: 3]:</p>
                 <ul>
-                    <li><strong>Disiplinlerarası Geçiş:</strong> Tiyatro pratiğini pedagojiyle eş zamanlı kullanıyorum.</li>
-                    <li><strong>Yapılandırılmış Kurgu:</strong> Sınıf ortamına özel, müfredatla uyumlu drama senaryoları hazırlıyorum.</li>
-                    <li><strong>İletişim Becerileri:</strong> Hitabet ve diksiyon çalışmalarını sürece doğal yollarla entegre ediyorum.</li>
+                    <li><strong>Disiplinlerarası Geçiş:</strong> Tiyatro pratiğini çocuk gelişimi pedagojisiyle eş zamanlı kullanıyorum[cite: 3].</li>
+                    <li><strong>Yapılandırılmış Kurgu:</strong> Sınıf ortamına özel, müfredatla uyumlu drama senaryoları hazırlıyorum[cite: 3].</li>
+                    <li><strong>İletişim Becerileri:</strong> Hitabet, artikülasyon ve diksiyon çalışmalarını sürece doğal yollarla entegre ediyorum[cite: 3].</li>
                 </ul>
             `
         },
@@ -109,10 +129,16 @@
             baslik: "🏫 Hizmet Alanları",
             icerik: `
                 <ul>
-                    <li><strong>Kurumlar:</strong> Okul öncesi ve ilköğretim düzeyinde programlar geliştiriyor ve uygulama süreçlerini yürütüyorum.</li>
-                    <li><strong>Eğitimciler:</strong> Öğretmen eğitimlerimde pedagojik birikimi sahne disipliniyle yeniden yorumlayan bir rehberlik sunuyorum.</li>
-                    <li><strong>Projeler:</strong> Okul içi program tasarımı ve çocuk müzikali prodüksiyonları gerçekleştiriyorum.</li>
+                    <li><strong>Kurumlar:</strong> Okul öncesi ve ilköğretim düzeyinde, disiplinler arası programlar geliştiriyor; okullarda uygulama süreçlerini yürütüyorum[cite: 3].</li>
+                    <li><strong>Eğitimciler:</strong> Öğretmen eğitimlerimde pedagojik birikimi sahne disipliniyle yeniden yorumlayan bütüncül gelişim rehberliği sunuyorum[cite: 3].</li>
+                    <li><strong>Projeler:</strong> Okul içi program tasarımı ve çocuk müzikali/tiyatrosu prodüksiyonları gerçekleştiriyorum[cite: 3].</li>
                 </ul>
+            `
+        },
+        {
+            baslik: "📸 Süreç Anlatımları",
+            icerik: `
+                <p>Yaratıcı drama süreçlerini ve atölye metodolojimi animasyon destekli videolarla anlatıyor; eğitimin dijital dille buluşmasını sağlıyorum[cite: 3].</p>
             `
         }
     ];
