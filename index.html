@@ -7,85 +7,33 @@
     <title>Nihat Keleş | Portfolyo</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: #121212;
-            font-family: system-ui, -apple-system, sans-serif;
-            color: #f0f0f0;
-            line-height: 1.6;
-            padding: 1rem;
-        }
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            background: #1e1e1e;
-            border-radius: 28px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        header {
-            background: #2a2a2a;
-            padding: 1.5rem 2rem;
-            border-bottom: 3px solid #f5b042;
-        }
-        .header-brand {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-            gap: 2rem;
-        }
+        body { background: #121212; font-family: system-ui, -apple-system, sans-serif; color: #f0f0f0; line-height: 1.6; padding: 1rem; }
+        .container { max-width: 1100px; margin: 0 auto; background: #1e1e1e; border-radius: 28px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        header { background: #2a2a2a; padding: 1.5rem 2rem; border-bottom: 3px solid #f5b042; }
+        .header-brand { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; gap: 2rem; }
         .header-logo { width: 180px; height: auto; border-radius: 10px; }
         header h1 { font-size: 2rem; letter-spacing: 1px; margin: 0; }
         header h1 span { color: #f5b042; }
-        
         nav ul { display: flex; flex-wrap: wrap; gap: 0.6rem; list-style: none; }
-        nav button {
-            background: #333;
-            border: none;
-            color: white;
-            padding: 0.7rem 1.4rem;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+        nav button { background: #333; border: none; color: white; padding: 0.7rem 1.4rem; border-radius: 40px; font-weight: 600; cursor: pointer; transition: 0.3s; }
         nav button.active, nav button:hover { background: #f5b042; color: #1e1e1e; }
-
         main { padding: 2.5rem; min-height: 55vh; }
-        .content-body h2 {
-            color: #f5b042;
-            border-left: 5px solid #f5b042;
-            padding-left: 1rem;
-            margin: 1.5rem 0 1rem;
-            text-transform: uppercase;
-        }
-        .content-body h3 { 
-            color: #f5b042; 
-            margin: 1.5rem 0 0.8rem; 
-            border-bottom: 1px solid #333; 
-            padding-bottom: 5px; 
-        }
+        .content-body h2 { color: #f5b042; border-left: 5px solid #f5b042; padding-left: 1rem; margin: 1.5rem 0 1rem; text-transform: uppercase; }
+        .content-body h3 { color: #f5b042; margin: 1.5rem 0 0.8rem; border-bottom: 1px solid #333; padding-bottom: 5px; }
         .content-body p { margin-bottom: 1.2rem; color: #ccc; text-align: justify; }
         .content-body ul { margin-left: 1.5rem; margin-bottom: 1.5rem; color: #ccc; }
         .content-body li { margin-bottom: 0.7rem; }
-        
         details.accordion { background: #252525; margin: 1rem 0; border-radius: 12px; border: 1px solid #3a3a3a; }
         details.accordion summary { padding: 1.2rem; cursor: pointer; font-weight: bold; color: #f5b042; list-style: none; display: flex; justify-content: space-between; }
         details.accordion summary::after { content: "▼"; font-size: 0.8rem; opacity: 0.7; }
         details.accordion[open] summary::after { content: "▲"; }
         .accordion-inner { padding: 1.5rem; border-top: 1px solid #3a3a3a; background: #1e1e1e; }
-        
         .contact-link { color: #f5b042; text-decoration: none; font-weight: bold; }
         footer { text-align: center; padding: 2rem; background: #2a2a2a; color: #666; font-size: 0.8rem; }
-
-        @media (max-width: 700px) {
-            .header-brand { flex-direction: column; text-align: center; }
-            header h1 { font-size: 1.6rem; }
-        }
+        @media (max-width: 700px) { .header-brand { flex-direction: column; text-align: center; } header h1 { font-size: 1.6rem; } }
     </style>
 </head>
 <body>
-
 <div class="container">
     <header>
         <div class="header-brand">
@@ -104,33 +52,33 @@
             <h2>HAKKINDA</h2>
             <p><strong>Yazar / Çocuk Gelişimi Temelli Oluşturucu Drama Uzmanı</strong></p>
             <h3>Yazarlık Üzerine...</h3>
-            <p>Kamu kurumları, sahne ve ekran için metin üretir. Oyunları Devlet Tiyatroları repertuvarında yer almıştır. Epsilon Yayınevi yazarıdır.</p>
+            <p>Kamu kurumları, sahne ve ekran için metin üretir[cite: 3]. Oyunları Devlet Tiyatroları repertuvarında yer almıştır[cite: 3]. Epsilon Yayınevi yazarıdır[cite: 3].</p>
             <h3>Eğitim Üzerine...</h3>
-            <p>20 yılın üzerinde ilkokul düzeyinde uygulamalı drama ve çocuk tiyatrosu disiplinlerini yürütüyor. On binin üzerinde çocukla sahne deneyimi paylaşırken; tiyatro dilini çocuk gelişimi perspektifiyle birleştiren bir metodoloji geliştirdi. Akademik çalışmalarını; çocuk merkezli yapılandırılmış atölyeler ve okul programlarıyla sahaya aktarmaya devam ediyor.</p>
+            <p>20 yılın üzerinde ilkokul düzeyinde uygulamalı drama ve çocuk tiyatrosu disiplinlerini yürütüyor[cite: 3]. On binin üzerinde çocukla sahne deneyimi paylaşırken; tiyatro dilini çocuk gelişimi perspektifiyle birleştiren bir metodoloji geliştirdi[cite: 3]. Akademik çalışmalarını; çocuk merkezli yapılandırılmış atölyeler ve okul programlarıyla sahaya aktarmaya devam ediyor[cite: 3].</p>
             <h3>Sahne Üzerine...</h3>
-            <p>Sahne kökenli bir drama eğitmeni olarak, profesyonel tiyatro deneyimimi sınıf ortamına taşıyorum. Devlet ve özel tiyatrolarda aktif oyunculuk geçmişim, uygulamalı ve disiplinli bir eğitim modeli sunmamı sağlar.</p>
+            <p>Sahne kökenli bir drama eğitmeni olarak, profesyonel tiyatro deneyimimi sınıf ortamına taşıyorum[cite: 3]. Devlet ve özel tiyatrolarda aktif oyunculuk geçmişim, uygulamalı ve disiplinli bir eğitim modeli sunmamı sağlar[cite: 3].</p>
         `,
         yazarlik: `
             <h2>YAZARLIK & DRAMATURJİ</h2>
-            <p><em>"Sadece kağıt üzerinde kalan değil, sahne ışığıyla veya kamera vizörüyle buluştuğunda yaşayan metinler üzerine odaklanıyorum."</em></p>
+            <p><em>"Sadece kağıt üzerinde kalan değil, sahne ışığıyla veya kamera vizörüyle buluştuğunda yaşayan metinler üzerine odaklanıyorum."[cite: 3]</em></p>
             <h3>Üretim Alanları</h3>
             <ul>
-                <li><strong>Dramatik Yazarlık:</strong> Devlet Tiyatroları repertuvarına kabul edilmiş oyunlar ve çocuk müzikalleri.</li>
-                <li><strong>Ekran Metinleri:</strong> Televizyon dizileri, sinema filmleri ve reklam senaryoları için dramaturjik kurgu ve yazım.</li>
-                <li><strong>Edebiyat:</strong> Gençlik ve Çocuk Romanları.</li>
-                <li><strong>Kurumsal Yazarlık:</strong> Kamu kurumları ve özel teşebbüsler için stratejik metin üretimi ve editörlük.</li>
+                <li><strong>Dramatik Yazarlık:</strong> Devlet Tiyatroları repertuvarına kabul edilmiş oyunlar ve çocuk müzikalleri[cite: 3].</li>
+                <li><strong>Ekran Metinleri:</strong> Televizyon dizileri, sinema filmleri ve reklam senaryoları için dramaturjik kurgu ve yazım[cite: 3].</li>
+                <li><strong>Edebiyat:</strong> Gençlik ve Çocuk Romanları[cite: 3].</li>
+                <li><strong>Kurumsal Yazarlık:</strong> Kamu kurumları ve özel teşebbüsler için stratejik metin üretimi ve editörlük[cite: 3].</li>
             </ul>
             <h3>Öne Çıkan Deneyimler</h3>
             <ul>
-                <li><strong>Devlet Tiyatroları:</strong> 60. yıla özel çocuk oyunlarından birine editöryal destek. Repertuvara kazandırılan oyunlar. Müzikal Çocuk Oyunu.</li>
-                <li><strong>Bakanlıklar & Kurumlar:</strong> Kültür Bakanlığı / Dış İşleri Bakanlığı / Türk Tarih Kurumu için senaryo geliştirme destekleri ve kamu projeleri metin yazarlığı.</li>
-                <li><strong>Medya & Editörlük:</strong> Ulusal kanallarda ve yapım firmalarında senaryo danışmanlığı ve içerik yönetimi.</li>
+                <li><strong>Devlet Tiyatroları:</strong> 60. yıla özel çocuk oyunlarından birine editöryal destek. Repertuvara kazandırılan oyunlar ve Müzikal Çocuk Oyunu[cite: 3].</li>
+                <li><strong>Kamu Projeleri:</strong> Kültür Bakanlığı, Dış İşleri Bakanlığı ve Türk Tarih Kurumu için senaryo geliştirme destekleri ve kamu projeleri metin yazarlığı[cite: 3].</li>
+                <li><strong>Medya:</strong> Ulusal kanallarda ve yapım firmalarında senaryo danışmanlığı ve içerik yönetimi[cite: 3].</li>
             </ul>
         `,
         sahne: `
             <h2>SAHNE</h2>
-            <p>Sahne kökenli bir drama eğitmeni olarak, profesyonel tiyatro deneyimimi sınıf ortamına taşıyorum. Devlet ve özel tiyatrolarda aktif oyunculuk geçmişim, uygulamalı ve disiplinli bir eğitim modeli sunmamı sağlar.</p>
-            <p>Sahne disiplini ve kolektif üretim gücüyle şekillenen bir eğitmenlik vizyonu. Profesyonel tiyatro deneyiminin eğitimle buluştuğu noktada, sahne sanatlarının disiplini çocuk gelişiminin en büyük destekçisidir.</p>
+            <p>Sahne kökenli bir drama eğitmeni olarak, profesyonel tiyatro deneyimimi sınıf ortamına taşıyorum[cite: 3]. Devlet ve özel tiyatrolarda aktif oyunculuk geçmişim, uygulamalı ve disiplinli bir eğitim modeli sunmamı sağlar[cite: 3].</p>
+            <p>Sahne disiplini ve kolektif üretim gücüyle şekillenen bir eğitmenlik vizyonu[cite: 3]. Profesyonel tiyatro deneyiminin eğitimle buluştuğu noktada, sahne sanatlarının disiplini çocuk gelişiminin en büyük destekçisidir[cite: 3].</p>
         `,
         iletisim: `
             <h2>İLETİŞİM</h2>
@@ -145,59 +93,49 @@
             baslik: "🔍 Çalışma Modelim",
             icerik: `
                 <h3>Çocuk Gelişimi Odaklı Yaratıcı Drama</h3>
-                <p>İlkokul düzeyinde, çocuk gelişimi ilkelerini temel alan yapılandırılmış yaratıcı drama çalışmaları yürütüyorum. <strong>Temel amacım; çocuğun ifade gücünü, sosyal uyum becerisini ve eleştirel düşünme yetisini sahne pratiğiyle somutlaştırmaktır.</strong></p>
+                <p>İlkokul düzeyinde, çocuk gelişimi ilkelerini temel alan yapılandırılmış yaratıcı drama çalışmaları yürütüyorum[cite: 3]. <strong>Temel amacım; çocuğun ifade gücünü, sosyal uyum becerisini ve eleştirel düşünme yetisini sahne pratiğiyle somutlaştırmaktır[cite: 3].</strong></p>
                 <h3>Nasıl Çalışıyorum?</h3>
                 <ul>
-                    <li><strong>Oyunlaştırılmış Öğrenme:</strong> Bilgiyi ezberden çıkarıp deneyime dönüştürme.</li>
-                    <li><strong>Etkileşimli Rol Alma:</strong> Grup içi iş birliği ve empati geliştirme.</li>
-                    <li><strong>Duygusal Zeka (EQ):</strong> Duygu yönetimi ve özgüven odaklı uygulamalar.</li>
+                    <li><strong>Oyunlaştırılmış Öğrenme:</strong> Bilgiyi ezberden çıkarıp deneyime dönüştürme[cite: 3].</li>
+                    <li><strong>Etkileşimli Rol Alma:</strong> Grup içi iş birliği ve empati geliştirme[cite: 3].</li>
+                    <li><strong>Duygusal Zeka (EQ):</strong> Duygu yönetimi ve özgüven odaklı uygulamalar[cite: 3].</li>
                 </ul>
             `
         },
         {
             baslik: "📖 Uygulama Modeli",
             icerik: `
-                <p>Çeyrek asırlık saha deneyimiyle rafine edilen bu yaklaşım üç ana sütuna dayanır:</p>
+                <p>20 yılın üzerindeki saha deneyimiyle rafine edilen bu yaklaşım üç ana sütuna dayanır[cite: 3]:</p>
                 <ul>
-                    <li><strong>Disiplinlerarası Geçiş:</strong> Tiyatro pratiğinin çocuk gelişimi pedagojisiyle eş zamanlı kullanımı.</li>
-                    <li><strong>Yapılandırılmış Kurgu:</strong> Sınıf ortamına özel, müfredatla uyumlu drama senaryoları.</li>
-                    <li><strong>İletişim Becerileri:</strong> Hitabet, artikülasyon ve diksiyon çalışmalarının drama sürecine doğal entegrasyonu.</li>
+                    <li><strong>Disiplinlerarası Geçiş:</strong> Tiyatro pratiğinin çocuk gelişimi pedagojisiyle eş zamanlı kullanımı[cite: 3].</li>
+                    <li><strong>Yapılandırılmış Kurgu:</strong> Sınıf ortamına özel, müfredatla uyumlu drama senaryoları[cite: 3].</li>
+                    <li><strong>İletişim Becerileri:</strong> Hitabet, artikülasyon ve diksiyon çalışmalarının drama sürecine doğal entegrasyonu[cite: 3].</li>
                 </ul>
             `
         },
         {
-            baslik: "🏫 İş Birliği Alanları & Saha Çalışmaları",
+            baslik: "🏫 Hizmet Alanları",
             icerik: `
                 <ul>
-                    <li><strong>Kurumlar:</strong> İlkokullar, anaokulları ve butik eğitim merkezleri.</li>
-                    <li><strong>Eğitimciler:</strong> Öğretmen eğitimleri ve eğitim koordinatörlüğü danışmanlığı.</li>
-                    <li><strong>Projeler:</strong> Okul içi program tasarımı ve çocuk müzikali/tiyatrosu prodüksiyonları.</li>
+                    <li><strong>Kurumlar:</strong> Okul öncesi ve ilköğretim düzeyinde, disiplinler arası programlar geliştiriyor; okullarda uygulama süreçlerini yürütüyorum[cite: 3].</li>
+                    <li><strong>Eğitimciler:</strong> Pedagojik birikimi sahne disipliniyle yeniden yorumlayan bütüncül gelişim rehberliği sunuyorum[cite: 3].</li>
+                    <li><strong>Projeler:</strong> Okul içi program tasarımı ve çocuk müzikali/tiyatrosu prodüksiyonları gerçekleştiriyorum[cite: 3].</li>
                 </ul>
-                <p>Eğitim programlama süreçlerini bizzat yürütüyor, disiplinler arası geçişle okullara özel kurgular hazırlıyorum.</p>
             `
         },
         {
-            baslik: "📸 Süreç Anlatımları (Videolar)",
+            baslik: "📸 Süreç Anlatımları",
             icerik: `
-                <p>Yaratıcı drama süreçlerini ve atölye metodolojimi animasyon destekli videolarla anlatıyor; eğitimin dijital dille buluşmasını sağlıyorum.</p>
-                <p><em>(Bu alana ileride Instagram videolarınızın veya tanıtım filmlerinizin linkleri eklenebilir.)</em></p>
+                <p>Yaratıcı drama süreçlerini ve atölye metodolojimi animasyon destekli videolarla anlatıyor; eğitimin dijital dille buluşmasını sağlıyorum[cite: 3].</p>
             `
         }
     ];
 
     let currentPage = "anasayfa";
-
     function render() {
         const contentArea = document.getElementById("page-content");
         const navList = document.getElementById("nav-list");
-        const menuler = [
-            {id: "anasayfa", ad: "ANA SAYFA"},
-            {id: "drama", ad: "DRAMA HOCAM"},
-            {id: "yazarlik", ad: "YAZARLIK"},
-            {id: "sahne", ad: "SAHNE"},
-            {id: "iletisim", ad: "İLETİŞİM"}
-        ];
-
+        const menuler = [{id: "anasayfa", ad: "ANA SAYFA"}, {id: "drama", ad: "DRAMA HOCAM"}, {id: "yazarlik", ad: "YAZARLIK"}, {id: "sahne", ad: "SAHNE"}, {id: "iletisim", ad: "İLETİŞİM"}];
         navList.innerHTML = "";
         menuler.forEach(m => {
             const btn = document.createElement("button");
@@ -206,20 +144,11 @@
             btn.onclick = () => { currentPage = m.id; render(); };
             navList.appendChild(btn);
         });
-
         if (currentPage === "drama") {
             let html = "<h2>DRAMA HOCAM</h2>";
-            dramaData.forEach(item => {
-                html += `
-                    <details class="accordion">
-                        <summary>${item.baslik}</summary>
-                        <div class="accordion-inner">${item.icerik}</div>
-                    </details>`;
-            });
+            dramaData.forEach(item => { html += `<details class="accordion"><summary>${item.baslik}</summary><div class="accordion-inner">${item.icerik}</div></details>`; });
             contentArea.innerHTML = html;
-        } else {
-            contentArea.innerHTML = siteData[currentPage] || "İçerik yükleniyor...";
-        }
+        } else { contentArea.innerHTML = siteData[currentPage] || "İçerik yükleniyor..."; }
         window.scrollTo(0,0);
     }
     render();
