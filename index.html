@@ -32,10 +32,10 @@
         .footer-slogan { color: #666; font-style: italic; font-size: 1rem; margin-bottom: 0.5rem; display: block; }
         .footer-copy { color: #666; font-size: 0.85rem; }
 
-        /* Ustalara Saygı Bölümü Stilleri */
+        /* Ustalara Saygı - YATAY 4 SÜTUN (kesinlikle yan yana) */
         .vefa-bolumu {
             background-color: #2a2a2a;
-            padding: 3rem 1.5rem;
+            padding: 2.5rem 1.8rem;
             border-radius: 20px;
             margin-top: 2rem;
             border: 1px solid #333;
@@ -43,7 +43,7 @@
         .vefa-ust-metin {
             text-align: center;
             max-width: 800px;
-            margin: 0 auto 3rem auto;
+            margin: 0 auto 2.5rem auto;
         }
         .vefa-ust-metin h3 {
             color: #f5b042;
@@ -58,44 +58,52 @@
             color: #bbb;
             line-height: 1.6;
         }
+        /* 4 SÜTUN KESİN YATAY */
         .vefa-izgara {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.8rem;
             align-items: start;
         }
         .vefa-kategori h4 {
             color: #f5b042;
-            font-size: 1rem;
+            font-size: 0.95rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            margin-bottom: 1.2rem;
-            border-bottom: 1px solid #444;
-            padding-bottom: 8px;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #555;
+            padding-bottom: 6px;
         }
         .vefa-liste {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
         .vefa-liste li {
             color: #eee;
-            font-size: 0.95rem;
-            margin-bottom: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: color 0.2s;
         }
         .vefa-liste li:hover {
             color: #f5b042;
         }
-        @media (max-width: 768px) {
+
+        /* Tablet: 2 sütun */
+        @media (max-width: 850px) {
             .vefa-izgara {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
             }
         }
-        @media (max-width: 480px) {
+        /* Telefon: 1 sütun */
+        @media (max-width: 550px) {
             .vefa-izgara {
                 grid-template-columns: 1fr;
-                text-align: center;
+            }
+            .vefa-bolumu {
+                padding: 1.5rem;
             }
         }
     </style>
@@ -105,7 +113,7 @@
     <header>
         <div class="header-brand">
             <h1>NİHAT <span>KELEŞ</span></h1>
-            <img src="logo.png" alt="Logo" class="header-logo">
+            <img src="logo.png" alt="Logo" class="header-logo" onerror="this.style.display='none'">
         </div>
         <nav><ul id="nav-list"></ul></nav>
     </header>
@@ -117,7 +125,7 @@
 </div>
 
 <script>
-    // Sayfa verileri (ANA SAYFA, YAZARLIK, İLETİŞİM vb.)
+    // Sayfa verileri
     const siteData = {
         anasayfa: `
             <h2>HAKKINDA</h2>
@@ -166,26 +174,26 @@
 
                 <div class="vefa-izgara">
                   <div class="vefa-kategori">
-                    <h4>Bakış Açısı & Düşünce</h4>
+                    <h4>BAKIŞ AÇISI & DÜŞÜNCE</h4>
                     <ul class="vefa-liste">
                       <li>Emre Kongar</li><li>Sunay Akın</li><li>Toktamış Ateş</li><li>Sevin Okyay</li><li>Burçak Evren</li>
                     </ul>
                   </div>
                   <div class="vefa-kategori">
-                    <h4>Sahne & Seyirci Bağı</h4>
+                    <h4>SAHNE & SEYİRCİ BAĞI</h4>
                     <ul class="vefa-liste">
                       <li>Haldun Dormen</li><li>Aliye Uzunatağan</li><li>Göksel Kortay</li><li>Mustafa Alabora</li>
                       <li>Can Doğan</li><li>Şebnem Sönmez</li><li>Hilmi Zafer Şahin</li><li>Nefrin Tokyay</li>
                     </ul>
                   </div>
                   <div class="vefa-kategori">
-                    <h4>Geleneksel Birikim</h4>
+                    <h4>GELENEKSEL BİRİKİM</h4>
                     <ul class="vefa-liste">
                       <li>Müjdat Gezen</li><li>Zihni Göktay</li><li>Savaş Dinçel</li><li>Mücap Ofluoğlu</li>
                     </ul>
                   </div>
                   <div class="vefa-kategori">
-                    <h4>Sinema & Dramaturji</h4>
+                    <h4>SİNEMA & DRAMATURJİ</h4>
                     <ul class="vefa-liste">
                       <li>Tuncer Cücenoğlu</li><li>Sezai Gülşen</li><li>Muzaffer Hiçdurmaz</li>
                     </ul>
