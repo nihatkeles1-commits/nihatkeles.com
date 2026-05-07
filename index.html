@@ -13,173 +13,141 @@
         .header-logo { width: 180px; height: auto; border-radius: 10px; }
         header h1 { font-size: 2rem; letter-spacing: 1px; margin: 0; }
         header h1 span { color: #f5b042; }
-        
-        nav { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        nav button { background: #3a3a3a; border: none; color: white; padding: 0.6rem 1.2rem; border-radius: 20px; cursor: pointer; font-size: 0.9rem; transition: 0.3s; }
-        nav button:hover { background: #555; }
-        nav button.active { background: #f5b042; color: #121212; font-weight: bold; }
-        
-        main { padding: 2rem; }
-        .section-content { animation: fadeIn 0.4s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        h2 { color: #f5b042; margin-bottom: 1.5rem; border-left: 4px solid #f5b042; padding-left: 1rem; }
-        p { margin-bottom: 1rem; color: #ccc; }
-
-        /* SAHNE - USTALARA SAYGI TASARIMI (YATAY VE PRESTİJLİ) */
-        .vefa-bolumu { background-color: #2a2a2a; padding: 3rem 1.5rem; border-radius: 20px; margin-top: 2rem; border: 1px solid #333; }
-        .vefa-ust-metin { text-align: center; max-width: 800px; margin: 0 auto 3rem auto; }
-        .vefa-ust-metin h3 { color: #f5b042; font-size: 1.8rem; margin-bottom: 15px; font-family: serif; letter-spacing: 1px; }
-        .vefa-ust-metin p { font-style: italic; font-size: 1rem; color: #bbb; line-height: 1.6; }
-        
-        .vefa-izgara { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; align-items: start; }
-        .vefa-kategori h4 { color: #f5b042; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1.2rem; border-bottom: 1px solid #444; padding-bottom: 8px; opacity: 0.8; }
-        .vefa-liste { list-style: none; padding: 0; }
-        .vefa-liste li { color: #eee; font-size: 0.95rem; margin-bottom: 8px; font-weight: 500; }
-
-        .accordion { background: #2a2a2a; margin-bottom: 0.5rem; border-radius: 12px; overflow: hidden; border: 1px solid #333; }
-        summary { padding: 1rem; cursor: pointer; font-weight: bold; list-style: none; }
-        summary:hover { background: #333; }
-        .accordion-inner { padding: 1rem; background: #1e1e1e; border-top: 1px solid #333; }
-        
-        .contact-box { background: #2a2a2a; padding: 2rem; border-radius: 20px; text-align: center; }
-        .contact-box a { color: #f5b042; text-decoration: none; font-weight: bold; }
-        
-        @media (max-width: 600px) {
-            .header-brand { flex-direction: column; text-align: center; }
-            .vefa-izgara { grid-template-columns: 1fr; text-align: center; }
-        }
+        nav ul { display: flex; flex-wrap: wrap; gap: 0.6rem; list-style: none; }
+        nav button { background: #333; border: none; color: white; padding: 0.7rem 1.4rem; border-radius: 40px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        nav button.active, nav button:hover { background: #f5b042; color: #1e1e1e; }
+        main { padding: 2.5rem; min-height: 55vh; }
+        .content-body h2 { color: #f5b042; border-left: 5px solid #f5b042; padding-left: 1rem; margin: 1.5rem 0 1rem; text-transform: uppercase; }
+        .content-body h3 { color: #f5b042; margin: 1.5rem 0 0.8rem; border-bottom: 1px solid #333; padding-bottom: 5px; }
+        .content-body p { margin-bottom: 1.2rem; color: #ccc; text-align: justify; }
+        .content-body ul { margin-left: 1.5rem; margin-bottom: 1.5rem; color: #ccc; }
+        .content-body li { margin-bottom: 0.7rem; }
+        details.accordion { background: #252525; margin: 1rem 0; border-radius: 12px; border: 1px solid #3a3a3a; }
+        details.accordion summary { padding: 1.2rem; cursor: pointer; font-weight: bold; color: #f5b042; list-style: none; display: flex; justify-content: space-between; }
+        details.accordion summary::after { content: "▼"; font-size: 0.8rem; opacity: 0.7; }
+        details.accordion[open] summary::after { content: "▲"; }
+        .accordion-inner { padding: 1.5rem; border-top: 1px solid #3a3a3a; background: #1e1e1e; }
+        .contact-link { color: #f5b042; text-decoration: none; font-weight: bold; }
+        footer { text-align: center; padding: 2.5rem; background: #2a2a2a; border-top: 1px solid #333; }
+        .footer-slogan { color: #666; font-style: italic; font-size: 1rem; margin-bottom: 0.5rem; display: block; }
+        .footer-copy { color: #666; font-size: 0.85rem; }
+        @media (max-width: 700px) { .header-brand { flex-direction: column; text-align: center; } .header-logo { order: -1; } header h1 { font-size: 1.6rem; } }
     </style>
 </head>
 <body>
-
 <div class="container">
     <header>
         <div class="header-brand">
             <h1>NİHAT <span>KELEŞ</span></h1>
-            <img src="logo.png" alt="Nihat Keleş Logo" class="header-logo" onerror="this.style.display='none'">
+            <img src="logo.png" alt="Logo" class="header-logo">
         </div>
-        <nav id="nav-list"></nav>
+        <nav><ul id="nav-list"></ul></nav>
     </header>
-
-    <main id="page-content"></main>
+    <main id="page-content" class="content-body"></main>
+    <footer>
+        <span class="footer-slogan">"Bir makinenin yapamayacağı tek şeyle uğraşıyoruz: Hayal kurmak"</span>
+        <span class="footer-copy">&copy; 2026 Nihat Keleş</span>
+    </footer>
 </div>
 
 <script>
+    const siteData = {
+        anasayfa: `
+            <h2>HAKKINDA</h2>
+            <p><strong>Yazar / Çocuk Gelişimi Temelli Oluşturucu Drama Uzmanı</strong></p>
+            <h3>Yazarlık Yolculuğum...</h3>
+            <p>Kamu kurumları, sahne ve ekran için metinler üretiyorum. Oyunlarım Devlet Tiyatroları repertuvarında yer alıyor ve Epsilon Yayınevi bünyesinde yazmaya devam ediyorum.</p>
+            <h3>Eğitim Yaklaşımım...</h3>
+            <p><strong>Çocuk Gelişimi ve Tiyatro lisanslarımla temellenen yaklaşımım</strong> doğrultusunda, 20 yılı aşkın süredir ilkokul düzeyinde uygulamalı drama ve çocuk tiyatrosu disiplinlerini yürütüyorum. Binlerce çocukla sahne deneyimi paylaşırken; tiyatro dilini çocuk gelişimi perspektifiyle birleştiren bir metodoloji geliştirdim. Akademik çalışmalarımı; çocuk merkezli yapılandırılmış atölyeler ve okul programlarıyla sahaya aktarmaya devam ediyorum.</p>
+            <h3>Sahne Deneyimim...</h3>
+            <p>Sahne kökenli bir drama eğitmeni olarak, profesyonel tiyatro birikimimi sınıf ortamına taşıyorum. Devlet ve özel tiyatrolardaki aktif oyunculuk geçmişim, uygulamalı ve disiplinli bir eğitim modeli sunmamı sağlıyor.</p>
+        `,
+        yazarlik: `
+            <h2>YAZARLIK & DRAMATURJİ</h2>
+            <p><em>"Sadece kağıt üzerinde kalan değil, sahne ışığıyla veya kamera vizörüyle buluştuğunda yaşayan metinler üzerine odaklanıyorum."</em></p>
+            <h3>Üretim Alanları</h3>
+            <ul>
+                <li><strong>Dramatik Yazarlık:</strong> Devlet Tiyatroları repertuvarına kabul edilmiş oyunlarım ve çocuk müzikallerim.</li>
+                <li><strong>Ekran Metinleri:</strong> Televizyon dizileri, sinema filmleri ve reklam senaryoları için dramaturjik kurgu ve yazım yapıyorum.</li>
+                <li><strong>Edebiyat:</strong> Gençlik ve Çocuk Romanları kaleme alıyorum.</li>
+                <li><strong>Kurumsal Yazarlık:</strong> Kamu kurumları ve özel teşebbüsler için stratejik metin üretimi ve editörlük hizmeti veriyorum.</li>
+            </ul>
+            <h3>Yazım Yaklaşımım</h3>
+            <p>Bir metni inşa ederken üç temel kriteri önceliklendiriyorum:</p>
+            <ul>
+                <li><strong>Uygulanabilirlik:</strong> Sahne veya çekim matematiğine uygun, teknik olarak uygulanabilir kurgular.</li>
+                <li><strong>Hedef Kitle Algısı:</strong> Çocuk oyununda pedagojik hassasiyet, reklamda pazarlama dili, dramada ise karakter derinliği.</li>
+                <li><strong>Dinamik Dil:</strong> Bilgi kaosundan uzak, akıcı ve izleyiciyi hikayenin içinde tutan yalın bir anlatım.</li>
+            </ul>
+            <h3>Öne Çıkan Deneyimler</h3>
+            <ul>
+                <li><strong>Devlet Tiyatroları:</strong> 60. yıla özel çocuk oyunlarından birine editöryal destek verdim. Repertuvara kazandırılan oyunlarım ve Müzikal Çocuk Oyunum mevcuttur.</li>
+                <li><strong>Kamu Projeleri:</strong> Kültür Bakanlığı, Dış İşleri Bakanlığı ve Türk Tarih Kurumu için senaryo geliştirme destekleri ve metin yazarlığı yaptım.</li>
+                <li><strong>Medya:</strong> Ulusal kanallarda ve yapım firmalarında senaryo danışmanlığı ve içerik yönetimi görevlerini üstlendim.</li>
+            </ul>
+        `,
+        sahne: `
+            <h2>SAHNE</h2>
+            <p>Sahne kökenli bir drama eğitmeni olarak, profesyonel tiyatro deneyimimi sınıf ortamına taşıyorum. Devlet ve özel tiyatrolarda aktif oyunculuk geçmişim, uygulamalı ve disiplinli bir eğitim modeli sunmamı sağlıyor.</p>
+            <p>Sahne disiplini ve kolektif üretim gücüyle şekillenen bir eğitmenlik vizyonuna sahibim. Profesyonel tiyatro deneyiminin eğitimle buluştuğu noktada, sahne sanatlarının disiplinini çocuk gelişiminin en büyük destekçisi olarak görüyorum.</p>
+        `,
+        iletisim: `
+            <h2>İLETİŞİM</h2>
+            <p><strong>Telefon:</strong> +90 530 558 86 50</p>
+            <p><strong>Instagram:</strong> <a href="https://www.instagram.com/dramahocam/" target="_blank" class="contact-link">@dramahocam</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/nihat-keles-b3492523" target="_blank" class="contact-link">Nihat KELEŞ | LinkedIn</a></p>
+        `
+    };
+
     const dramaData = [
         {
-            baslik: "🎭 Kurumsal Drama Eğitimi",
-            icerik: "<p>Şirket içi iletişimi güçlendirmek ve çalışan motivasyonunu artırmak adına özgün drama teknikleri uyguluyorum.</p>"
+            baslik: "🔍 Çalışma Modelim",
+            icerik: `
+                <h3>Çocuk Gelişimi Odaklı Yaratıcı Drama</h3>
+                <p>İlkokul düzeyinde, çocuk gelişimi ilkelerini temel alan yapılandırılmış yaratıcı drama çalışmaları yürütüyorum. Temel amacım; çocuğun ifade gücünü, sosyal uyum becerisini ve eleştirel düşünme yetisini sahne pratiğiyle somutlaştırmaktır.</p>
+                <h3>Nasıl Çalışıyorum?</h3>
+                <p>Eğitimlerim, akademik bir metodolojiye dayanan ve sınıf içi dinamiklere tam uyum sağlayan bir sistem üzerine kurulur:</p>
+                <ul>
+                    <li><strong>Oyunlaştırılmış Öğrenme:</strong> Bilgiyi ezberden çıkarıp deneyime dönüştürüyorum.</li>
+                    <li><strong>Etkileşimli Rol Alma:</strong> Grup içi iş birliği ve empatiyi geliştiriyorum.</li>
+                    <li><strong>Duygusal Zeka (EQ):</strong> Duygu yönetimi ve özgüven odaklı uygulamalar yapıyorum.</li>
+                </ul>
+            `
         },
         {
-            baslik: "📚 Eğitim Koordinatörlüğü",
-            icerik: "<p>Eğitim programlarının yapılandırılması ve müfredat geliştirme süreçlerini profesyonel bir disiplinle yönetiyorum.</p>"
+            baslik: "📖 Uygulama Modeli",
+            icerik: `
+                <p>20 yılı aşan saha deneyimiyle rafine ettiğim bu yaklaşım üç ana sütuna dayanıyor:</p>
+                <ul>
+                    <li><strong>Disiplinlerarası Geçiş:</strong> Tiyatro pratiğini çocuk gelişimi pedagojisiyle eş zamanlı kullanıyorum.</li>
+                    <li><strong>Yapılandırılmış Kurgu:</strong> Sınıf ortamına özel, müfredatla uyumlu drama senaryoları hazırlıyorum.</li>
+                    <li><strong>İletişim Becerileri:</strong> Hitabet, artikülasyon ve diksiyon çalışmalarını sürece doğal yollarla entegre ediyorum.</li>
+                </ul>
+            `
         },
         {
-            baslik: "✍️ Editörlük ve Danışmanlık",
-            icerik: "<ul><li>Senaryo ve metin analizi süreçlerinde akademik bir derinlikle çalışıyorum.</li><li>Yayıncılık dünyasındaki tecrübelerimle eserlerin yapısal dönüşümünü gerçekleştiriyorum.</li></ul>"
+            baslik: "🏫 Hizmet Alanları",
+            icerik: `
+                <ul>
+                    <li><strong>Kurumlar:</strong> Okul öncesi ve ilköğretim düzeyinde programlar geliştiriyor; okullarda uygulama süreçlerini yürütüyorum.</li>
+                    <li><strong>Eğitimciler:</strong> Öğretmen eğitimlerimde pedagojik birikimi sahne disipliniyle yeniden yorumlayan bütüncül gelişim rehberliği sunuyorum.</li>
+                    <li><strong>Projeler:</strong> Okul içi program tasarımı ve çocuk müzikali/tiyatrosu prodüksiyonları gerçekleştiriyorum.</li>
+                </ul>
+            `
         },
         {
             baslik: "📸 Süreç Anlatımları",
-            icerik: "<p>Yaratıcı drama süreçlerini ve atölye metodolojimi animasyon destekli videolarla anlatıyor; eğitimin dijital dille buluşmasını sağlıyorum.</p>"
+            icerik: `
+                <p>Yaratıcı drama süreçlerini ve atölye metodolojimi animasyon destekli videolarla anlatıyor; eğitimin dijital dille buluşmasını sağlıyorum.</p>
+            `
         }
     ];
 
-    const sayfalar = {
-        anasayfa: {
-            baslik: "ANA SAYFA",
-            icerik: `
-                <div class="section-content">
-                    <h2>Hoş Geldiniz</h2>
-                    <p>İşletme, çocuk gelişimi ve tiyatro disiplinlerini birleştiren bir profesyonel olarak; senaristlik, drama öğretmenliği ve yazarlık alanlarında çalışmalarımı sürdürüyorum.</p>
-                    <p>Bilgi kaosundan uzak, samimiyet ve disiplin odaklı bir üretim sürecini benimsiyorum. Araştırma ve akademik makale yazımı tutkumla eğitim koordinatörlüğü görevlerimi harmanlıyorum.</p>
-                </div>
-            `
-        },
-        drama: {
-            baslik: "DRAMA HOCAM",
-            icerik: "" // Dinamik render edilecek
-        },
-        yazarlik: {
-            baslik: "YAZARLIK",
-            icerik: `
-                <div class="section-content">
-                    <h2>Yazarlık & Senaristlik</h2>
-                    <p>Yayınlanmış romanlarım ve Devlet Tiyatroları repertuvarına kabul edilmiş oyunlarımla hikaye anlatıcılığını farklı platformlarda sürdürüyorum.</p>
-                    <p>Editörlük ve senaryo danışmanlığı süreçlerinde, metnin özüne sadık kalarak yapısal iyileştirmeler gerçekleştiriyorum.</p>
-                </div>
-            `
-        },
-        sahne: {
-            baslik: "SAHNE",
-            icerik: `
-                <div class="section-content">
-                    <h2>SAHNE SANATLARI</h2>
-                    <p>Oyunculuk ve sahne disiplini, sanat yolculuğumun en temel taşlarından biridir. Sahne üzerindeki varlığımı, köklü bir eğitim geleneği üzerine inşa ettim.</p>
-
-                    <div class="vefa-bolumu">
-                        <div class="vefa-ust-metin">
-                            <h3>USTALARA SAYGI VE MİNNETLE</h3>
-                            <p>Sanata, sahneye ve eğitime bakışımda iz bırakan; düşünce dünyamı, sahne disiplinimi ve anlatım dilimi etkileyen kıymetli hocalarımı saygı ve minnetle anıyorum.</p>
-                        </div>
-
-                        <div class="vefa-izgara">
-                            <div class="vefa-kategori">
-                                <h4>Bakış Açısı & Düşünce</h4>
-                                <ul class="vefa-liste">
-                                    <li>Emre Kongar</li><li>Sunay Akın</li><li>Toktamış Ateş</li><li>Sevin Okyay</li><li>Burçak Evren</li>
-                                </ul>
-                            </div>
-                            <div class="vefa-kategori">
-                                <h4>Sahne & Seyirci Bağı</h4>
-                                <ul class="vefa-liste">
-                                    <li>Haldun Dormen</li><li>Aliye Uzunatağan</li><li>Göksel Kortay</li><li>Mustafa Alabora</li><li>Can Doğan</li><li>Şebnem Sönmez</li><li>Hilmi Zafer Şahin</li><li>Nefrin Tokyay</li>
-                                </ul>
-                            </div>
-                            <div class="vefa-kategori">
-                                <h4>Geleneksel Birikim</h4>
-                                <ul class="vefa-liste">
-                                    <li>Müjdat Gezen</li><li>Zihni Göktay</li><li>Savaş Dinçel</li><li>Mücap Ofluoğlu</li>
-                                </ul>
-                            </div>
-                            <div class="vefa-kategori">
-                                <h4>Sinema & Dramaturji</h4>
-                                <ul class="vefa-liste">
-                                    <li>Tuncer Cücenoğlu</li><li>Sezai Gülşen</li><li>Muzaffer Hiçdurmaz</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `
-        },
-        iletisim: {
-            baslik: "İLETİŞİM",
-            icerik: `
-                <div class="section-content">
-                    <h2>İletişim</h2>
-                    <div class="contact-box">
-                        <p>Projeleriniz veya iş birlikleri için bana ulaşabilirsiniz.</p>
-                        <p>E-posta: <a href="mailto:info@nihatkeles.com">info@nihatkeles.com</a></p>
-                    </div>
-                </div>
-            `
-        }
-    };
-
     let currentPage = "anasayfa";
-
     function render() {
         const contentArea = document.getElementById("page-content");
         const navList = document.getElementById("nav-list");
-        const menuler = [
-            {id: "anasayfa", ad: "ANA SAYFA"},
-            {id: "drama", ad: "DRAMA HOCAM"},
-            {id: "yazarlik", ad: "YAZARLIK"},
-            {id: "sahne", ad: "SAHNE"},
-            {id: "iletisim", ad: "İLETİŞİM"}
-        ];
-
+        const menuler = [{id: "anasayfa", ad: "ANA SAYFA"}, {id: "drama", ad: "DRAMA HOCAM"}, {id: "yazarlik", ad: "YAZARLIK"}, {id: "sahne", ad: "SAHNE"}, {id: "iletisim", ad: "İLETİŞİM"}];
         navList.innerHTML = "";
         menuler.forEach(m => {
             const btn = document.createElement("button");
@@ -188,19 +156,13 @@
             btn.onclick = () => { currentPage = m.id; render(); };
             navList.appendChild(btn);
         });
-
         if (currentPage === "drama") {
             let html = "<h2>DRAMA HOCAM</h2>";
-            dramaData.forEach(item => {
-                html += `<details class="accordion"><summary>${item.baslik}</summary><div class="accordion-inner">${item.icerik}</div></details>`;
-            });
-            contentArea.innerHTML = `<div class="section-content">${html}</div>`;
-        } else {
-            contentArea.innerHTML = sayfalar[currentPage].icerik;
-        }
-        window.scrollTo(0, 0);
+            dramaData.forEach(item => { html += `<details class="accordion"><summary>${item.baslik}</summary><div class="accordion-inner">${item.icerik}</div></details>`; });
+            contentArea.innerHTML = html;
+        } else { contentArea.innerHTML = siteData[currentPage]; }
+        window.scrollTo(0,0);
     }
-
     render();
 </script>
 </body>
