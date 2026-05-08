@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
@@ -14,7 +14,7 @@
         header h1 { font-size: 2rem; letter-spacing: 1px; margin: 0; }
         header h1 span { color: #f5b042; }
         nav ul { display: flex; flex-wrap: wrap; gap: 0.6rem; list-style: none; }
-        nav button { background: #333; border: none; color: white; padding: 0.7rem 1.4rem; border-radius: 40px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        nav button { background: #333; border: none; color: white; padding: 0.7rem 1.4rem; border-radius: 40px; font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 0.9rem; }
         nav button.active, nav button:hover { background: #f5b042; color: #1e1e1e; }
         main { padding: 2.5rem; min-height: 55vh; }
         .content-body h2 { color: #f5b042; border-left: 5px solid #f5b042; padding-left: 1rem; margin: 1.5rem 0 1rem; text-transform: uppercase; }
@@ -31,7 +31,78 @@
         footer { text-align: center; padding: 2.5rem; background: #2a2a2a; border-top: 1px solid #333; }
         .footer-slogan { color: #666; font-style: italic; font-size: 1rem; margin-bottom: 0.5rem; display: block; }
         .footer-copy { color: #666; font-size: 0.85rem; }
-        @media (max-width: 700px) { .header-brand { flex-direction: column; text-align: center; } .header-logo { order: -1; } header h1 { font-size: 1.6rem; } }
+
+        /* Ustalara Saygı - YATAY 4 SÜTUN */
+        .vefa-bolumu {
+            background-color: #2a2a2a;
+            padding: 2.5rem 1.8rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            border: 1px solid #333;
+        }
+        .vefa-ust-metin {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2.5rem auto;
+        }
+        .vefa-ust-metin h3 {
+            color: #f5b042;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-family: 'Times New Roman', serif;
+            letter-spacing: 1px;
+        }
+        .vefa-ust-metin p {
+            font-style: italic;
+            font-size: 1rem;
+            color: #bbb;
+            line-height: 1.6;
+        }
+        .vefa-izgara {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.8rem;
+            align-items: start;
+        }
+        .vefa-kategori h4 {
+            color: #f5b042;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #555;
+            padding-bottom: 6px;
+        }
+        .vefa-liste {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .vefa-liste li {
+            color: #eee;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .vefa-liste li:hover {
+            color: #f5b042;
+        }
+
+        @media (max-width: 850px) {
+            .vefa-izgara {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+        @media (max-width: 550px) {
+            .vefa-izgara {
+                grid-template-columns: 1fr;
+            }
+            .vefa-bolumu {
+                padding: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -39,7 +110,7 @@
     <header>
         <div class="header-brand">
             <h1>NİHAT <span>KELEŞ</span></h1>
-            <img src="logo.png" alt="Logo" class="header-logo">
+            <img src="logo.png" alt="Logo" class="header-logo" onerror="this.style.display='none'">
         </div>
         <nav><ul id="nav-list"></ul></nav>
     </header>
@@ -87,9 +158,46 @@
             </ul>
         `,
         sahne: `
-            <h2>SAHNE</h2>
-            <p>Sahne kökenli bir drama eğitmeni olarak, profesyonel tiyatro deneyimimi sınıf ortamına taşıyorum. Devlet ve özel tiyatrolarda aktif oyunculuk geçmişim, uygulamalı ve disiplinli bir eğitim modeli sunmamı sağlıyor.</p>
-            <p>Sahne disiplini ve kolektif üretim gücüyle şekillenen bir eğitmenlik vizyonuna sahibim. Profesyonel tiyatro deneyiminin eğitimle buluştuğu noktada, sahne sanatlarının disiplinini çocuk gelişiminin en büyük destekçisi olarak görüyorum.</p>
+            <div class="section-content">
+              <h2>SAHNE SANATLARI</h2>
+              <p>Oyunculuk ve sahne disiplini, sanat yolculuğumun en temel taşlarından biridir. Sahne üzerindeki varlığımı, köklü bir eğitim geleneği üzerine inşa ettim.</p>
+
+              <div class="vefa-bolumu">
+                <div class="vefa-ust-metin">
+                  <h3>USTALARA SAYGI VE MİNNETLE</h3>
+                  <p>Sanata, sahneye ve eğitime bakışımda iz bırakan; düşünce dünyamı, sahne disiplinimi ve anlatım dilimi etkileyen kıymetli hocalarımı saygı ve minnetle anıyorum.</p>
+                </div>
+
+                <div class="vefa-izgara">
+                  <div class="vefa-kategori">
+                    <h4>BAKIŞ AÇISI & DÜŞÜNCE</h4>
+                    <ul class="vefa-liste">
+                      <li>Emre Kongar</li><li>Sunay Akın</li><li>Toktamış Ateş</li><li>Sevin Okyay</li>
+                    </ul>
+                  </div>
+                  <div class="vefa-kategori">
+                    <h4>SAHNE & SEYİRCİ BAĞI</h4>
+                    <ul class="vefa-liste">
+                      <li>Savaş Dinçel</li><li>Haldun Dormen</li><li>Aliye Uzunatağan</li><li>Göksel Kortay</li>
+                      <li>Mustafa Alabora</li><li>Can Doğan</li><li>Şebnem Sönmez</li><li>Nefrin Tokyay</li>
+                    </ul>
+                  </div>
+                  <div class="vefa-kategori">
+                    <h4>GELENEKSEL BİRİKİM</h4>
+                    <ul class="vefa-liste">
+                      <li>Müjdat Gezen</li><li>Zihni Göktay</li><li>Mücap Ofluoğlu</li>
+                    </ul>
+                  </div>
+                  <div class="vefa-kategori">
+                    <h4>SİNEMA & DRAMATURJİ</h4>
+                    <ul class="vefa-liste">
+                      <li>Tuncer Cücenoğlu</li><li>Sezai Gülşen</li><li>Muzaffer Hiçdurmaz</li>
+                      <li>Hilmi Zafer Şahin</li><li>Burçak Evren</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
         `,
         iletisim: `
             <h2>İLETİŞİM</h2>
@@ -137,9 +245,7 @@
         },
         {
             baslik: "📸 Süreç Anlatımları",
-            icerik: `
-                <p>Yaratıcı drama süreçlerini ve atölye metodolojimi animasyon destekli videolarla anlatıyor; eğitimin dijital dille buluşmasını sağlıyorum.</p>
-            `
+            icerik: `<p>Yaratıcı drama süreçlerini ve atölye metodolojimi animasyon destekli videolarla anlatıyor; eğitimin dijital dille buluşmasını sağlıyorum.</p>`
         }
     ];
 
@@ -147,95 +253,34 @@
     function render() {
         const contentArea = document.getElementById("page-content");
         const navList = document.getElementById("nav-list");
-        const menuler = [{id: "anasayfa", ad: "ANA SAYFA"}, {id: "drama", ad: "DRAMA HOCAM"}, {id: "yazarlik", ad: "YAZARLIK"}, {id: "sahne", ad: "SAHNE"}, {id: "iletisim", ad: "İLETİŞİM"}];
+        const menuler = [
+            { id: "anasayfa", ad: "ANA SAYFA" },
+            { id: "drama", ad: "DRAMA HOCAM" },
+            { id: "yazarlik", ad: "YAZARLIK" },
+            { id: "sahne", ad: "SAHNE" },
+            { id: "iletisim", ad: "İLETİŞİM" }
+        ];
         navList.innerHTML = "";
         menuler.forEach(m => {
             const btn = document.createElement("button");
             btn.textContent = m.ad;
-            if(currentPage === m.id) btn.classList.add("active");
+            if (currentPage === m.id) btn.classList.add("active");
             btn.onclick = () => { currentPage = m.id; render(); };
             navList.appendChild(btn);
         });
+
         if (currentPage === "drama") {
             let html = "<h2>DRAMA HOCAM</h2>";
-            dramaData.forEach(item => { html += `<details class="accordion"><summary>${item.baslik}</summary><div class="accordion-inner">${item.icerik}</div></details>`; });
+            dramaData.forEach(item => {
+                html += `<details class="accordion"><summary>${item.baslik}</summary><div class="accordion-inner">${item.icerik}</div></details>`;
+            });
             contentArea.innerHTML = html;
-        } else { contentArea.innerHTML = siteData[currentPage]; }
-        window.scrollTo(0,0);
+        } else {
+            contentArea.innerHTML = siteData[currentPage];
+        }
+        window.scrollTo(0, 0);
     }
     render();
 </script>
-    <div class="galeri-container">
-    <div class="galeri-track">
-        <div class="galeri-item">
-            <img src="img/nihat-keles-senarist.jpg" alt="Nihat Keleş Senarist" title="Nihat Keleş - Senarist">
-        </div>
-        <div class="galeri-item">
-            <img src="img/nihat-keles-yazar.jpg" alt="Nihat Keleş Yazar" title="Nihat Keleş - Yazar">
-        </div>
-        <div class="galeri-item">
-            <img src="img/nihat-keles-edebiyatci.jpg" alt="Nihat Keleş Edebiyatçı" title="Nihat Keleş - Edebiyatçı">
-        </div>
-        <div class="galeri-item">
-            <img src="img/nihat-keles-dramahocam.jpg" alt="Nihat Keleş Drama Hocam" title="Nihat Keleş - Drama Hocam">
-        </div>
-        <div class="galeri-item">
-            <img src="img/nihat-keles-cocuk-gelisimi-uzmani.jpg" alt="Nihat Keleş Çocuk Gelişimi Uzmanı" title="Nihat Keleş - Çocuk Gelişimi">
-        </div>
-        <div class="galeri-item">
-            <img src="img/nihat-keles-tiyatro-oyun-yazari.jpg" alt="Nihat Keleş Tiyatro Oyun Yazarı" title="Nihat Keleş - Oyun Yazarı">
-        </div>
-        <div class="galeri-item">
-            <img src="img/nihat-keles-drama-hocam-egitim-koordinatörü.jpg" alt="Nihat Keleş Eğitim Koordinatörü" title="Nihat Keleş - Eğitim Koordinatörü">
-        </div>
-
-        <div class="galeri-item"><img src="img/nihat-keles-senarist.jpg" alt="Nihat Keleş Senarist"></div>
-        <div class="galeri-item"><img src="img/nihat-keles-yazar.jpg" alt="Nihat Keleş Yazar"></div>
-        <div class="galeri-item"><img src="img/nihat-keles-edebiyatci.jpg" alt="Nihat Keleş Edebiyatçı"></div>
-        <div class="galeri-item"><img src="img/nihat-keles-dramahocam.jpg" alt="Nihat Keleş Drama Hocam"></div>
-        <div class="galeri-item"><img src="img/nihat-keles-cocuk-gelisimi-uzmani.jpg" alt="Nihat Keleş Çocuk Gelişimi Uzmanı"></div>
-        <div class="galeri-item"><img src="img/nihat-keles-tiyatro-oyun-yazari.jpg" alt="Nihat Keleş Tiyatro Oyun Yazarı"></div>
-        <div class="galeri-item"><img src="img/nihat-keles-drama-hocam-egitim-koordinatörü.jpg" alt="Nihat Keleş Eğitim Koordinatörü"></div>
-    </div>
-</div>
-
-<style>
-    /* Galeri Tasarımı */
-    .galeri-container {
-        width: 100%;
-        overflow: hidden;
-        padding: 20px 0;
-        background: rgba(0, 0, 0, 0.1);
-    }
-    .galeri-track {
-        display: flex;
-        width: calc(280px * 14); /* Resim genişliği x Toplam resim sayısı */
-        animation: scroll 40s linear infinite;
-        gap: 20px;
-    }
-    .galeri-item {
-        width: 280px;
-        height: 200px;
-        flex-shrink: 0;
-        border-radius: 12px;
-        overflow: hidden;
-        border: 2px solid #333;
-        transition: transform 0.3s ease;
-    }
-    .galeri-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-    }
-    .galeri-item:hover {
-        transform: scale(1.05);
-        border-color: #f5b042;
-    }
-    @keyframes scroll {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(calc(-280px * 7 - 140px)); } /* İlk 7 resmin bitişi */
-    }
-</style>
 </body>
 </html>
