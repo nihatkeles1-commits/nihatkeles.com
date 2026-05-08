@@ -282,5 +282,289 @@
     }
     render();
 </script>
+    <!-- TAM EKRAN KAYAN SPOT (MODAL SLIDER) - SADECE ANA SAYFA AÇILINCA -->
+<style>
+    .fullscreen-spot {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.92);
+        backdrop-filter: blur(8px);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.4s ease;
+        font-family: system-ui, -apple-system, sans-serif;
+    }
+    .fullscreen-spot.active {
+        visibility: visible;
+        opacity: 1;
+    }
+    .spot-container {
+        position: relative;
+        width: 90%;
+        max-width: 1000px;
+        height: auto;
+        max-height: 80vh;
+        background: #1e1e1e;
+        border-radius: 28px;
+        overflow: hidden;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        border: 1px solid #f5b042;
+    }
+    .spot-slider {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    .spot-slides {
+        display: flex;
+        transition: transform 0.5s ease;
+        will-change: transform;
+    }
+    .spot-slide {
+        flex-shrink: 0;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 2rem;
+        text-align: center;
+    }
+    .spot-slide img {
+        max-width: 100%;
+        max-height: 55vh;
+        object-fit: contain;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .spot-slide h3 {
+        color: #f5b042;
+        margin: 1rem 0 0.5rem;
+        font-size: 1.5rem;
+    }
+    .spot-slide p {
+        color: #ccc;
+        font-size: 0.95rem;
+        max-width: 80%;
+        margin: 0 auto;
+    }
+    .spot-prev, .spot-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0,0,0,0.6);
+        color: #f5b042;
+        border: 1px solid #f5b042;
+        font-size: 2rem;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+        z-index: 10;
+    }
+    .spot-prev { left: 20px; }
+    .spot-next { right: 20px; }
+    .spot-prev:hover, .spot-next:hover {
+        background: #f5b042;
+        color: #1e1e1e;
+    }
+    .spot-close-hint {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: #888;
+        font-size: 0.8rem;
+        background: rgba(0,0,0,0.5);
+        width: fit-content;
+        margin: 0 auto;
+        padding: 6px 16px;
+        border-radius: 30px;
+        pointer-events: none;
+        z-index: 10;
+    }
+    .spot-dots {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 1rem;
+        padding-bottom: 1rem;
+    }
+    .spot-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #555;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .spot-dot.active {
+        background: #f5b042;
+        width: 24px;
+        border-radius: 10px;
+    }
+    @media (max-width: 700px) {
+        .spot-slide { padding: 1rem; }
+        .spot-slide h3 { font-size: 1.2rem; }
+        .spot-prev, .spot-next { width: 36px; height: 36px; font-size: 1.4rem; }
+    }
+</style>
+
+<div id="fullscreenSpot" class="fullscreen-spot">
+    <div class="spot-container">
+        <div class="spot-prev" id="spotPrev">❮</div>
+        <div class="spot-next" id="spotNext">❯</div>
+        <div class="spot-slider">
+            <div class="spot-slides" id="spotSlides">
+                <!-- FOTOĞRAFLAR BURAYA JAVASCRIPT İLE DOLDURULACAK -->
+            </div>
+        </div>
+        <div class="spot-dots" id="spotDots"></div>
+        <div class="spot-close-hint">✨ Herhangi bir yere tıklayarak kapatın ✨</div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ======== SPOT İÇİN FOTOĞRAF LİSTESİ (img klasöründeki fotoğraflarınız) ========
+        const spotImages = [
+            { src: "img/nihat-keles-senarist.jpg", title: "Senarist", desc: "Nihat Keleş - Senarist" },
+            { src: "img/nihat-keles-yazar.jpg", title: "Yazar", desc: "Nihat Keleş - Yazar" },
+            { src: "img/nihat-keles-edebiyatci.jpg", title: "Edebiyatçı", desc: "Nihat Keleş - Edebiyatçı" },
+            { src: "img/nihat-keles-dramahocam.jpg", title: "Drama Hocam", desc: "Nihat Keleş - Drama Uzmanı" },
+            { src: "img/nihat-keles-cocuk-gelisimi-uzmani.jpg", title: "Çocuk Gelişimi Uzmanı", desc: "Nihat Keleş - Çocuk Gelişimi" },
+            { src: "img/nihat-keles-tiyatro-oyun-yazari.jpg", title: "Oyun Yazarı", desc: "Nihat Keleş - Tiyatro Oyun Yazarı" },
+            { src: "img/nihat-keles-drama-hocam.jpg", title: "Drama Hocam", desc: "Nihat Keleş - Drama Eğitmeni" },
+            { src: "img/nihat-keles-senarist-yazar.jpg", title: "Senarist & Yazar", desc: "Nihat Keleş - Senarist ve Yazar" }
+        ];
+
+        let currentSpotIndex = 0;
+        let spotVisible = false;
+
+        const spotModal = document.getElementById('fullscreenSpot');
+        const spotSlides = document.getElementById('spotSlides');
+        const spotDots = document.getElementById('spotDots');
+        const spotPrev = document.getElementById('spotPrev');
+        const spotNext = document.getElementById('spotNext');
+
+        // Slider'ı oluştur
+        function buildSpotSlider() {
+            if (!spotSlides) return;
+            spotSlides.innerHTML = '';
+            spotImages.forEach((img, idx) => {
+                const slide = document.createElement('div');
+                slide.className = 'spot-slide';
+                slide.innerHTML = `
+                    <img src="${img.src}" alt="${img.title}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23333\'/%3E%3Ctext x=\'50\' y=\'55\' font-size=\'12\' text-anchor=\'middle\' fill=\'%23f5b042\'%3E${img.title}%3C/text%3E%3C/svg%3E'">
+                    <h3>${img.title}</h3>
+                    <p>${img.desc}</p>
+                `;
+                spotSlides.appendChild(slide);
+            });
+            updateSpotPosition();
+
+            // Dot'ları oluştur
+            spotDots.innerHTML = '';
+            spotImages.forEach((_, idx) => {
+                const dot = document.createElement('div');
+                dot.className = 'spot-dot' + (idx === currentSpotIndex ? ' active' : '');
+                dot.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    currentSpotIndex = idx;
+                    updateSpotPosition();
+                    updateSpotDots();
+                });
+                spotDots.appendChild(dot);
+            });
+        }
+
+        function updateSpotPosition() {
+            if (!spotSlides) return;
+            spotSlides.style.transform = `translateX(-${currentSpotIndex * 100}%)`;
+        }
+
+        function updateSpotDots() {
+            const dots = document.querySelectorAll('.spot-dot');
+            dots.forEach((dot, idx) => {
+                if (idx === currentSpotIndex) dot.classList.add('active');
+                else dot.classList.remove('active');
+            });
+        }
+
+        function nextSpot() {
+            currentSpotIndex = (currentSpotIndex + 1) % spotImages.length;
+            updateSpotPosition();
+            updateSpotDots();
+        }
+
+        function prevSpot() {
+            currentSpotIndex = (currentSpotIndex - 1 + spotImages.length) % spotImages.length;
+            updateSpotPosition();
+            updateSpotDots();
+        }
+
+        function closeSpot() {
+            spotModal.classList.remove('active');
+            spotVisible = false;
+            // Spot'u bir daha göstermemek için localStorage'a kaydet (isteğe bağlı)
+            localStorage.setItem('spotShown', 'true');
+        }
+
+        function openSpot() {
+            // Sadece ana sayfada göster
+            if (typeof currentPage !== 'undefined' && currentPage !== 'anasayfa') return;
+            // Daha önce gösterildiyse gösterme
+            if (localStorage.getItem('spotShown') === 'true') return;
+            buildSpotSlider();
+            spotModal.classList.add('active');
+            spotVisible = true;
+        }
+
+        // Slider kontrolleri
+        if (spotNext) spotNext.addEventListener('click', (e) => { e.stopPropagation(); nextSpot(); });
+        if (spotPrev) spotPrev.addEventListener('click', (e) => { e.stopPropagation(); prevSpot(); });
+
+        // Herhangi bir yere tıklayınca kapat (kendisi hariç)
+        if (spotModal) {
+            spotModal.addEventListener('click', (e) => {
+                if (e.target === spotModal || e.target.classList.contains('spot-close-hint')) {
+                    closeSpot();
+                }
+            });
+        }
+
+        // Dokunmatik kaydırma desteği
+        let touchStartX = 0;
+        if (spotModal) {
+            spotModal.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            spotModal.addEventListener('touchend', (e) => {
+                const touchEndX = e.changedTouches[0].screenX;
+                if (touchEndX < touchStartX - 50) nextSpot();
+                if (touchEndX > touchStartX + 50) prevSpot();
+            });
+        }
+
+        // Sayfa açıldığında spot'u göster (küçük bir gecikmeyle, sayfa yüklendikten sonra)
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                openSpot();
+            }, 300);
+        });
+
+        // Ana sayfaya dönüldüğünde tekrar gösterme (çünkü zaten localStorage var)
+        // Eğer her ziyarette açılmasını istiyorsanız localStorage satırını kaldırın
+    })();
+</script>
 </body>
 </html>
