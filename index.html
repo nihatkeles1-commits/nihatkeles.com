@@ -165,5 +165,277 @@
     }
     render();
 </script>
+<!-- TAM EKRAN KAYAN SPOT - BÜYÜK FOTOĞRAFLAR (YAZI YOK) -->
+<style>
+    .fullscreen-spot {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #000000;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.4s ease;
+    }
+    .fullscreen-spot.active {
+        visibility: visible;
+        opacity: 1;
+    }
+    .spot-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .spot-slider {
+        position: relative;
+        width: 100%;
+        height: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .spot-slides {
+        display: flex;
+        transition: transform 0.5s ease;
+        will-change: transform;
+        width: 100%;
+        height: 100%;
+    }
+    .spot-slide {
+        flex-shrink: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #000000;
+    }
+    .spot-slide img {
+        max-width: 95%;
+        max-height: 90%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+    }
+    .spot-prev, .spot-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255,255,255,0.1);
+        color: #f5b042;
+        border: 1px solid rgba(245,176,66,0.5);
+        font-size: 3rem;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+        z-index: 10;
+    }
+    .spot-prev { left: 20px; }
+    .spot-next { right: 20px; }
+    .spot-prev:hover, .spot-next:hover {
+        background: #f5b042;
+        color: #000000;
+        transform: translateY(-50%) scale(1.1);
+    }
+    .spot-close-hint {
+        position: absolute;
+        bottom: 25px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: #888;
+        font-size: 0.85rem;
+        background: rgba(0,0,0,0.6);
+        width: fit-content;
+        margin: 0 auto;
+        padding: 8px 20px;
+        border-radius: 40px;
+        pointer-events: auto;
+        cursor: pointer;
+        z-index: 10;
+        font-weight: 400;
+        letter-spacing: 1px;
+    }
+    .spot-close-hint:hover {
+        background: rgba(0,0,0,0.8);
+        color: #f5b042;
+    }
+    .spot-dots {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 15px;
+        padding: 0;
+        position: absolute;
+        bottom: 15px;
+        left: 0;
+        right: 0;
+        z-index: 10;
+    }
+    .spot-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #555;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .spot-dot.active {
+        background: #f5b042;
+        width: 28px;
+        border-radius: 10px;
+    }
+    @media (max-width: 700px) {
+        .spot-prev, .spot-next { width: 45px; height: 45px; font-size: 2rem; }
+        .spot-prev { left: 10px; }
+        .spot-next { right: 10px; }
+        .spot-close-hint { font-size: 0.7rem; padding: 5px 15px; bottom: 15px; }
+    }
+</style>
+
+<div id="fullscreenSpot" class="fullscreen-spot">
+    <div class="spot-container">
+        <div class="spot-prev" id="spotPrev">❮</div>
+        <div class="spot-next" id="spotNext">❯</div>
+        <div class="spot-slider">
+            <div class="spot-slides" id="spotSlides"></div>
+        </div>
+        <div class="spot-dots" id="spotDots"></div>
+        <div class="spot-close-hint">✖ Kapatmak için tıklayın ✖</div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // FOTOĞRAF LİSTESİ (kendi dosya isimlerinizle)
+        const spotImages = [
+            "img/nihat-keles-senarist.jpg",
+            "img/nihat-keles-yazar.jpg",
+            "img/nihat-keles-edebiyatci.jpg",
+            "img/nihat-keles-dramahocam.jpg",
+            "img/nihat-keles-cocuk-gelisimi-uzmani.jpg",
+            "img/nihat-keles-tiyatro-oyun-yazari.jpg",
+            "img/nihat-keles-drama-hocam.jpg",
+            "img/nihat-keles-senarist-yazar.jpg"
+        ];
+
+        let currentSpotIndex = 0;
+
+        const spotModal = document.getElementById('fullscreenSpot');
+        const spotSlides = document.getElementById('spotSlides');
+        const spotDots = document.getElementById('spotDots');
+        const spotPrev = document.getElementById('spotPrev');
+        const spotNext = document.getElementById('spotNext');
+        const closeHint = document.querySelector('.spot-close-hint');
+
+        function buildSpotSlider() {
+            if (!spotSlides) return;
+            spotSlides.innerHTML = '';
+            spotImages.forEach((src, idx) => {
+                const slide = document.createElement('div');
+                slide.className = 'spot-slide';
+                slide.innerHTML = `<img src="${src}" alt="Nihat Keleş" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'500\' height=\'500\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23333\'/%3E%3Ctext x=\'50\' y=\'55\' font-size=\'10\' text-anchor=\'middle\' fill=\'%23f5b042\'%3EFoto%3C/text%3E%3C/svg%3E'">`;
+                spotSlides.appendChild(slide);
+            });
+            updateSpotPosition();
+
+            spotDots.innerHTML = '';
+            spotImages.forEach((_, idx) => {
+                const dot = document.createElement('div');
+                dot.className = 'spot-dot' + (idx === currentSpotIndex ? ' active' : '');
+                dot.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    currentSpotIndex = idx;
+                    updateSpotPosition();
+                    updateSpotDots();
+                });
+                spotDots.appendChild(dot);
+            });
+        }
+
+        function updateSpotPosition() {
+            if (!spotSlides) return;
+            spotSlides.style.transform = `translateX(-${currentSpotIndex * 100}%)`;
+        }
+
+        function updateSpotDots() {
+            const dots = document.querySelectorAll('.spot-dot');
+            dots.forEach((dot, idx) => {
+                if (idx === currentSpotIndex) dot.classList.add('active');
+                else dot.classList.remove('active');
+            });
+        }
+
+        function nextSpot() {
+            currentSpotIndex = (currentSpotIndex + 1) % spotImages.length;
+            updateSpotPosition();
+            updateSpotDots();
+        }
+
+        function prevSpot() {
+            currentSpotIndex = (currentSpotIndex - 1 + spotImages.length) % spotImages.length;
+            updateSpotPosition();
+            updateSpotDots();
+        }
+
+        function closeSpot() {
+            spotModal.classList.remove('active');
+            localStorage.setItem('spotShown', 'true');
+        }
+
+        function openSpot() {
+            if (typeof currentPage !== 'undefined' && currentPage !== 'anasayfa') return;
+            if (localStorage.getItem('spotShown') === 'true') return;
+            buildSpotSlider();
+            spotModal.classList.add('active');
+        }
+
+        if (spotNext) spotNext.addEventListener('click', (e) => { e.stopPropagation(); nextSpot(); });
+        if (spotPrev) spotPrev.addEventListener('click', (e) => { e.stopPropagation(); prevSpot(); });
+        if (closeHint) closeHint.addEventListener('click', (e) => { e.stopPropagation(); closeSpot(); });
+        
+        if (spotModal) {
+            spotModal.addEventListener('click', (e) => {
+                if (e.target === spotModal) closeSpot();
+            });
+        }
+
+        let touchStartX = 0;
+        if (spotModal) {
+            spotModal.addEventListener('touchstart', (e) => {
+                if (e.target === spotModal) return;
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            spotModal.addEventListener('touchend', (e) => {
+                if (e.target === spotModal) return;
+                const touchEndX = e.changedTouches[0].screenX;
+                if (touchEndX < touchStartX - 50) nextSpot();
+                if (touchEndX > touchStartX + 50) prevSpot();
+            });
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(() => openSpot(), 200);
+        });
+    })();
+</script>
 </body>
 </html>
