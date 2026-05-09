@@ -32,7 +32,7 @@
         .footer-slogan { color: #666; font-style: italic; font-size: 1rem; margin-bottom: 0.5rem; display: block; }
         .footer-copy { color: #666; font-size: 0.85rem; }
 
-        /* Ustalara Saygı - YATAY 4 SÜTUN */
+        /* Ustalara Saygı */
         .vefa-bolumu {
             background-color: #2a2a2a;
             padding: 2.5rem 1.8rem;
@@ -230,6 +230,50 @@
             opacity: 0.7;
         }
 
+        /* TEŞHİS PANELİ */
+        .test-panel {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: #1a1a1a;
+            border: 2px solid #f5b042;
+            padding: 15px;
+            z-index: 10000;
+            max-width: 400px;
+            max-height: 80vh;
+            overflow-y: auto;
+            font-size: 12px;
+            border-radius: 8px;
+            display: none;
+        }
+        .test-panel.show {
+            display: block;
+        }
+        .test-panel h3 {
+            color: #f5b042;
+            margin: 0 0 10px 0;
+            font-size: 14px;
+        }
+        .test-panel .success {
+            color: #4caf50;
+        }
+        .test-panel .error {
+            color: #f44336;
+        }
+        .test-panel .info {
+            color: #2196f3;
+        }
+        .test-panel button {
+            background: #f5b042;
+            color: #1a1a1a;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 5px;
+            font-weight: bold;
+        }
+
         @media (max-width: 850px) {
             .modal-content {
                 width: 90vw;
@@ -265,6 +309,14 @@
     </style>
 </head>
 <body>
+<!-- TEŞHİS PANELİ -->
+<div id="test-panel" class="test-panel">
+    <h3>🔍 Dosya Teşhis Paneli</h3>
+    <div id="test-results"></div>
+    <button onclick="document.getElementById('test-panel').classList.remove('show')">Kapat</button>
+    <button onclick="runDiagnostic()">Tekrar Test Et</button>
+</div>
+
 <div class="container">
     <header>
         <div class="header-brand">
@@ -442,9 +494,95 @@
         window.scrollTo(0, 0);
     }
 
+    // ---------- TEŞHİS FONKSİYONU ----------
+    function runDiagnostic() {
+        const testPanel = document.getElementById('test-panel');
+        const testResults = document.getElementById('test-results');
+        testPanel.classList.add('show');
+        
+        const photoList = [
+            "drama-hocam-nihat-keles.png",
+            "nihat-keles-cocuk-gelisimi-uzmani.png",
+            "nihat-keles-drama-hocam.png",
+            "nihat-keles-dramahocam-egitim-koordinatoru.png",
+            "nihat-keles-edebiyatci.png",
+            "nihat-keles-egitmen.png",
+            "nihat-keles-senarist-yazar.png",
+            "nihat-keles-senarist.png",
+            "nihat-keles-tiyatro-oyun-yazari.png",
+            "nihat-keles-yazar.png"
+        ];
+
+        // Alternatif isimler (büyük harf, tire, alt çizgi varyasyonları)
+        const alternativeNames = {
+            "drama-hocam-nihat-keles.png": [
+                "Drama-Hocam-Nihat-Keles.png",
+                "drama_hocam_nihat_keles.png",
+                "Drama_Hocam_Nihat_Keles.png",
+                "dramahocamnihatkeles.png"
+            ],
+            "nihat-keles-cocuk-gelisimi-uzmani.png": [
+                "Nihat-Keles-Cocuk-Gelisimi-Uzmani.png",
+                "nihat_keles_cocuk_gelisimi_uzmani.png"
+            ]
+        };
+
+        let html = '<p class="info">📋 Mevcut sayfa URL: ' + window.location.href + '</p>';
+        html += '<p class="info">📁 Base path: ' + window.location.pathname + '</p>';
+        html += '<hr style="border-color:#333;margin:10px 0;">';
+        
+        let foundCount = 0;
+        let errorCount = 0;
+
+        photoList.forEach((photo, index) => {
+            html += '<p><strong>#' + (index + 1) + ' Test ediliyor:</strong> ' + photo + '</p>';
+            
+            const img = new Image();
+            const testPromise = new Promise((resolve) => {
+                img.onload = function() {
+                    foundCount++;
+                    html += '<p class="success">✅ BULUNDU! (' + this.naturalWidth + 'x' + this.naturalHeight + ')</p>';
+                    resolve(true);
+                };
+                img.onerror = function() {
+                    errorCount++;
+                    html += '<p class="error">❌ BULUNAMADI: ' + photo + '</p>';
+                    
+                    // Alternatif isimleri dene
+                    if (alternativeNames[photo]) {
+                        html += '<p class="info">🔄 Alternatif isimler deneniyor...</p>';
+                        alternativeNames[photo].forEach(alt => {
+                            html += '<p class="info">  - ' + alt + '</p>';
+                        });
+                    }
+                    resolve(false);
+                };
+                img.src = photo;
+            });
+        });
+
+        html += '<hr style="border-color:#333;margin:10px 0;">';
+        html += '<p><strong>Sonuç:</strong> ' + foundCount + ' bulundu, ' + errorCount + ' bulunamadı (toplam ' + photoList.length + ')</p>';
+        
+        if (errorCount > 0) {
+            html += '<p class="error">⚠️ Dosya isimleri GitHub\'dakilerle eşleşmiyor!</p>';
+            html += '<p class="info">💡 Yapmanız gerekenler:</p>';
+            html += '<ol class="info" style="margin-left:20px;">';
+            html += '<li>GitHub deponuza gidin</li>';
+            html += '<li>Fotoğraf dosyalarının <strong>gerçek isimlerini</strong> kontrol edin</li>';
+            html += '<li>Büyük/küçük harf farklılıklarına dikkat edin</li>';
+            html += '<li>Doğru isimleri bana iletin, kodu güncelleyeyim</li>';
+            html += '</ol>';
+        } else {
+            html += '<p class="success">✅ Tüm fotoğraflar bulundu! Galeri çalışıyor olmalı.</p>';
+        }
+
+        testResults.innerHTML = html;
+    }
+
     // ---------- AÇILIŞ GALERİSİ ----------
     function openWelcomeGallery() {
-        // Fotoğraf listesi (talimattaki sırayla)
+        // Fotoğraf listesi
         const photos = [
             "drama-hocam-nihat-keles.png",
             "nihat-keles-cocuk-gelisimi-uzmani.png",
@@ -460,12 +598,10 @@
 
         let currentIndex = 0;
         let touchStartX = 0;
-        let touchEndX = 0;
 
         // Modal elementlerini oluştur
         const overlay = document.createElement('div');
         overlay.className = 'modal-overlay';
-        overlay.id = 'welcome-overlay';
 
         const content = document.createElement('div');
         content.className = 'modal-content';
@@ -492,11 +628,9 @@
             const img = document.createElement('img');
             img.src = src;
             img.alt = '';
-            img.loading = 'lazy';
-            // Hata durumunda yedek görüntü
             img.onerror = function() {
                 this.style.display = 'none';
-                slide.innerHTML = '<div style="color:#f5b042;text-align:center;padding:20px;">⚠️ Fotoğraf yüklenemedi<br><small style="color:#888;">' + src + '</small></div>';
+                slide.innerHTML = '<div style="color:#f5b042;text-align:center;padding:20px;">⚠️ Fotoğraf yüklenemedi<br><small style="color:#888;">Dosya: ' + src + '</small><br><br><button onclick="runDiagnostic()" style="background:#f5b042;color:#1a1a1a;border:none;padding:10px 20px;cursor:pointer;border-radius:5px;font-weight:bold;">🔍 Teşhis Panelini Aç</button></div>';
             };
             slide.appendChild(img);
             slidesContainer.appendChild(slide);
@@ -533,7 +667,7 @@
         overlay.appendChild(content);
         document.body.appendChild(overlay);
 
-        // Gösterge güncelleme fonksiyonu
+        // Gösterge güncelleme
         function updateGallery() {
             slidesContainer.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
             const dots = dotsContainer.querySelectorAll('.dot');
@@ -546,7 +680,7 @@
             });
         }
 
-        // Slayt geçiş fonksiyonu
+        // Slayt geçiş
         function goToSlide(index) {
             if (index < 0) index = photos.length - 1;
             if (index >= photos.length) index = 0;
@@ -565,7 +699,7 @@
             goToSlide(currentIndex + 1);
         });
 
-        // Klavye ile gezinme
+        // Klavye
         function handleKeyboard(e) {
             if (e.key === 'ArrowLeft') {
                 e.preventDefault();
@@ -582,13 +716,13 @@
         }
         document.addEventListener('keydown', handleKeyboard);
 
-        // Dokunmatik kaydırma
+        // Dokunmatik
         slidesContainer.addEventListener('touchstart', (e) => {
             touchStartX = e.touches[0].clientX;
         }, {passive: true});
         
         slidesContainer.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].clientX;
+            const touchEndX = e.changedTouches[0].clientX;
             const diff = touchStartX - touchEndX;
             if (Math.abs(diff) > 50) {
                 if (diff > 0) {
@@ -599,13 +733,12 @@
             }
         });
 
-        // Kapatma fonksiyonu
+        // Kapatma
         function closeModal() {
             document.removeEventListener('keydown', handleKeyboard);
             if (overlay && overlay.parentNode) {
                 overlay.parentNode.removeChild(overlay);
             }
-            // Oturum boyunca tekrar açılmaması için sessionStorage'a yaz
             sessionStorage.setItem('welcomeGalleryClosed', 'true');
         }
 
@@ -614,36 +747,32 @@
             closeModal();
         });
         
-        // Overlay'e tıklayınca kapat
         overlay.addEventListener('click', (e) => {
             if (e.target === overlay) {
                 closeModal();
             }
         });
 
-        // İlk göstergeyi ayarla
         updateGallery();
-        
-        // Debug için konsola yaz
-        console.log('✅ Galeri açıldı. Toplam fotoğraf:', photos.length);
-        console.log('📸 Fotoğraflar:', photos);
     }
 
-    // ---------- BAŞLANGIÇ KONTROLÜ ----------
+    // ---------- BAŞLANGIÇ ----------
     function init() {
         render();
-        // Sadece sessionStorage'da kapalı kaydı yoksa galeriyi aç
+        
         const galleryClosed = sessionStorage.getItem('welcomeGalleryClosed');
-        console.log('🔍 Galeri kapalı mı?', galleryClosed);
         
         if (!galleryClosed) {
-            // Sayfa tam yüklendikten sonra galeriyi aç (fotoğrafların yüklenmesi için)
             setTimeout(() => {
                 openWelcomeGallery();
             }, 500);
-        } else {
-            console.log('ℹ️ Galeri daha önce kapatıldığı için açılmadı.');
         }
+        
+        // Teşhis butonunu her zaman göster (geliştirme amaçlı)
+        // Siteyi yayınlamadan önce bu satırı kaldırabilirsiniz
+        setTimeout(() => {
+            console.log('🔍 Teşhis panelini açmak için tarayıcı konsoluna şunu yazın: runDiagnostic()');
+        }, 1000);
     }
 
     // Sayfa yüklendiğinde başlat
