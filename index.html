@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
@@ -103,6 +104,126 @@
                 padding: 1.5rem;
             }
         }
+
+        /* Açılış Fotoğraf Galerisi Stilleri */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            background: #1e1e1e;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #f5b042;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 10;
+            line-height: 1;
+            opacity: 0.8;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .modal-close:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        .slides-container {
+            flex: 1;
+            display: flex;
+            transition: transform 0.4s ease-in-out;
+            will-change: transform;
+        }
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #111;
+        }
+        .slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            user-select: none;
+            pointer-events: none;
+        }
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(30,30,30,0.7);
+            border: none;
+            color: #f5b042;
+            font-size: 2.5rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s;
+            z-index: 10;
+            line-height: 1;
+        }
+        .modal-nav:hover {
+            background: #f5b042;
+            color: #1e1e1e;
+        }
+        .modal-nav.prev { left: 15px; }
+        .modal-nav.next { right: 15px; }
+        .dots-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background: #1e1e1e;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #555;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+        }
+        .dot.active {
+            background: #f5b042;
+            transform: scale(1.3);
+        }
+
+        @media (max-width: 850px) {
+            .modal-content {
+                width: 90%;
+                height: 70%;
+            }
+        }
+        @media (max-width: 550px) {
+            .modal-content {
+                width: 95%;
+                height: 80%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -122,6 +243,7 @@
 </div>
 
 <script>
+    // ---------- SİTE VERİSİ ----------
     const siteData = {
         anasayfa: `
             <h2>HAKKINDA</h2>
@@ -249,6 +371,7 @@
         }
     ];
 
+    // ---------- SAYFA RENDER ----------
     let currentPage = "anasayfa";
     function render() {
         const contentArea = document.getElementById("page-content");
@@ -280,7 +403,157 @@
         }
         window.scrollTo(0, 0);
     }
-    render();
+
+    // ---------- AÇILIŞ GALERİSİ ----------
+    function openWelcomeGallery() {
+        // Fotoğraf listesi (talimattaki sırayla)
+        const photos = [
+            "drama-hocam-nihat-keles.png",
+            "nihat-keles-cocuk-gelisimi-uzmani.png",
+            "nihat-keles-drama-hocam.png",
+            "nihat-keles-dramahocam-egitim-koordinatoru.png",
+            "nihat-keles-edebiyatci.png",
+            "nihat-keles-egitmen.png",
+            "nihat-keles-senarist-yazar.png",
+            "nihat-keles-senarist.png",
+            "nihat-keles-tiyatro-oyun-yazari.png",
+            "nihat-keles-yazar.png"
+        ];
+
+        let currentIndex = 0;
+
+        // Modal elementlerini oluştur
+        const overlay = document.createElement('div');
+        overlay.className = 'modal-overlay';
+
+        const content = document.createElement('div');
+        content.className = 'modal-content';
+
+        // Kapat butonu
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'modal-close';
+        closeBtn.innerHTML = '&times;';
+        closeBtn.setAttribute('aria-label', 'Kapat');
+
+        // Slayt konteyneri
+        const slidesContainer = document.createElement('div');
+        slidesContainer.className = 'slides-container';
+
+        // Noktalar konteyneri
+        const dotsContainer = document.createElement('div');
+        dotsContainer.className = 'dots-container';
+
+        // Slaytları oluştur
+        photos.forEach((src, index) => {
+            const slide = document.createElement('div');
+            slide.className = 'slide';
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = ''; // Talimatta yazı olmayacak denmiş, alt metni de boş bırakıyoruz
+            slide.appendChild(img);
+            slidesContainer.appendChild(slide);
+
+            // Nokta
+            const dot = document.createElement('button');
+            dot.className = 'dot';
+            if (index === 0) dot.classList.add('active');
+            dot.setAttribute('aria-label', `Fotoğraf ${index + 1}`);
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+
+        // Gezinme butonları
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'modal-nav prev';
+        prevBtn.innerHTML = '‹';
+        prevBtn.setAttribute('aria-label', 'Önceki');
+
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'modal-nav next';
+        nextBtn.innerHTML = '›';
+        nextBtn.setAttribute('aria-label', 'Sonraki');
+
+        // Birleştir
+        content.appendChild(closeBtn);
+        content.appendChild(slidesContainer);
+        content.appendChild(prevBtn);
+        content.appendChild(nextBtn);
+        content.appendChild(dotsContainer);
+        overlay.appendChild(content);
+        document.body.appendChild(overlay);
+
+        // Gösterge güncelleme fonksiyonu
+        function updateGallery() {
+            slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+            const dots = dotsContainer.querySelectorAll('.dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+
+        // Slayt geçiş fonksiyonu
+        function goToSlide(index) {
+            if (index < 0) index = photos.length - 1;
+            if (index >= photos.length) index = 0;
+            currentIndex = index;
+            updateGallery();
+        }
+
+        // Event listener'lar
+        prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+        nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+
+        // Klavye ile gezinme
+        function handleKeyboard(e) {
+            if (e.key === 'ArrowLeft') goToSlide(currentIndex - 1);
+            if (e.key === 'ArrowRight') goToSlide(currentIndex + 1);
+            if (e.key === 'Escape') closeModal();
+        }
+        document.addEventListener('keydown', handleKeyboard);
+
+        // Dokunmatik kaydırma (basit)
+        let touchStartX = 0;
+        slidesContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+        slidesContainer.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) goToSlide(currentIndex + 1);
+                else goToSlide(currentIndex - 1);
+            }
+        });
+
+        // Kapatma fonksiyonu
+        function closeModal() {
+            document.removeEventListener('keydown', handleKeyboard);
+            overlay.remove();
+            // Oturum boyunca tekrar açılmaması için sessionStorage'a yaz
+            sessionStorage.setItem('welcomeGalleryClosed', 'true');
+        }
+
+        closeBtn.addEventListener('click', closeModal);
+        // Overlay'e tıklayınca da kapat (opsiyonel, isteğe bağlı)
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeModal();
+        });
+
+        // İlk göstergeyi ayarla
+        updateGallery();
+    }
+
+    // ---------- BAŞLANGIÇ KONTROLÜ ----------
+    function init() {
+        render();
+        // Sadece sessionStorage'da kapalı kaydı yoksa galeriyi aç
+        if (!sessionStorage.getItem('welcomeGalleryClosed')) {
+            openWelcomeGallery();
+        }
+    }
+
+    // Sayfa yüklendiğinde başlat
+    window.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
