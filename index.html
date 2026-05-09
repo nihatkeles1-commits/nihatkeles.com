@@ -45,6 +45,7 @@
         @media (max-width: 850px) { .vefa-izgara { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } }
         @media (max-width: 550px) { .vefa-izgara { grid-template-columns: 1fr; } .vefa-bolumu { padding: 1.5rem; } }
 
+        /* Galeri Stilleri */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); display: flex; align-items: center; justify-content: center; z-index: 9999; backdrop-filter: blur(5px); }
         .modal-content { position: relative; width: 800px; height: 600px; background: #1a1a1a; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.8); display: flex; flex-direction: column; }
         .modal-close { position: absolute; top: 15px; right: 20px; background: rgba(0,0,0,0.6); border: 2px solid #f5b042; color: #f5b042; width: 40px; height: 40px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; opacity: 0.9; transition: 0.3s; font-weight: bold; }
@@ -59,8 +60,6 @@
         .dot { width: 10px; height: 10px; border-radius: 50%; background: #555; cursor: pointer; transition: 0.3s; border: none; padding: 0; }
         .dot.active { background: #f5b042; transform: scale(1.4); }
         .dot:hover { background: #f5b042; opacity: 0.7; }
-        .error-slide { color: #f5b042; text-align: center; padding: 20px; }
-        .error-slide button { background: #f5b042; color: #1a1a1a; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; font-weight: bold; margin-top: 15px; }
 
         @media (max-width: 850px) { .modal-content { width: 90vw; height: 70vh; } .modal-nav { width: 40px; height: 40px; font-size: 1.5rem; } }
         @media (max-width: 550px) { .modal-content { width: 95vw; height: 60vh; } .modal-nav { width: 35px; height: 35px; font-size: 1.2rem; } .modal-close { width: 35px; height: 35px; font-size: 1.2rem; top: 10px; right: 10px; } .modal-slide { padding: 10px; } }
@@ -128,126 +127,21 @@
         window.scrollTo(0, 0);
     }
 
-    // ---------- FOTOĞRAF BULMA MOTORU ----------
-    async function findWorkingPhoto(basename) {
-        // Olası tüm varyasyonları dene
-        const variations = [];
-        
-        // Orijinal isim
-        variations.push(basename);
-        
-        // Uzantısız isim
-        const nameWithoutExt = basename.replace(/\.(png|jpg|jpeg|webp|gif)$/i, '');
-        const ext = basename.split('.').pop().toLowerCase();
-        
-        // Tüm yaygın uzantıları dene
-        const extensions = ['png', 'PNG', 'jpg', 'JPG', 'jpeg', 'JPEG', 'webp', 'WEBP'];
-        extensions.forEach(e => {
-            variations.push(nameWithoutExt + '.' + e);
-        });
-        
-        // Büyük harf varyasyonları
-        variations.push(basename.toUpperCase());
-        variations.push(basename.charAt(0).toUpperCase() + basename.slice(1));
-        
-        // Tire/alt çizgi değişimi
-        variations.push(basename.replace(/-/g, '_'));
-        variations.push(basename.replace(/-/g, ' '));
-        variations.push(basename.replace(/-/g, ''));
-        
-        // Türkçe karakter varyasyonları
-        const turkishMap = {
-            'ı': 'i', 'i': 'ı',
-            'ş': 's', 's': 'ş',
-            'ğ': 'g', 'g': 'ğ',
-            'ü': 'u', 'u': 'ü',
-            'ö': 'o', 'o': 'ö',
-            'ç': 'c', 'c': 'ç'
-        };
-        
-        let turkishVariation = basename;
-        for (const [tr, en] of Object.entries(turkishMap)) {
-            const regex = new RegExp(tr, 'g');
-            turkishVariation = turkishVariation.replace(regex, en);
-        }
-        if (turkishVariation !== basename) {
-            variations.push(turkishVariation);
-            extensions.forEach(e => {
-                variations.push(nameWithoutExt.replace(/[ışğüöçİŞĞÜÖÇ]/g, c => turkishMap[c.toLowerCase()] || c) + '.' + e);
-            });
-        }
-
-        // Benzersiz varyasyonları dene
-        const uniqueVariations = [...new Set(variations)];
-        
-        for (const variant of uniqueVariations) {
-            try {
-                const result = await testImage(variant);
-                if (result) {
-                    console.log('✅ Bulundu:', variant);
-                    return variant;
-                }
-            } catch(e) {
-                // Devam et
-            }
-        }
-        
-        console.log('❌ Bulunamadı:', basename);
-        return null;
-    }
-
-    function testImage(src) {
-        return new Promise((resolve) => {
-            const img = new Image();
-            const timeout = setTimeout(() => {
-                img.src = '';
-                resolve(false);
-            }, 3000);
-            
-            img.onload = function() {
-                clearTimeout(timeout);
-                resolve(true);
-            };
-            img.onerror = function() {
-                clearTimeout(timeout);
-                resolve(false);
-            };
-            img.src = src;
-        });
-    }
-
-    // ---------- AÇILIŞ GALERİSİ ----------
-    async function openWelcomeGallery() {
-        const photoBasenames = [
+    // ---------- AÇILIŞ GALERİSİ (GERÇEK DOSYA İSİMLERİYLE) ----------
+    function openWelcomeGallery() {
+        // GitHub'daki GERÇEK dosya isimleri
+        const photos = [
             "drama-hocam-nihat-keles.png",
             "nihat-keles-cocuk-gelisimi-uzmani.png",
             "nihat-keles-drama-hocam.png",
-            "nihat-keles-dramahocam-egitim-koordinatoru.png",
+            "nihat-keles-dramahocam-e%C4%9Fitim-koordinat%C3%B6r%C3%BC.png",
             "nihat-keles-edebiyatci.png",
-            "nihat-keles-egitmen.png",
+            "nihat-keles-e%C4%9Fitmen.png",
             "nihat-keles-senarist-yazar.png",
             "nihat-keles-senarist.png",
             "nihat-keles-tiyatro-oyun-yazari.png",
             "nihat-keles-yazar.png"
         ];
-
-        console.log('🔍 Fotoğraflar aranıyor...');
-        
-        // Tüm fotoğrafları dene ve çalışanları bul
-        const workingPhotos = [];
-        for (const basename of photoBasenames) {
-            const found = await findWorkingPhoto(basename);
-            if (found) {
-                workingPhotos.push(found);
-            }
-        }
-        
-        console.log('📸 Çalışan fotoğraflar:', workingPhotos);
-        
-        if (workingPhotos.length === 0) {
-            alert('Hiçbir fotoğraf bulunamadı. Lütfen GitHub deponuzdaki dosya isimlerini kontrol edin.');
-            return;
-        }
 
         let currentIndex = 0;
         let touchStartX = 0;
@@ -270,15 +164,21 @@
         const dotsContainer = document.createElement('div');
         dotsContainer.className = 'dots-container';
 
-        workingPhotos.forEach((src, index) => {
+        photos.forEach((src, index) => {
             const slide = document.createElement('div');
             slide.className = 'modal-slide';
             const img = document.createElement('img');
             img.src = src;
             img.alt = '';
             img.onerror = function() {
-                this.style.display = 'none';
-                slide.innerHTML = '<div class="error-slide">⚠️ Fotoğraf yüklenemedi<br><small style="color:#888;">Dosya: ' + src + '</small></div>';
+                // Hata durumunda dekode edilmiş ismi dene
+                const decodedSrc = decodeURIComponent(src);
+                if (decodedSrc !== src) {
+                    this.src = decodedSrc;
+                } else {
+                    this.style.display = 'none';
+                    slide.innerHTML = '<div style="color:#888;text-align:center;">Fotoğraf yüklenemedi</div>';
+                }
             };
             slide.appendChild(img);
             slidesContainer.appendChild(slide);
@@ -321,8 +221,8 @@
         }
 
         function goToSlide(index) {
-            if (index < 0) index = workingPhotos.length - 1;
-            if (index >= workingPhotos.length) index = 0;
+            if (index < 0) index = photos.length - 1;
+            if (index >= photos.length) index = 0;
             currentIndex = index;
             updateGallery();
         }
