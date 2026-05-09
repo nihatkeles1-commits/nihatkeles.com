@@ -276,7 +276,7 @@
 
         function wgShow(i) {
             wgIndex = i;
-            wgImage.src = "img/" + wgImages[i];
+            wgImage.src = "" + wgImages[i];
             const dots = wgDots.querySelectorAll("span");
             dots.forEach((d, idx) => d.classList.toggle("active", idx === i));
         }
