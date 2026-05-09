@@ -127,12 +127,11 @@
     }
 
     function openWelcomeGallery() {
-        // GitHub'daki GERÇEK dosya isimleri (img klasörü)
+        // SADECE ÇALIŞAN FOTOĞRAFLAR (Türkçe karakterli olanı atladık)
         const photos = [
             "img/drama-hocam-nihat-keles.png.png",
             "img/nihat-keles-cocuk-gelisimi-uzmani.png.png",
             "img/nihat-keles-drama-hocam.png.png",
-            "img/nihat-keles-dramahocam-egitim-koordinat%C3%B6r%C3%BC.png.png",
             "img/nihat-keles-edebiyatci.png.png",
             "img/nihat-keles-egitmen.png.png",
             "img/nihat-keles-senarist.png",
@@ -168,14 +167,8 @@
             img.src = src;
             img.alt = '';
             img.onerror = function() {
-                // Türkçe karakterli ham ismi dene
-                const decoded = decodeURIComponent(src);
-                if (decoded !== src) {
-                    this.src = decoded;
-                } else {
-                    this.style.display = 'none';
-                    slide.innerHTML = '<div style="color:#888;text-align:center;">Fotoğraf yüklenemedi</div>';
-                }
+                this.style.display = 'none';
+                slide.innerHTML = '<div style="color:#888;text-align:center;">Yüklenemedi</div>';
             };
             slide.appendChild(img);
             slidesContainer.appendChild(slide);
