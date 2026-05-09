@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -112,18 +111,18 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            z-index: 9999;
             backdrop-filter: blur(5px);
         }
         .modal-content {
             position: relative;
             width: 800px;
             height: 600px;
-            background: #1e1e1e;
+            background: #1a1a1a;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 20px 50px rgba(0,0,0,0.8);
@@ -134,19 +133,26 @@
             position: absolute;
             top: 15px;
             right: 20px;
-            background: none;
-            border: none;
+            background: rgba(0,0,0,0.6);
+            border: 2px solid #f5b042;
             color: #f5b042;
-            font-size: 2rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
             cursor: pointer;
             z-index: 10;
-            line-height: 1;
-            opacity: 0.8;
-            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.9;
+            transition: 0.3s;
             font-weight: bold;
         }
         .modal-close:hover {
             opacity: 1;
+            background: #f5b042;
+            color: #1a1a1a;
             transform: scale(1.1);
         }
         .slides-container {
@@ -155,73 +161,105 @@
             transition: transform 0.4s ease-in-out;
             will-change: transform;
         }
-        .slide {
+        .modal-slide {
             min-width: 100%;
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #111;
+            padding: 20px;
         }
-        .slide img {
+        .modal-slide img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
             user-select: none;
             pointer-events: none;
+            display: block;
         }
         .modal-nav {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(30,30,30,0.7);
-            border: none;
+            background: rgba(0,0,0,0.7);
+            border: 2px solid #f5b042;
             color: #f5b042;
-            font-size: 2.5rem;
-            padding: 0.5rem 1rem;
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
             cursor: pointer;
-            border-radius: 8px;
-            transition: 0.3s;
+            border-radius: 50%;
             z-index: 10;
-            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
         }
         .modal-nav:hover {
             background: #f5b042;
-            color: #1e1e1e;
+            color: #1a1a1a;
         }
         .modal-nav.prev { left: 15px; }
         .modal-nav.next { right: 15px; }
         .dots-container {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            align-items: center;
+            gap: 8px;
             padding: 15px;
-            background: #1e1e1e;
+            background: #1a1a1a;
+            flex-wrap: wrap;
         }
         .dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background: #555;
             cursor: pointer;
             transition: 0.3s;
             border: none;
+            padding: 0;
         }
         .dot.active {
             background: #f5b042;
-            transform: scale(1.3);
+            transform: scale(1.4);
+        }
+        .dot:hover {
+            background: #f5b042;
+            opacity: 0.7;
         }
 
         @media (max-width: 850px) {
             .modal-content {
-                width: 90%;
-                height: 70%;
+                width: 90vw;
+                height: 70vh;
+            }
+            .modal-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
             }
         }
         @media (max-width: 550px) {
             .modal-content {
-                width: 95%;
-                height: 80%;
+                width: 95vw;
+                height: 60vh;
+            }
+            .modal-nav {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
+            .modal-close {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+                top: 10px;
+                right: 10px;
+            }
+            .modal-slide {
+                padding: 10px;
             }
         }
     </style>
@@ -421,10 +459,13 @@
         ];
 
         let currentIndex = 0;
+        let touchStartX = 0;
+        let touchEndX = 0;
 
         // Modal elementlerini oluştur
         const overlay = document.createElement('div');
         overlay.className = 'modal-overlay';
+        overlay.id = 'welcome-overlay';
 
         const content = document.createElement('div');
         content.className = 'modal-content';
@@ -432,8 +473,9 @@
         // Kapat butonu
         const closeBtn = document.createElement('button');
         closeBtn.className = 'modal-close';
-        closeBtn.innerHTML = '&times;';
+        closeBtn.innerHTML = '✕';
         closeBtn.setAttribute('aria-label', 'Kapat');
+        closeBtn.title = 'Kapat';
 
         // Slayt konteyneri
         const slidesContainer = document.createElement('div');
@@ -446,10 +488,16 @@
         // Slaytları oluştur
         photos.forEach((src, index) => {
             const slide = document.createElement('div');
-            slide.className = 'slide';
+            slide.className = 'modal-slide';
             const img = document.createElement('img');
             img.src = src;
-            img.alt = ''; // Talimatta yazı olmayacak denmiş, alt metni de boş bırakıyoruz
+            img.alt = '';
+            img.loading = 'lazy';
+            // Hata durumunda yedek görüntü
+            img.onerror = function() {
+                this.style.display = 'none';
+                slide.innerHTML = '<div style="color:#f5b042;text-align:center;padding:20px;">⚠️ Fotoğraf yüklenemedi<br><small style="color:#888;">' + src + '</small></div>';
+            };
             slide.appendChild(img);
             slidesContainer.appendChild(slide);
 
@@ -457,7 +505,8 @@
             const dot = document.createElement('button');
             dot.className = 'dot';
             if (index === 0) dot.classList.add('active');
-            dot.setAttribute('aria-label', `Fotoğraf ${index + 1}`);
+            dot.setAttribute('aria-label', 'Fotoğraf ' + (index + 1));
+            dot.title = 'Fotoğraf ' + (index + 1);
             dot.addEventListener('click', () => goToSlide(index));
             dotsContainer.appendChild(dot);
         });
@@ -467,11 +516,13 @@
         prevBtn.className = 'modal-nav prev';
         prevBtn.innerHTML = '‹';
         prevBtn.setAttribute('aria-label', 'Önceki');
+        prevBtn.title = 'Önceki';
 
         const nextBtn = document.createElement('button');
         nextBtn.className = 'modal-nav next';
         nextBtn.innerHTML = '›';
         nextBtn.setAttribute('aria-label', 'Sonraki');
+        nextBtn.title = 'Sonraki';
 
         // Birleştir
         content.appendChild(closeBtn);
@@ -484,10 +535,14 @@
 
         // Gösterge güncelleme fonksiyonu
         function updateGallery() {
-            slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+            slidesContainer.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
             const dots = dotsContainer.querySelectorAll('.dot');
             dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentIndex);
+                if (i === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
             });
         }
 
@@ -500,60 +555,103 @@
         }
 
         // Event listener'lar
-        prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
-        nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+        prevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            goToSlide(currentIndex - 1);
+        });
+        
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            goToSlide(currentIndex + 1);
+        });
 
         // Klavye ile gezinme
         function handleKeyboard(e) {
-            if (e.key === 'ArrowLeft') goToSlide(currentIndex - 1);
-            if (e.key === 'ArrowRight') goToSlide(currentIndex + 1);
-            if (e.key === 'Escape') closeModal();
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                goToSlide(currentIndex - 1);
+            }
+            if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                goToSlide(currentIndex + 1);
+            }
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                closeModal();
+            }
         }
         document.addEventListener('keydown', handleKeyboard);
 
-        // Dokunmatik kaydırma (basit)
-        let touchStartX = 0;
+        // Dokunmatik kaydırma
         slidesContainer.addEventListener('touchstart', (e) => {
             touchStartX = e.touches[0].clientX;
-        });
+        }, {passive: true});
+        
         slidesContainer.addEventListener('touchend', (e) => {
-            const touchEndX = e.changedTouches[0].clientX;
+            touchEndX = e.changedTouches[0].clientX;
             const diff = touchStartX - touchEndX;
             if (Math.abs(diff) > 50) {
-                if (diff > 0) goToSlide(currentIndex + 1);
-                else goToSlide(currentIndex - 1);
+                if (diff > 0) {
+                    goToSlide(currentIndex + 1);
+                } else {
+                    goToSlide(currentIndex - 1);
+                }
             }
         });
 
         // Kapatma fonksiyonu
         function closeModal() {
             document.removeEventListener('keydown', handleKeyboard);
-            overlay.remove();
+            if (overlay && overlay.parentNode) {
+                overlay.parentNode.removeChild(overlay);
+            }
             // Oturum boyunca tekrar açılmaması için sessionStorage'a yaz
             sessionStorage.setItem('welcomeGalleryClosed', 'true');
         }
 
-        closeBtn.addEventListener('click', closeModal);
-        // Overlay'e tıklayınca da kapat (opsiyonel, isteğe bağlı)
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeModal();
+        });
+        
+        // Overlay'e tıklayınca kapat
         overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) closeModal();
+            if (e.target === overlay) {
+                closeModal();
+            }
         });
 
         // İlk göstergeyi ayarla
         updateGallery();
+        
+        // Debug için konsola yaz
+        console.log('✅ Galeri açıldı. Toplam fotoğraf:', photos.length);
+        console.log('📸 Fotoğraflar:', photos);
     }
 
     // ---------- BAŞLANGIÇ KONTROLÜ ----------
     function init() {
         render();
         // Sadece sessionStorage'da kapalı kaydı yoksa galeriyi aç
-        if (!sessionStorage.getItem('welcomeGalleryClosed')) {
-            openWelcomeGallery();
+        const galleryClosed = sessionStorage.getItem('welcomeGalleryClosed');
+        console.log('🔍 Galeri kapalı mı?', galleryClosed);
+        
+        if (!galleryClosed) {
+            // Sayfa tam yüklendikten sonra galeriyi aç (fotoğrafların yüklenmesi için)
+            setTimeout(() => {
+                openWelcomeGallery();
+            }, 500);
+        } else {
+            console.log('ℹ️ Galeri daha önce kapatıldığı için açılmadı.');
         }
     }
 
     // Sayfa yüklendiğinde başlat
-    window.addEventListener('DOMContentLoaded', init);
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
 </script>
 </body>
 </html>
