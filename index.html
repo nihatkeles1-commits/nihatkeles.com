@@ -261,108 +261,78 @@
 
 <script>
     /* ============================================
-       HOŞ GELDİN FOTOĞRAF GALERİSİ
-       ============================================ */
-    (function() {
-        const overlay = document.getElementById("welcomeGallery");
-        const wgImage = document.getElementById("wgImage");
-        const wgDots = document.getElementById("wgDots");
-        const wgPrev = document.getElementById("wgPrev");
-        const wgNext = document.getElementById("wgNext");
-        const wgClose = document.getElementById("wgClose");
+   HOŞ GELDİN FOTOĞRAF GALERİSİ
+   ============================================ */
+(function() {
+    var overlay = document.getElementById("welcomeGallery");
+    var wgImage = document.getElementById("wgImage");
+    var wgDots = document.getElementById("wgDots");
+    var wgPrev = document.getElementById("wgPrev");
+    var wgNext = document.getElementById("wgNext");
+    var wgClose = document.getElementById("wgClose");
 
-        let wgImages = [];
-        let wgIndex = 0;
+    var wgImages = [
+        "img/drama-hocam-nihat-keles.png",
+        "img/nihat-keles-cocuk-gelisimi-uzm.png",
+        "img/nihat-keles-drama-hocam.png",
+        "img/nihat-keles-dramahocam-egitim-koordinatoru.png",
+        "img/nihat-keles-edebiyatci.png.png",
+        "img/nihat-keles-egitmen.png.png",
+        "img/nihat-keles-senarist.png.png",
+        "img/nihat-keles-tiyatro-oyun-yazari.png",
+        "img/nihat-keles-yazar.png"
+    ];
 
-        function wgShow(i) {
-            wgIndex = i;
-            wgImage.src = "img/" + wgImages[i];
-            const dots = wgDots.querySelectorAll("span");
-            dots.forEach((d, idx) => d.classList.toggle("active", idx === i));
+    var wgIndex = 0;
+
+    function wgShow(i) {
+        wgIndex = i;
+        wgImage.src = wgImages[i];
+        var dots = wgDots.querySelectorAll("span");
+        for (var d = 0; d < dots.length; d++) {
+            dots[d].className = (d === i) ? "active" : "";
         }
+    }
 
-        function wgInit() {
-            // Noktaları oluştur
-            wgImages.forEach((_, i) => {
-                const dot = document.createElement("span");
-                dot.addEventListener("click", () => wgShow(i));
-                wgDots.appendChild(dot);
-            });
+    for (var i = 0; i < wgImages.length; i++) {
+        var dot = document.createElement("span");
+        dot.setAttribute("data-index", i);
+        dot.onclick = function() { wgShow(parseInt(this.getAttribute("data-index"))); };
+        wgDots.appendChild(dot);
+    }
 
-            // Ok butonları
-            wgPrev.addEventListener("click", () => {
-                wgIndex = (wgIndex - 1 + wgImages.length) % wgImages.length;
-                wgShow(wgIndex);
-            });
-            wgNext.addEventListener("click", () => {
-                wgIndex = (wgIndex + 1) % wgImages.length;
-                wgShow(wgIndex);
-            });
+    wgPrev.onclick = function() {
+        wgIndex = (wgIndex - 1 + wgImages.length) % wgImages.length;
+        wgShow(wgIndex);
+    };
+    wgNext.onclick = function() {
+        wgIndex = (wgIndex + 1) % wgImages.length;
+        wgShow(wgIndex);
+    };
 
-            // Klavye okları
-            document.addEventListener("keydown", function(e) {
-                if (overlay.style.display === "none") return;
-                if (e.key === "ArrowLeft") {
-                    wgIndex = (wgIndex - 1 + wgImages.length) % wgImages.length;
-                    wgShow(wgIndex);
-                } else if (e.key === "ArrowRight") {
-                    wgIndex = (wgIndex + 1) % wgImages.length;
-                    wgShow(wgIndex);
-                } else if (e.key === "Escape") {
-                    wgClose.click();
-                }
-            });
-
-            // Dokunmatik kaydırma
-            let touchStartX = 0;
-            let touchEndX = 0;
-            const modal = document.querySelector(".wg-modal");
-            modal.addEventListener("touchstart", (e) => {
-                touchStartX = e.changedTouches[0].screenX;
-            }, { passive: true });
-            modal.addEventListener("touchend", (e) => {
-                touchEndX = e.changedTouches[0].screenX;
-                const diff = touchStartX - touchEndX;
-                if (Math.abs(diff) > 50) {
-                    if (diff > 0) {
-                        wgIndex = (wgIndex + 1) % wgImages.length;
-                    } else {
-                        wgIndex = (wgIndex - 1 + wgImages.length) % wgImages.length;
-                    }
-                    wgShow(wgIndex);
-                }
-            });
-
-            wgShow(0);
-        }
-
-        // Kapat butonu
-        wgClose.addEventListener("click", () => {
+    document.addEventListener("keydown", function(e) {
+        if (overlay.style.display === "none") return;
+        if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+            wgIndex = e.key === "ArrowLeft" ? (wgIndex - 1 + wgImages.length) % wgImages.length : (wgIndex + 1) % wgImages.length;
+            wgShow(wgIndex);
+        } else if (e.key === "Escape") {
             overlay.style.display = "none";
             sessionStorage.setItem("wgSeen", "1");
-        });
+        }
+    });
 
-        // images.json'dan fotoğraf listesini çek
-        fetch("images.json")
-            .then(res => {
-                if (!res.ok) throw new Error("images.json bulunamadı");
-                return res.json();
-            })
-            .then(data => {
-                wgImages = data;
-                if (sessionStorage.getItem("wgSeen")) {
-                    overlay.style.display = "none";
-                } else {
-                    overlay.style.display = "flex";
-                    wgInit();
-                }
-            })
-            .catch(err => {
-                console.warn("Fotoğraf galerisi başlatılamadı:", err.message);
-                overlay.style.display = "none";
-            });
-    })();
+    wgClose.onclick = function() {
+        overlay.style.display = "none";
+        sessionStorage.setItem("wgSeen", "1");
+    };
 
+    if (sessionStorage.getItem("wgSeen")) {
+        overlay.style.display = "none";
+    } else {
+        overlay.style.display = "flex";
+        wgShow(0);
+    }
+})();
     /* ============================================
        ANA SİTE İÇERİĞİ VE NAVİGASYON
        ============================================ */
