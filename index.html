@@ -32,39 +32,218 @@
         .footer-slogan { color: #666; font-style: italic; font-size: 1rem; margin-bottom: 0.5rem; display: block; }
         .footer-copy { color: #666; font-size: 0.85rem; }
 
-        .vefa-bolumu { background-color: #2a2a2a; padding: 2.5rem 1.8rem; border-radius: 20px; margin-top: 2rem; border: 1px solid #333; }
-        .vefa-ust-metin { text-align: center; max-width: 800px; margin: 0 auto 2.5rem auto; }
-        .vefa-ust-metin h3 { color: #f5b042; font-size: 1.8rem; margin-bottom: 15px; font-family: 'Times New Roman', serif; letter-spacing: 1px; }
-        .vefa-ust-metin p { font-style: italic; font-size: 1rem; color: #bbb; line-height: 1.6; }
-        .vefa-izgara { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.8rem; align-items: start; }
-        .vefa-kategori h4 { color: #f5b042; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1rem; border-bottom: 1px solid #555; padding-bottom: 6px; }
-        .vefa-liste { list-style: none; padding: 0; margin: 0; }
-        .vefa-liste li { color: #eee; font-size: 0.9rem; margin-bottom: 6px; font-weight: 500; transition: color 0.2s; }
-        .vefa-liste li:hover { color: #f5b042; }
+        /* Ustalara Saygı - YATAY 4 SÜTUN */
+        .vefa-bolumu {
+            background-color: #2a2a2a;
+            padding: 2.5rem 1.8rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            border: 1px solid #333;
+        }
+        .vefa-ust-metin {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2.5rem auto;
+        }
+        .vefa-ust-metin h3 {
+            color: #f5b042;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-family: 'Times New Roman', serif;
+            letter-spacing: 1px;
+        }
+        .vefa-ust-metin p {
+            font-style: italic;
+            font-size: 1rem;
+            color: #bbb;
+            line-height: 1.6;
+        }
+        .vefa-izgara {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.8rem;
+            align-items: start;
+        }
+        .vefa-kategori h4 {
+            color: #f5b042;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #555;
+            padding-bottom: 6px;
+        }
+        .vefa-liste {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .vefa-liste li {
+            color: #eee;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .vefa-liste li:hover {
+            color: #f5b042;
+        }
 
-        @media (max-width: 850px) { .vefa-izgara { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } }
-        @media (max-width: 550px) { .vefa-izgara { grid-template-columns: 1fr; } .vefa-bolumu { padding: 1.5rem; } }
+        /* HOŞ GELDİN GALERİSİ */
+        .wg-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        .wg-modal {
+            width: 800px;
+            height: 600px;
+            background: #111;
+            border-radius: 18px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+        }
+        .wg-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 26px;
+            cursor: pointer;
+            z-index: 2;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        .wg-close:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        .wg-slider {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 50px 60px 60px 60px;
+        }
+        .wg-slider img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+        .wg-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            border: none;
+            color: #fff;
+            font-size: 28px;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+            z-index: 1;
+        }
+        .wg-arrow:hover {
+            background: rgba(245, 176, 66, 0.6);
+        }
+        .wg-arrow.left { left: 10px; }
+        .wg-arrow.right { right: 10px; }
+        .wg-dots {
+            position: absolute;
+            bottom: 14px;
+            width: 100%;
+            text-align: center;
+            z-index: 1;
+        }
+        .wg-dots span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 5px;
+            background: #555;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .wg-dots span:hover {
+            transform: scale(1.3);
+        }
+        .wg-dots .active {
+            background: #f5b042;
+            transform: scale(1.2);
+        }
 
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); display: flex; align-items: center; justify-content: center; z-index: 9999; backdrop-filter: blur(5px); }
-        .modal-content { position: relative; width: 800px; height: 600px; background: #1a1a1a; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.8); display: flex; flex-direction: column; }
-        .modal-close { position: absolute; top: 15px; right: 20px; background: rgba(0,0,0,0.6); border: 2px solid #f5b042; color: #f5b042; width: 40px; height: 40px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; opacity: 0.9; transition: 0.3s; font-weight: bold; }
-        .modal-close:hover { opacity: 1; background: #f5b042; color: #1a1a1a; transform: scale(1.1); }
-        .slides-container { flex: 1; display: flex; transition: transform 0.4s ease-in-out; will-change: transform; }
-        .modal-slide { min-width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #111; padding: 20px; }
-        .modal-slide img { max-width: 100%; max-height: 100%; object-fit: contain; user-select: none; pointer-events: none; display: block; }
-        .modal-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); border: 2px solid #f5b042; color: #f5b042; font-size: 2rem; width: 50px; height: 50px; cursor: pointer; border-radius: 50%; z-index: 10; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
-        .modal-nav:hover { background: #f5b042; color: #1a1a1a; }
-        .modal-nav.prev { left: 15px; } .modal-nav.next { right: 15px; }
-        .dots-container { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 15px; background: #1a1a1a; flex-wrap: wrap; }
-        .dot { width: 10px; height: 10px; border-radius: 50%; background: #555; cursor: pointer; transition: 0.3s; border: none; padding: 0; }
-        .dot.active { background: #f5b042; transform: scale(1.4); }
-        .dot:hover { background: #f5b042; opacity: 0.7; }
-
-        @media (max-width: 850px) { .modal-content { width: 90vw; height: 70vh; } .modal-nav { width: 40px; height: 40px; font-size: 1.5rem; } }
-        @media (max-width: 550px) { .modal-content { width: 95vw; height: 60vh; } .modal-nav { width: 35px; height: 35px; font-size: 1.2rem; } .modal-close { width: 35px; height: 35px; font-size: 1.2rem; top: 10px; right: 10px; } .modal-slide { padding: 10px; } }
+        @media (max-width: 850px) {
+            .wg-modal {
+                width: 90%;
+                height: 80%;
+            }
+            .vefa-izgara {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+        @media (max-width: 550px) {
+            .wg-modal {
+                width: 94%;
+                height: 70%;
+            }
+            .wg-slider {
+                padding: 45px 40px 50px 40px;
+            }
+            .wg-arrow {
+                width: 36px;
+                height: 36px;
+                font-size: 22px;
+            }
+            .wg-arrow.left { left: 4px; }
+            .wg-arrow.right { right: 4px; }
+            .vefa-izgara {
+                grid-template-columns: 1fr;
+            }
+            .vefa-bolumu {
+                padding: 1.5rem;
+            }
+            header h1 { font-size: 1.4rem; }
+            main { padding: 1.5rem; }
+        }
     </style>
 </head>
 <body>
+
+<!-- HOŞ GELDİN FOTOĞRAF GALERİSİ -->
+<div id="welcomeGallery" class="wg-overlay">
+    <div class="wg-modal">
+        <button class="wg-close" id="wgClose" title="Kapat">✕</button>
+        <div class="wg-slider">
+            <button class="wg-arrow left" id="wgPrev" title="Önceki">❮</button>
+            <img id="wgImage" src="" alt="Nihat Keleş">
+            <button class="wg-arrow right" id="wgNext" title="Sonraki">❯</button>
+        </div>
+        <div class="wg-dots" id="wgDots"></div>
+    </div>
+</div>
+
+<!-- ANA SİTE -->
 <div class="container">
     <header>
         <div class="header-brand">
@@ -81,18 +260,237 @@
 </div>
 
 <script>
+    /* ============================================
+       HOŞ GELDİN FOTOĞRAF GALERİSİ
+       ============================================ */
+    (function() {
+        const overlay = document.getElementById("welcomeGallery");
+        const wgImage = document.getElementById("wgImage");
+        const wgDots = document.getElementById("wgDots");
+        const wgPrev = document.getElementById("wgPrev");
+        const wgNext = document.getElementById("wgNext");
+        const wgClose = document.getElementById("wgClose");
+
+        let wgImages = [];
+        let wgIndex = 0;
+
+        function wgShow(i) {
+            wgIndex = i;
+            wgImage.src = "img/" + wgImages[i];
+            const dots = wgDots.querySelectorAll("span");
+            dots.forEach((d, idx) => d.classList.toggle("active", idx === i));
+        }
+
+        function wgInit() {
+            // Noktaları oluştur
+            wgImages.forEach((_, i) => {
+                const dot = document.createElement("span");
+                dot.addEventListener("click", () => wgShow(i));
+                wgDots.appendChild(dot);
+            });
+
+            // Ok butonları
+            wgPrev.addEventListener("click", () => {
+                wgIndex = (wgIndex - 1 + wgImages.length) % wgImages.length;
+                wgShow(wgIndex);
+            });
+            wgNext.addEventListener("click", () => {
+                wgIndex = (wgIndex + 1) % wgImages.length;
+                wgShow(wgIndex);
+            });
+
+            // Klavye okları
+            document.addEventListener("keydown", function(e) {
+                if (overlay.style.display === "none") return;
+                if (e.key === "ArrowLeft") {
+                    wgIndex = (wgIndex - 1 + wgImages.length) % wgImages.length;
+                    wgShow(wgIndex);
+                } else if (e.key === "ArrowRight") {
+                    wgIndex = (wgIndex + 1) % wgImages.length;
+                    wgShow(wgIndex);
+                } else if (e.key === "Escape") {
+                    wgClose.click();
+                }
+            });
+
+            // Dokunmatik kaydırma
+            let touchStartX = 0;
+            let touchEndX = 0;
+            const modal = document.querySelector(".wg-modal");
+            modal.addEventListener("touchstart", (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+            modal.addEventListener("touchend", (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        wgIndex = (wgIndex + 1) % wgImages.length;
+                    } else {
+                        wgIndex = (wgIndex - 1 + wgImages.length) % wgImages.length;
+                    }
+                    wgShow(wgIndex);
+                }
+            });
+
+            wgShow(0);
+        }
+
+        // Kapat butonu
+        wgClose.addEventListener("click", () => {
+            overlay.style.display = "none";
+            sessionStorage.setItem("wgSeen", "1");
+        });
+
+        // images.json'dan fotoğraf listesini çek
+        fetch("images.json")
+            .then(res => {
+                if (!res.ok) throw new Error("images.json bulunamadı");
+                return res.json();
+            })
+            .then(data => {
+                wgImages = data;
+                if (sessionStorage.getItem("wgSeen")) {
+                    overlay.style.display = "none";
+                } else {
+                    overlay.style.display = "flex";
+                    wgInit();
+                }
+            })
+            .catch(err => {
+                console.warn("Fotoğraf galerisi başlatılamadı:", err.message);
+                overlay.style.display = "none";
+            });
+    })();
+
+    /* ============================================
+       ANA SİTE İÇERİĞİ VE NAVİGASYON
+       ============================================ */
     const siteData = {
-        anasayfa: `<h2>HAKKINDA</h2><p><strong>Yazar / Çocuk Gelişimi Temelli Oluşturucu Drama Uzmanı</strong></p><h3>Yazarlık Yolculuğum...</h3><p>Kamu kurumları, sahne ve ekran için metinler üretiyorum. Oyunlarım Devlet Tiyatroları repertuvarında yer alıyor ve Epsilon Yayınevi bünyesinde yazmaya devam ediyorum.</p><h3>Eğitim Yaklaşımım...</h3><p><strong>Çocuk Gelişimi ve Tiyatro lisanslarımla temellenen yaklaşımım</strong> doğrultusunda, 20 yılı aşkın süredir ilkokul düzeyinde uygulamalı drama ve çocuk tiyatrosu disiplinlerini yürütüyorum. Binlerce çocukla sahne deneyimi paylaşırken; tiyatro dilini çocuk gelişimi perspektifiyle birleştiren bir metodoloji geliştirdim. Akademik çalışmalarımı; çocuk merkezli yapılandırılmış atölyeler ve okul programlarıyla sahaya aktarmaya devam ediyorum.</p><h3>Sahne Deneyimim...</h3><p>Sahne kökenli bir drama eğitmeni olarak, profesyonel tiyatro birikimimi sınıf ortamına taşıyorum. Devlet ve özel tiyatrolardaki aktif oyunculuk geçmişim, uygulamalı ve disiplinli bir eğitim modeli sunmamı sağlıyor.</p>`,
-        yazarlik: `<h2>YAZARLIK & DRAMATURJİ</h2><p><em>"Sadece kağıt üzerinde kalan değil, sahne ışığıyla veya kamera vizörüyle buluştuğunda yaşayan metinler üzerine odaklanıyorum."</em></p><h3>Üretim Alanları</h3><ul><li><strong>Dramatik Yazarlık:</strong> Devlet Tiyatroları repertuvarına kabul edilmiş oyunlarım ve çocuk müzikallerim.</li><li><strong>Ekran Metinleri:</strong> Televizyon dizileri, sinema filmleri ve reklam senaryoları için dramaturjik kurgu ve yazım yapıyorum.</li><li><strong>Edebiyat:</strong> Gençlik ve Çocuk Romanları kaleme alıyorum.</li><li><strong>Kurumsal Yazarlık:</strong> Kamu kurumları ve özel teşebbüsler için stratejik metin üretimi ve editörlük hizmeti veriyorum.</li></ul><h3>Yazım Yaklaşımım</h3><p>Bir metni inşa ederken üç temel kriteri önceliklendiriyorum:</p><ul><li><strong>Uygulanabilirlik:</strong> Sahne veya çekim matematiğine uygun, teknik olarak uygulanabilir kurgular.</li><li><strong>Hedef Kitle Algısı:</strong> Çocuk oyununda pedagojik hassasiyet, reklamda pazarlama dili, dramada ise karakter derinliği.</li><li><strong>Dinamik Dil:</strong> Bilgi kaosundan uzak, akıcı ve izleyiciyi hikayenin içinde tutan yalın bir anlatım.</li></ul><h3>Öne Çıkan Deneyimler</h3><ul><li><strong>Devlet Tiyatroları:</strong> 60. yıla özel çocuk oyunlarından birine editöryal destek verdim. Repertuvara kazandırılan oyunlarım ve Müzikal Çocuk Oyunum mevcuttur.</li><li><strong>Kamu Projeleri:</strong> Kültür Bakanlığı, Dış İşleri Bakanlığı ve Türk Tarih Kurumu için senaryo geliştirme destekleri ve metin yazarlığı yaptım.</li><li><strong>Medya:</strong> Ulusal kanallarda ve yapım firmalarında senaryo danışmanlığı ve içerik yönetimi görevlerini üstlendim.</li></ul>`,
-        sahne: `<div class="section-content"><h2>SAHNE SANATLARI</h2><p>Oyunculuk ve sahne disiplini, sanat yolculuğumun en temel taşlarından biridir. Sahne üzerindeki varlığımı, köklü bir eğitim geleneği üzerine inşa ettim.</p><div class="vefa-bolumu"><div class="vefa-ust-metin"><h3>USTALARA SAYGI VE MİNNETLE</h3><p>Sanata, sahneye ve eğitime bakışımda iz bırakan; düşünce dünyamı, sahne disiplinimi ve anlatım dilimi etkileyen kıymetli hocalarımı saygı ve minnetle anıyorum.</p></div><div class="vefa-izgara"><div class="vefa-kategori"><h4>BAKIŞ AÇISI & DÜŞÜNCE</h4><ul class="vefa-liste"><li>Emre Kongar</li><li>Sunay Akın</li><li>Toktamış Ateş</li><li>Sevin Okyay</li></ul></div><div class="vefa-kategori"><h4>SAHNE & SEYİRCİ BAĞI</h4><ul class="vefa-liste"><li>Savaş Dinçel</li><li>Haldun Dormen</li><li>Aliye Uzunatağan</li><li>Göksel Kortay</li><li>Mustafa Alabora</li><li>Can Doğan</li><li>Şebnem Sönmez</li><li>Nefrin Tokyay</li></ul></div><div class="vefa-kategori"><h4>GELENEKSEL BİRİKİM</h4><ul class="vefa-liste"><li>Müjdat Gezen</li><li>Zihni Göktay</li><li>Mücap Ofluoğlu</li></ul></div><div class="vefa-kategori"><h4>SİNEMA & DRAMATURJİ</h4><ul class="vefa-liste"><li>Tuncer Cücenoğlu</li><li>Sezai Gülşen</li><li>Muzaffer Hiçdurmaz</li><li>Hilmi Zafer Şahin</li><li>Burçak Evren</li></ul></div></div></div></div>`,
-        iletisim: `<h2>İLETİŞİM</h2><p><strong>Telefon:</strong> +90 530 558 86 50</p><p><strong>Instagram:</strong> <a href="https://www.instagram.com/dramahocam/" target="_blank" class="contact-link">@dramahocam</a></p><p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/nihat-keles-b3492523" target="_blank" class="contact-link">Nihat KELEŞ | LinkedIn</a></p>`
+        anasayfa: `
+            <h2>HAKKINDA</h2>
+            <p><strong>Yazar / Çocuk Gelişimi Temelli Oluşturucu Drama Uzmanı</strong></p>
+            <h3>Yazarlık Yolculuğum...</h3>
+            <p>Kamu kurumları, sahne ve ekran için metinler üretiyorum. Oyunlarım Devlet Tiyatroları repertuvarında yer alıyor ve Epsilon Yayınevi bünyesinde yazmaya devam ediyorum.</p>
+            <h3>Eğitim Yaklaşımım...</h3>
+            <p><strong>Çocuk Gelişimi ve Tiyatro lisanslarımla temellenen yaklaşımım</strong> doğrultusunda, 20 yılı aşkın süredir ilkokul düzeyinde uygulamalı drama ve çocuk tiyatrosu disiplinlerini yürütüyorum. Binlerce çocukla sahne deneyimi paylaşırken; tiyatro dilini çocuk gelişimi perspektifiyle birleştiren bir metodoloji geliştirdim. Akademik çalışmalarımı; çocuk merkezli yapılandırılmış atölyeler ve okul programlarıyla sahaya aktarmaya devam ediyorum.</p>
+            <h3>Sahne Deneyimim...</h3>
+            <p>Sahne kökenli bir drama eğitmeni olarak, profesyonel tiyatro birikimimi sınıf ortamına taşıyorum. Devlet ve özel tiyatrolardaki aktif oyunculuk geçmişim, uygulamalı ve disiplinli bir eğitim modeli sunmamı sağlıyor.</p>
+        `,
+        yazarlik: `
+            <h2>YAZARLIK & DRAMATURJİ</h2>
+            <p><em>"Sadece kağıt üzerinde kalan değil, sahne ışığıyla veya kamera vizörüyle buluştuğunda yaşayan metinler üzerine odaklanıyorum."</em></p>
+            <h3>Üretim Alanları</h3>
+            <ul>
+                <li><strong>Dramatik Yazarlık:</strong> Devlet Tiyatroları repertuvarına kabul edilmiş oyunlarım ve çocuk müzikallerim.</li>
+                <li><strong>Ekran Metinleri:</strong> Televizyon dizileri, sinema filmleri ve reklam senaryoları için dramaturjik kurgu ve yazım yapıyorum.</li>
+                <li><strong>Edebiyat:</strong> Gençlik ve Çocuk Romanları kaleme alıyorum.</li>
+                <li><strong>Kurumsal Yazarlık:</strong> Kamu kurumları ve özel teşebbüsler için stratejik metin üretimi ve editörlük hizmeti veriyorum.</li>
+            </ul>
+            <h3>Yazım Yaklaşımım</h3>
+            <p>Bir metni inşa ederken üç temel kriteri önceliklendiriyorum:</p>
+            <ul>
+                <li><strong>Uygulanabilirlik:</strong> Sahne veya çekim matematiğine uygun, teknik olarak uygulanabilir kurgular.</li>
+                <li><strong>Hedef Kitle Algısı:</strong> Çocuk oyununda pedagojik hassasiyet, reklamda pazarlama dili, dramada ise karakter derinliği.</li>
+                <li><strong>Dinamik Dil:</strong> Bilgi kaosundan uzak, akıcı ve izleyiciyi hikayenin içinde tutan yalın bir anlatım.</li>
+            </ul>
+            <h3>Öne Çıkan Deneyimler</h3>
+            <ul>
+                <li><strong>Devlet Tiyatroları:</strong> 60. yıla özel çocuk oyunlarından birine editöryal destek verdim. Repertuvara kazandırılan oyunlarım ve Müzikal Çocuk Oyunum mevcuttur.</li>
+                <li><strong>Kamu Projeleri:</strong> Kültür Bakanlığı, Dış İşleri Bakanlığı ve Türk Tarih Kurumu için senaryo geliştirme destekleri ve metin yazarlığı yaptım.</li>
+                <li><strong>Medya:</strong> Ulusal kanallarda ve yapım firmalarında senaryo danışmanlığı ve içerik yönetimi görevlerini üstlendim.</li>
+            </ul>
+        `,
+        sahne: `
+            <div class="section-content">
+              <h2>SAHNE SANATLARI</h2>
+              <p>Oyunculuk ve sahne disiplini, sanat yolculuğumun en temel taşlarından biridir. Sahne üzerindeki varlığımı, köklü bir eğitim geleneği üzerine inşa ettim.</p>
+
+              <div class="vefa-bolumu">
+                <div class="vefa-ust-metin">
+                  <h3>USTALARA SAYGI VE MİNNETLE</h3>
+                  <p>Sanata, sahneye ve eğitime bakışımda iz bırakan; düşünce dünyamı, sahne disiplinimi ve anlatım dilimi etkileyen kıymetli hocalarımı saygı ve minnetle anıyorum.</p>
+                </div>
+
+                <div class="vefa-izgara">
+                  <div class="vefa-kategori">
+                    <h4>BAKIŞ AÇISI & DÜŞÜNCE</h4>
+                    <ul class="vefa-liste">
+                      <li>Emre Kongar</li><li>Sunay Akın</li><li>Toktamış Ateş</li><li>Sevin Okyay</li>
+                    </ul>
+                  </div>
+                  <div class="vefa-kategori">
+                    <h4>SAHNE & SEYİRCİ BAĞI</h4>
+                    <ul class="vefa-liste">
+                      <li>Savaş Dinçel</li><li>Haldun Dormen</li><li>Aliye Uzunatağan</li><li>Göksel Kortay</li>
+                      <li>Mustafa Alabora</li><li>Can Doğan</li><li>Şebnem Sönmez</li><li>Nefrin Tokyay</li>
+                    </ul>
+                  </div>
+                  <div class="vefa-kategori">
+                    <h4>GELENEKSEL BİRİKİM</h4>
+                    <ul class="vefa-liste">
+                      <li>Müjdat Gezen</li><li>Zihni Göktay</li><li>Mücap Ofluoğlu</li>
+                    </ul>
+                  </div>
+                  <div class="vefa-kategori">
+                    <h4>SİNEMA & DRAMATURJİ</h4>
+                    <ul class="vefa-liste">
+                      <li>Tuncer Cücenoğlu</li><li>Sezai Gülşen</li><li>Muzaffer Hiçdurmaz</li>
+                      <li>Hilmi Zafer Şahin</li><li>Burçak Evren</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+        `,
+        iletisim: `
+            <h2>İLETİŞİM</h2>
+            <p><strong>Telefon:</strong> +90 530 558 86 50</p>
+            <p><strong>Instagram:</strong> <a href="https://www.instagram.com/dramahocam/" target="_blank" class="contact-link">@dramahocam</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/nihat-keles-b3492523" target="_blank" class="contact-link">Nihat KELEŞ | LinkedIn</a></p>
+        `
     };
 
     const dramaData = [
-        { baslik: "🔍 Çalışma Modelim", icerik: `<h3>Çocuk Gelişimi Odaklı Yaratıcı Drama</h3><p>İlkokul düzeyinde, çocuk gelişimi ilkelerini temel alan yapılandırılmış yaratıcı drama çalışmaları yürütüyorum. Temel amacım; çocuğun ifade gücünü, sosyal uyum becerisini ve eleştirel düşünme yetisini sahne pratiğiyle somutlaştırmaktır.</p><h3>Nasıl Çalışıyorum?</h3><p>Eğitimlerim, akademik bir metodolojiye dayanan ve sınıf içi dinamiklere tam uyum sağlayan bir sistem üzerine kurulur:</p><ul><li><strong>Oyunlaştırılmış Öğrenme:</strong> Bilgiyi ezberden çıkarıp deneyime dönüştürüyorum.</li><li><strong>Etkileşimli Rol Alma:</strong> Grup içi iş birliği ve empatiyi geliştiriyorum.</li><li><strong>Duygusal Zeka (EQ):</strong> Duygu yönetimi ve özgüven odaklı uygulamalar yapıyorum.</li></ul>` },
-        { baslik: "📖 Uygulama Modeli", icerik: `<p>20 yılı aşan saha deneyimiyle rafine ettiğim bu yaklaşım üç ana sütuna dayanıyor:</p><ul><li><strong>Disiplinlerarası Geçiş:</strong> Tiyatro pratiğini çocuk gelişimi pedagojisiyle eş zamanlı kullanıyorum.</li><li><strong>Yapılandırılmış Kurgu:</strong> Sınıf ortamına özel, müfredatla uyumlu drama senaryoları hazırlıyorum.</li><li><strong>İletişim Becerileri:</strong> Hitabet, artikülasyon ve diksiyon çalışmalarını sürece doğal yollarla entegre ediyorum.</li></ul>` },
-        { baslik: "🏫 Hizmet Alanları", icerik: `<ul><li><strong>Kurumlar:</strong> Okul öncesi ve ilköğretim düzeyinde programlar geliştiriyor; okullarda uygulama süreçlerini yürütüyorum.</li><li><strong>Eğitimciler:</strong> Öğretmen eğitimlerimde pedagojik birikimi sahne disipliniyle yeniden yorumlayan bütüncül gelişim rehberliği sunuyorum.</li><li><strong>Projeler:</strong> Okul içi program tasarımı ve çocuk müzikali/tiyatrosu prodüksiyonları gerçekleştiriyorum.</li></ul>` },
-        { baslik: "📸 Süreç Anlatımları", icerik: `<p>Yaratıcı drama süreçlerini ve atölye metodolojimi animasyon destekli videolarla anlatıyor; eğitimin dijital dille buluşmasını sağlıyorum.</p>` }
+        {
+            baslik: "🔍 Çalışma Modelim",
+            icerik: `
+                <h3>Çocuk Gelişimi Odaklı Yaratıcı Drama</h3>
+                <p>İlkokul düzeyinde, çocuk gelişimi ilkelerini temel alan yapılandırılmış yaratıcı drama çalışmaları yürütüyorum. Temel amacım; çocuğun ifade gücünü, sosyal uyum becerisini ve eleştirel düşünme yetisini sahne pratiğiyle somutlaştırmaktır.</p>
+                <h3>Nasıl Çalışıyorum?</h3>
+                <p>Eğitimlerim, akademik bir metodolojiye dayanan ve sınıf içi dinamiklere tam uyum sağlayan bir sistem üzerine kurulur:</p>
+                <ul>
+                    <li><strong>Oyunlaştırılmış Öğrenme:</strong> Bilgiyi ezberden çıkarıp deneyime dönüştürüyorum.</li>
+                    <li><strong>Etkileşimli Rol Alma:</strong> Grup içi iş birliği ve empatiyi geliştiriyorum.</li>
+                    <li><strong>Duygusal Zeka (EQ):</strong> Duygu yönetimi ve özgüven odaklı uygulamalar yapıyorum.</li>
+                </ul>
+            `
+        },
+        {
+            baslik: "📖 Uygulama Modeli",
+            icerik: `
+                <p>20 yılı aşan saha deneyimiyle rafine ettiğim bu yaklaşım üç ana sütuna dayanıyor:</p>
+                <ul>
+                    <li><strong>Disiplinlerarası Geçiş:</strong> Tiyatro pratiğini çocuk gelişimi pedagojisiyle eş zamanlı kullanıyorum.</li>
+                    <li><strong>Yapılandırılmış Kurgu:</strong> Sınıf ortamına özel, müfredatla uyumlu drama senaryoları hazırlıyorum.</li>
+                    <li><strong>İletişim Becerileri:</strong> Hitabet, artikülasyon ve diksiyon çalışmalarını sürece doğal yollarla entegre ediyorum.</li>
+                </ul>
+            `
+        },
+        {
+            baslik: "🏫 Hizmet Alanları",
+            icerik: `
+                <ul>
+                    <li><strong>Kurumlar:</strong> Okul öncesi ve ilköğretim düzeyinde programlar geliştiriyor; okullarda uygulama süreçlerini yürütüyorum.</li>
+                    <li><strong>Eğitimciler:</strong> Öğretmen eğitimlerimde pedagojik birikimi sahne disipliniyle yeniden yorumlayan bütüncül gelişim rehberliği sunuyorum.</li>
+                    <li><strong>Projeler:</strong> Okul içi program tasarımı ve çocuk müzikali/tiyatrosu prodüksiyonları gerçekleştiriyorum.</li>
+                </ul>
+            `
+        },
+        {
+            baslik: "📸 Süreç Anlatımları",
+            icerik: `<p>Yaratıcı drama süreçlerini ve atölye metodolojimi animasyon destekli videolarla anlatıyor; eğitimin dijital dille buluşmasını sağlıyorum.</p>`
+        }
     ];
 
     let currentPage = "anasayfa";
@@ -111,9 +509,10 @@
             const btn = document.createElement("button");
             btn.textContent = m.ad;
             if (currentPage === m.id) btn.classList.add("active");
-            btn.onclick = () => { currentPage = m.id; render(); };
+            btn.addEventListener("click", () => { currentPage = m.id; render(); });
             navList.appendChild(btn);
         });
+
         if (currentPage === "drama") {
             let html = "<h2>DRAMA HOCAM</h2>";
             dramaData.forEach(item => {
@@ -125,147 +524,7 @@
         }
         window.scrollTo(0, 0);
     }
-
-    function openWelcomeGallery() {
-        // SADECE ÇALIŞAN FOTOĞRAFLAR (Türkçe karakterli olanı atladık)
-        const photos = [
-            "img/drama-hocam-nihat-keles.png.png",
-            "img/nihat-keles-cocuk-gelisimi-uzmani.png.png",
-            "img/nihat-keles-drama-hocam.png.png",
-            "img/nihat-keles-edebiyatci.png.png",
-            "img/nihat-keles-egitmen.png.png",
-            "img/nihat-keles-senarist.png",
-            "img/nihat-keles-yazar.png.png",
-            "img/nihat-keles-yazari.png.png"
-        ];
-
-        let currentIndex = 0;
-        let touchStartX = 0;
-
-        const overlay = document.createElement('div');
-        overlay.className = 'modal-overlay';
-
-        const content = document.createElement('div');
-        content.className = 'modal-content';
-
-        const closeBtn = document.createElement('button');
-        closeBtn.className = 'modal-close';
-        closeBtn.innerHTML = '✕';
-        closeBtn.setAttribute('aria-label', 'Kapat');
-        closeBtn.title = 'Kapat';
-
-        const slidesContainer = document.createElement('div');
-        slidesContainer.className = 'slides-container';
-
-        const dotsContainer = document.createElement('div');
-        dotsContainer.className = 'dots-container';
-
-        photos.forEach((src, index) => {
-            const slide = document.createElement('div');
-            slide.className = 'modal-slide';
-            const img = document.createElement('img');
-            img.src = src;
-            img.alt = '';
-            img.onerror = function() {
-                this.style.display = 'none';
-                slide.innerHTML = '<div style="color:#888;text-align:center;">Yüklenemedi</div>';
-            };
-            slide.appendChild(img);
-            slidesContainer.appendChild(slide);
-
-            const dot = document.createElement('button');
-            dot.className = 'dot';
-            if (index === 0) dot.classList.add('active');
-            dot.setAttribute('aria-label', 'Fotoğraf ' + (index + 1));
-            dot.title = 'Fotoğraf ' + (index + 1);
-            dot.addEventListener('click', () => goToSlide(index));
-            dotsContainer.appendChild(dot);
-        });
-
-        const prevBtn = document.createElement('button');
-        prevBtn.className = 'modal-nav prev';
-        prevBtn.innerHTML = '‹';
-        prevBtn.setAttribute('aria-label', 'Önceki');
-        prevBtn.title = 'Önceki';
-
-        const nextBtn = document.createElement('button');
-        nextBtn.className = 'modal-nav next';
-        nextBtn.innerHTML = '›';
-        nextBtn.setAttribute('aria-label', 'Sonraki');
-        nextBtn.title = 'Sonraki';
-
-        content.appendChild(closeBtn);
-        content.appendChild(slidesContainer);
-        content.appendChild(prevBtn);
-        content.appendChild(nextBtn);
-        content.appendChild(dotsContainer);
-        overlay.appendChild(content);
-        document.body.appendChild(overlay);
-
-        function updateGallery() {
-            slidesContainer.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
-            const dots = dotsContainer.querySelectorAll('.dot');
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentIndex);
-            });
-        }
-
-        function goToSlide(index) {
-            if (index < 0) index = photos.length - 1;
-            if (index >= photos.length) index = 0;
-            currentIndex = index;
-            updateGallery();
-        }
-
-        prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goToSlide(currentIndex - 1); });
-        nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goToSlide(currentIndex + 1); });
-
-        function handleKeyboard(e) {
-            if (e.key === 'ArrowLeft') { e.preventDefault(); goToSlide(currentIndex - 1); }
-            if (e.key === 'ArrowRight') { e.preventDefault(); goToSlide(currentIndex + 1); }
-            if (e.key === 'Escape') { e.preventDefault(); closeModal(); }
-        }
-        document.addEventListener('keydown', handleKeyboard);
-
-        slidesContainer.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, {passive: true});
-        slidesContainer.addEventListener('touchend', (e) => {
-            const touchEndX = e.changedTouches[0].clientX;
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) goToSlide(currentIndex + 1);
-                else goToSlide(currentIndex - 1);
-            }
-        });
-
-        function closeModal() {
-            document.removeEventListener('keydown', handleKeyboard);
-            if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
-            sessionStorage.setItem('welcomeGalleryClosed', 'true');
-        }
-
-        closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeModal(); });
-        overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
-
-        updateGallery();
-    }
-
-    function init() {
-        render();
-        
-        const galleryClosed = sessionStorage.getItem('welcomeGalleryClosed');
-        
-        if (!galleryClosed) {
-            setTimeout(() => {
-                openWelcomeGallery();
-            }, 500);
-        }
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
+    render();
 </script>
 </body>
 </html>
