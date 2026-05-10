@@ -8,6 +8,14 @@
     <title>Nihat Keleş | Portfolyo</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        .wg-slider img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 6px;
+    /* BU SATIR SİHRİ GERÇEKLEŞTİRİR: */
+    transition: opacity 0.4s ease-in-out; 
+}
         body { background: #121212; font-family: system-ui, -apple-system, sans-serif; color: #f0f0f0; line-height: 1.6; padding: 1rem; }
         .container { max-width: 1100px; margin: 0 auto; background: #1e1e1e; border-radius: 28px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         header { background: #2a2a2a; padding: 1.5rem 2rem; border-bottom: 3px solid #f5b042; }
@@ -292,7 +300,15 @@
 
     function wgShow(i) {
         wgIndex = i;
+        // Akıcılık için: Önce resmi hafif karartıyoruz
+        wgImage.style.opacity = "0.3"; 
         wgImage.src = wgImages[i];
+        
+        // Resim tamamen yüklendiğinde tekrar parlatıyoruz
+        wgImage.onload = function() {
+            wgImage.style.opacity = "1";
+        };
+
         var dots = wgDots.querySelectorAll("span");
         for (var d = 0; d < dots.length; d++) {
             dots[d].className = (d === i) ? "active" : "";
@@ -317,9 +333,10 @@
 
     document.addEventListener("keydown", function(e) {
         if (overlay.style.display === "none") return;
-        if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
-            wgIndex = e.key === "ArrowLeft" ? (wgIndex - 1 + wgImages.length) % wgImages.length : (wgIndex + 1) % wgImages.length;
-            wgShow(wgIndex);
+        if (e.key === "ArrowLeft") {
+            wgPrev.onclick();
+        } else if (e.key === "ArrowRight") {
+            wgNext.onclick();
         } else if (e.key === "Escape") {
             overlay.style.display = "none";
             sessionStorage.setItem("wgSeen", "1");
